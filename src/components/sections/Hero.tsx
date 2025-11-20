@@ -1,0 +1,120 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import PhotoUploadModal from "@/components/PhotoUploadModal";
+
+export default function Hero() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <>
+      <section className="min-h-screen bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen py-8 lg:py-20">
+            {/* Image Section - Mobile First (위에 표시) */}
+            <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl order-1 lg:order-2">
+              {/* 실제 강아지 이미지로 교체 */}
+              <img
+                src="hero-dog.jpg"
+                alt="강아지 이미지"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Text Content - Mobile First (아래에 표시) */}
+            <div className="flex flex-col justify-center space-y-6 sm:space-y-8 order-2 lg:order-1">
+              {/* Top Tag */}
+              {/* <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full w-fit text-xs sm:text-sm font-medium">
+                <svg
+                  className="w-3 h-3 sm:w-4 sm:h-4"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                Blockchain-Secured Pet Identity
+              </div> */}
+
+              {/* Headline */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
+                한번의 <span className="text-blue-600">'코' </span>사진으로,
+                <br /> 영원한 가족을 지켜주세요.
+              </h1>
+
+              {/* Key Points */}
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
+                  <p className="text-base sm:text-lg text-gray-800">
+                    <span className="font-semibold text-blue-700">
+                      강아지를 잃어버리더라도 쉽게 찾을 수 있게
+                    </span>
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
+                  <p className="text-base sm:text-lg text-gray-800">
+                    칩 없이도, 코 사진만으로
+                    <span className="ml-1 font-semibold text-blue-700">
+                      간편한 등록
+                    </span>
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
+                  <p className="text-base sm:text-lg text-gray-800">
+                    <span className="font-semibold text-blue-700">
+                      보험, 진료 기록
+                    </span>
+                    까지 한번에 확인
+                  </p>
+                </div>
+              </div>
+
+              {/* Sub-headline */}
+              <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
+                DogNoseID는 <b>강아지 코 사진 한 장</b>만으로
+                <br className="hidden sm:block" />
+                바로 내 반려견만의 고유한 ID를 만들어줍니다.
+                <br className="hidden sm:block" />
+                <span className="">
+                  <b> 강아지를 잃어버렸을 때</b>, <b>예방접종 확인서</b>,{" "}
+                  <b>보험료 할인</b> 등 다양한 상황에서 DogNoseID를 활용할 수
+                  있습니다.
+                </span>
+              </p>
+
+              {/* CTA Button */}
+              <div className="space-y-2 sm:space-y-3 pt-2 sm:pt-4">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 h-auto font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all group"
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  코 사진 등록하기
+                  <svg
+                    className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <PhotoUploadModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </>
+  );
+}

@@ -1,0 +1,25 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="90" fill="#EFF6FF" stroke="#3B82F6" stroke-width="3"/>
+  
+  <!-- Camera Body -->
+  <rect x="50" y="70" width="100" height="70" rx="8" fill="#3B82F6"/>
+  <rect x="60" y="80" width="80" height="50" rx="4" fill="#1E40AF"/>
+  
+  <!-- Camera Lens -->
+  <circle cx="100" cy="105" r="20" fill="#60A5FA" stroke="#1E40AF" stroke-width="2"/>
+  <circle cx="100" cy="105" r="12" fill="#DBEAFE"/>
+  <circle cx="100" cy="105" r="6" fill="#3B82F6"/>
+  
+  <!-- Flash -->
+  <rect x="130" y="75" width="8" height="8" rx="2" fill="#FBBF24"/>
+  
+  <!-- Viewfinder -->
+  <rect x="70" y="50" width="60" height="25" rx="4" fill="#1E40AF" stroke="#3B82F6" stroke-width="2"/>
+  <rect x="80" y="55" width="40" height="15" rx="2" fill="#3B82F6"/>
+  
+  <!-- Dog Nose Icon (small) -->
+  <ellipse cx="100" cy="130" rx="8" ry="6" fill="#F59E0B"/>
+  <ellipse cx="100" cy="130" rx="4" ry="3" fill="#FCD34D"/>
+</svg>
+

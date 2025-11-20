@@ -1,0 +1,27 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="90" fill="#FEF3C7" stroke="#F59E0B" stroke-width="3"/>
+  
+  <!-- Shield -->
+  <path d="M100 50 L130 60 L130 100 Q130 130 100 150 Q70 130 70 100 L70 60 Z" fill="#F59E0B" stroke="#D97706" stroke-width="3"/>
+  
+  <!-- Lock Body -->
+  <rect x="85" y="100" width="30" height="35" rx="4" fill="#D97706"/>
+  <rect x="90" y="105" width="20" height="25" rx="2" fill="#FCD34D"/>
+  
+  <!-- Lock Shackle -->
+  <path d="M95 100 Q95 85 100 85 Q105 85 105 100" stroke="#D97706" stroke-width="4" fill="none" stroke-linecap="round"/>
+  
+  <!-- Keyhole -->
+  <circle cx="100" cy="115" r="4" fill="#D97706"/>
+  <rect x="98" y="115" width="4" height="8" fill="#D97706"/>
+  
+  <!-- Checkmark -->
+  <path d="M85 125 L95 135 L115 115" stroke="#10B981" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Database/Cloud Icon -->
+  <ellipse cx="100" cy="160" rx="25" ry="8" fill="#FCD34D" opacity="0.7"/>
+  <ellipse cx="100" cy="155" rx="20" ry="6" fill="#FCD34D" opacity="0.7"/>
+  <ellipse cx="100" cy="150" rx="15" ry="4" fill="#FCD34D" opacity="0.7"/>
+</svg>
+
