@@ -11,11 +11,11 @@ export default function FloatingButton() {
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 md:hidden mx-auto">
         <Button
           size="lg"
-          className="px-8 py-5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-base font-semibold shadow-2xl hover:shadow-3xl transition-all flex items-center justify-center gap-2 group"
+          className="px-10 py-6 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold shadow-2xl hover:shadow-3xl transition-all flex items-center justify-center gap-3 group"
           onClick={() => setIsModalOpen(true)}
         >
           <svg
-            className="w-5 h-5 group-hover:scale-110 transition-transform"
+            className="w-6 h-6 group-hover:scale-110 transition-transform"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -33,7 +33,7 @@ export default function FloatingButton() {
               d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
-          <span className="text-sm font-semibold">체험해보기</span>
+          <span className="text-base font-semibold">체험해보기</span>
         </Button>
       </div>
 
