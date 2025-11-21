@@ -8,10 +8,10 @@ export default function FloatingButton() {
   return (
     <>
       {/* 모바일에서만 표시되는 플로팅 버튼 */}
-      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 md:hidden mx-auto">
+      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-full md:hidden mx-auto">
         <Button
           size="lg"
-          className="px-10 py-6 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold shadow-2xl hover:shadow-3xl transition-all flex items-center justify-center gap-3 group"
+          className="w-[calc(100%-40px)] mx-auto px-6 h-14 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold shadow-2xl hover:shadow-3xl transition-all flex items-center justify-center gap-3"
           onClick={() => setIsModalOpen(true)}
         >
           <svg
@@ -33,7 +33,9 @@ export default function FloatingButton() {
               d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
-          <span className="text-base font-semibold">체험해보기</span>
+          <span className="font-semibold text-[18px] tracking-[-0.4px]">
+            체험해보기
+          </span>
         </Button>
       </div>
 
