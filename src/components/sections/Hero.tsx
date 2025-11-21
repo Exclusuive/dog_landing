@@ -12,7 +12,7 @@ export default function Hero() {
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen py-8 lg:py-20">
             {/* Image Section - Mobile First (위에 표시) */}
             <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl order-1 lg:order-2">
-              {/* 실제 강아지 이미지로 교체 */}
+              {/* TODO: 비문이 잘 보이는 강아지 코 사진으로 교체 필요 */}
               <img
                 src="hero-dog.jpg"
                 alt="강아지 이미지"
@@ -33,20 +33,19 @@ export default function Hero() {
                 </svg>
                 Blockchain-Secured Pet Identity
               </div> */}
-
               {/* Headline */}
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
                 한번의 <span className="text-blue-600">'코' </span>사진으로,
                 <br /> 영원한 가족을 지켜주세요.
               </h1>
-
               {/* Key Points */}
               <div className="space-y-3 sm:space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg text-gray-800">
-                    <span className="font-semibold text-blue-700">
-                      강아지를 잃어버리더라도 쉽게 찾을 수 있게
+                    강아지를 잃어버리더라도
+                    <span className="ml-1 font-semibold text-blue-700">
+                      쉽게 찾을 수 있게
                     </span>
                   </p>
                 </div>
@@ -69,8 +68,7 @@ export default function Hero() {
                   </p>
                 </div>
               </div>
-
-              {/* Sub-headline */}
+              {/* Sub-headline
               <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
                 DogNoseID는 <b>강아지 코 사진 한 장</b>만으로
                 <br className="hidden sm:block" />
@@ -81,10 +79,9 @@ export default function Hero() {
                   <b>보험료 할인</b> 등 다양한 상황에서 DogNoseID를 활용할 수
                   있습니다.
                 </span>
-              </p>
-
-              {/* CTA Button */}
-              <div className="space-y-2 sm:space-y-3 pt-2 sm:pt-4">
+              </p> */}
+              {/* CTA Button - 데스크톱에서만 표시 */}
+              <div className="hidden md:block space-y-2 sm:space-y-3 pt-2 sm:pt-4">
                 <Button
                   size="lg"
                   className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 h-auto font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all group"

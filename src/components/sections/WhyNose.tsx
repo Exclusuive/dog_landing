@@ -1,6 +1,6 @@
 export default function WhyNose() {
   return (
-    <section className="px-8 pb-12 bg-background">
+    <section className="px-8 py-16 sm:py-20 bg-gradient-to-b from-blue-50 via-blue-100/50 to-blue-50/30">
       <div className="container mx-auto max-w-6xl">
         <div className="prose prose-lg max-w-none text-center">
           <p className="text-lg text-foreground mb-6">

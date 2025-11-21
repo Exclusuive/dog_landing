@@ -4,6 +4,7 @@ import HowItWorks from "@/components/sections/HowItWorks";
 // import TargetAudience from "@/components/sections/TargetAudience";
 import TryItNow from "@/components/sections/TryItNow";
 // import Partnership from "@/components/sections/Partnership";
+import FloatingButton from "@/components/FloatingButton";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       {/* <TargetAudience /> */}
       <TryItNow />
       {/* <Partnership /> */}
+      <FloatingButton />
     </div>
   );
 }

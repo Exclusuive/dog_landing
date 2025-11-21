@@ -7,16 +7,16 @@ export default function TryItNow() {
 
   return (
     <>
-      <section className="py-10 px-8 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900">
+      <section className="py-16 sm:py-20 px-8 bg-gradient-to-b from-blue-100/40 via-blue-50/60 to-blue-100/50 dark:from-blue-950 dark:to-blue-900">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground">
-            내 반려견 코, 정말 고유한지 확인해볼까요?
+            비문인식, 정말 잘 되나요?
           </h2>
 
           <div className="mb-10 sm:mb-12">
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-10 shadow-lg border border-gray-100">
               <p className="text-base sm:text-lg text-gray-600 mb-6 text-center">
-                지금 아래에서 데모 서비스(체험판)를 바로 이용해 보세요.
+                지금 바로 체험해보세요!
               </p>
 
               <div className="space-y-4 mb-6">
@@ -57,12 +57,13 @@ export default function TryItNow() {
                     </svg>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                    새로운 개체라면 NoseID를 생성해서 발급합니다.
+                    신규 등록이면 고유 ID를 발급합니다.
                   </p>
                 </div>
-                <div className="space-y-2">
+                {/* 데스크톱에서만 표시 */}
+                <div className="hidden md:block space-y-2">
                   <Button
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white text-base px-6 py-3 h-auto font-semibold"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white text-base px-6 py-3 h-auto font-semibold"
                     onClick={() => setIsModalOpen(true)}
                   >
                     체험해보기
