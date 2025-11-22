@@ -128,7 +128,7 @@ export default function UploadResult({
             <p className="text-xs sm:text-sm font-semibold text-gray-600 mb-2">
               유사도 점수:
             </p>
-            <p className="text-2xl sm:text-3xl font-bold text-blue-600">
+            <p className="text-2xl sm:text-3xl font-bold text-orange-600">
               {similarity}%
             </p>
           </div>

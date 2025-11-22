@@ -7,7 +7,7 @@ export default function TryItNow() {
 
   return (
     <>
-      <section className="py-16 sm:py-20 px-8 bg-gradient-to-b from-blue-100/40 via-blue-50/60 to-blue-100/50 dark:from-blue-950 dark:to-blue-900">
+      <section className="py-16 sm:py-20 px-8 bg-orange-50/60">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground">
             비문인식, 정말 잘 되나요?
@@ -21,9 +21,9 @@ export default function TryItNow() {
 
               <div className="space-y-4 mb-6">
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-0.5">
+                  <div className="flex-shrink-0 w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center mt-0.5">
                     <svg
-                      className="w-4 h-4 text-blue-600"
+                      className="w-4 h-4 text-orange-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -41,9 +41,9 @@ export default function TryItNow() {
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-0.5">
+                  <div className="flex-shrink-0 w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center mt-0.5">
                     <svg
-                      className="w-4 h-4 text-blue-600"
+                      className="w-4 h-4 text-orange-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -63,7 +63,7 @@ export default function TryItNow() {
                 {/* 데스크톱에서만 표시 */}
                 <div className="hidden md:block space-y-2">
                   <Button
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white text-base px-6 py-3 h-auto font-semibold"
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white text-base px-6 py-3 h-auto font-semibold"
                     onClick={() => setIsModalOpen(true)}
                   >
                     체험해보기

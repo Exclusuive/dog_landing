@@ -10,7 +10,7 @@ export default function Partnership() {
         
         <div className="prose prose-lg max-w-none mb-10 text-center space-y-6">
           <p className="text-xl text-muted-foreground leading-relaxed">
-            DogNoseID는 반려동물 비문 인식 기술을<br />
+            Puddy는 반려동물 비문 인식 기술을<br />
             병원, 보험사, 반려동물 서비스, 지자체와 함께 실증하고 싶습니다.
           </p>
           

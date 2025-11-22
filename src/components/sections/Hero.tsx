@@ -7,21 +7,20 @@ export default function Hero() {
 
   return (
     <>
-      <section className="min-h-screen bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen py-8 lg:py-20">
+      <section className="min-h-screen bg-orange-50">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 items-center min-h-screen">
             {/* Image Section - Mobile First (위에 표시) */}
-            <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl order-1 lg:order-2">
-              {/* TODO: 비문이 잘 보이는 강아지 코 사진으로 교체 필요 */}
+            <div className="relative w-full aspect-[3/2] overflow-hidden order-1 lg:order-2 bg-orange-50">
               <img
-                src="hero-dog.jpg"
+                src="dog.png"
                 alt="강아지 이미지"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="w-full h-full object-cover"
               />
             </div>
 
             {/* Text Content - Mobile First (아래에 표시) */}
-            <div className="flex flex-col justify-center space-y-6 sm:space-y-8 order-2 lg:order-1">
+            <div className="flex flex-col justify-center space-y-6 sm:space-y-8 order-2 lg:order-1 px-4 sm:px-6 lg:px-8 py-8 lg:py-20">
               {/* Top Tag */}
               {/* <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full w-fit text-xs sm:text-sm font-medium">
                 <svg
@@ -35,33 +34,33 @@ export default function Hero() {
               </div> */}
               {/* Headline */}
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
-                한번의 <span className="text-blue-600">'코' </span>사진으로,
+                한번의 <span className="text-orange-600">'코' </span>사진으로,
                 <br /> 영원한 가족을 지켜주세요.
               </h1>
               {/* Key Points */}
-              <div className="space-y-3 sm:space-y-4">
+              <div className="sm:space-y-4">
                 <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg text-gray-800">
                     강아지를 잃어버리더라도
-                    <span className="ml-1 font-semibold text-blue-700">
+                    <span className="ml-1 font-semibold text-orange-700">
                       쉽게 찾을 수 있게
                     </span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg text-gray-800">
                     칩 없이도, 코 사진만으로
-                    <span className="ml-1 font-semibold text-blue-700">
+                    <span className="ml-1 font-semibold text-orange-700">
                       간편한 등록
                     </span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg text-gray-800">
-                    <span className="font-semibold text-blue-700">
+                    <span className="font-semibold text-orange-700">
                       보험, 진료 기록
                     </span>
                     까지 한번에 확인
@@ -70,13 +69,13 @@ export default function Hero() {
               </div>
               {/* Sub-headline
               <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
-                DogNoseID는 <b>강아지 코 사진 한 장</b>만으로
+                Puddy는 <b>강아지 코 사진 한 장</b>만으로
                 <br className="hidden sm:block" />
                 바로 내 반려견만의 고유한 ID를 만들어줍니다.
                 <br className="hidden sm:block" />
                 <span className="">
                   <b> 강아지를 잃어버렸을 때</b>, <b>예방접종 확인서</b>,{" "}
-                  <b>보험료 할인</b> 등 다양한 상황에서 DogNoseID를 활용할 수
+                  <b>보험료 할인</b> 등 다양한 상황에서 Puddy를 활용할 수
                   있습니다.
                 </span>
               </p> */}
@@ -84,7 +83,7 @@ export default function Hero() {
               <div className="hidden md:block space-y-2 sm:space-y-3 pt-2 sm:pt-4">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 h-auto font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all group"
+                  className="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 text-white text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 h-auto font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all group"
                   onClick={() => setIsModalOpen(true)}
                 >
                   코 사진 등록하기

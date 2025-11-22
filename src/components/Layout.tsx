@@ -8,14 +8,14 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-background border-b absolutely top-0 z-100 shadow-sm">
+      <header className="bg-orange-50 absolutely top-0 z-100 shadow-sm">
         <div className="container mx-auto px-8 max-w-7xl">
           <div className="flex justify-center items-center h-12">
             <Link
               to="/"
-              className="text-2xl font-bold text-center text-foreground hover:text-primary transition-colors"
+              className="text-2xl font-bold text-center text-gray-900 hover:text-orange-600 transition-colors"
             >
-              Logo
+              Puddy
             </Link>
           </div>
         </div>

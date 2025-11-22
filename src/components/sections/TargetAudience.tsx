@@ -23,7 +23,7 @@ export default function TargetAudience() {
     <section className="py-20 px-8 bg-background">
       <div className="container mx-auto max-w-6xl">
         <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-foreground">
-          DogNoseID가 특히 필요한 사람들
+          Puddy가 특히 필요한 사람들
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

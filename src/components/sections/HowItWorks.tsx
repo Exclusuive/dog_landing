@@ -26,7 +26,7 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-blue-50/20 to-blue-50/40">
+    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-orange-50/30">
       <div className="container mx-auto max-w-6xl">
         <h2 className="text-xl sm:text-2xl font-bold mb-8 sm:mb-12 text-center text-gray-900">
           사진 한 장으로 생성되는
@@ -42,7 +42,7 @@ export default function HowItWorks() {
             >
               {/* Step Number Badge */}
               <div className="flex items-center gap-2 mb-1">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm sm:text-base font-bold">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm sm:text-base font-bold">
                   {step.number}
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-gray-900">

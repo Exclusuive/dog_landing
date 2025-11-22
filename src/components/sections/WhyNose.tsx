@@ -1,6 +1,6 @@
 export default function WhyNose() {
   return (
-    <section className="px-8 py-16 sm:py-20 bg-gradient-to-b from-blue-50 via-blue-100/50 to-blue-50/30">
+    <section className="px-8 py-16 sm:py-20 bg-orange-50/50">
       <div className="container mx-auto max-w-6xl">
         <div className="prose prose-lg max-w-none text-center">
           <p className="text-lg text-foreground mb-6">
@@ -52,7 +52,7 @@ export default function WhyNose() {
                 y="60"
                 width="24"
                 height="120"
-                fill="#4F8AF5"
+                fill="#EA580C"
                 rx="6"
               />
               <rect
@@ -60,7 +60,7 @@ export default function WhyNose() {
                 y="68"
                 width="24"
                 height="112"
-                fill="#4F8AF5"
+                fill="#EA580C"
                 rx="6"
               />
               <rect
@@ -68,7 +68,7 @@ export default function WhyNose() {
                 y="74"
                 width="24"
                 height="106"
-                fill="#4F8AF5"
+                fill="#EA580C"
                 rx="6"
               />
               <rect
@@ -76,7 +76,7 @@ export default function WhyNose() {
                 y="82"
                 width="24"
                 height="98"
-                fill="#4F8AF5"
+                fill="#EA580C"
                 rx="6"
               />
               <rect
@@ -84,7 +84,7 @@ export default function WhyNose() {
                 y="90"
                 width="24"
                 height="90"
-                fill="#4F8AF5"
+                fill="#EA580C"
                 rx="6"
               />
               <rect
@@ -92,7 +92,7 @@ export default function WhyNose() {
                 y="98"
                 width="24"
                 height="82"
-                fill="#4F8AF5"
+                fill="#EA580C"
                 rx="6"
               />
               <rect
@@ -100,7 +100,7 @@ export default function WhyNose() {
                 y="110"
                 width="24"
                 height="70"
-                fill="#4F8AF5"
+                fill="#EA580C"
                 rx="6"
               />
               {/* Value Labels */}
@@ -136,8 +136,12 @@ export default function WhyNose() {
       </div>
       <p className="text-center text-muted-foreground text-md mt-6">
         <span className="font-semibold text-foreground ">
-          우리는 사랑하는 반려동물이 <u>다시 품으로 돌아올 수 있는 세상</u>을
-          꿈꿉니다.
+          소중한 반려동물이 <br className="block lg:hidden" />
+          <span className="text-orange-600">
+            언제든 안전하게 가족의 품으로
+          </span>{" "}
+          <br className="block lg:hidden" />
+          돌아올 수 있도록 함께합니다.
         </span>
       </p>
     </section>

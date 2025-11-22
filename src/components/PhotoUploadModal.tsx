@@ -125,7 +125,7 @@ export default function PhotoUploadModal({
               <label htmlFor="photo-upload">
                 <Button
                   asChild
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base py-4 h-auto font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all group"
+                  className="w-full bg-orange-600 hover:bg-orange-700 text-white text-sm sm:text-base py-4 h-auto font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all group"
                 >
                   <span className="flex items-center justify-center gap-2">
                     <svg
@@ -153,7 +153,7 @@ export default function PhotoUploadModal({
           <div className="py-16 sm:py-20 text-center px-6">
             <div className="relative inline-block mb-6">
               <div className="text-6xl sm:text-7xl mb-4 animate-bounce">🐶</div>
-              <div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-500 rounded-full animate-ping"></div>
+              <div className="absolute -top-2 -right-2 w-4 h-4 bg-orange-500 rounded-full animate-ping"></div>
             </div>
             <p className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
               반려견의 비문을 분석하고 있어요…
@@ -163,7 +163,7 @@ export default function PhotoUploadModal({
             </p>
             <div className="mt-8 flex justify-center">
               <div className="w-48 h-1 bg-gray-200 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-purple-600 to-blue-600 rounded-full animate-pulse"></div>
+                <div className="h-full bg-orange-600 rounded-full animate-pulse"></div>
               </div>
             </div>
           </div>

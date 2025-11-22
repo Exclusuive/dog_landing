@@ -51,7 +51,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
               설문조사
             </DialogTitle>
             <DialogDescription className="text-sm sm:text-base text-gray-600">
-              DogNoseID 서비스를 이용해보신 소감을 들려주세요.
+              Puddy 서비스를 이용해보신 소감을 들려주세요.
             </DialogDescription>
           </DialogHeader>
 
@@ -71,7 +71,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="example@email.com"
-                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm sm:text-base"
+                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-sm sm:text-base"
               />
             </div>
 
@@ -90,7 +90,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 onChange={(e) => setPhone(e.target.value)}
                 required
                 placeholder="010-1234-5678"
-                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm sm:text-base"
+                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-sm sm:text-base"
               />
             </div>
 
@@ -108,7 +108,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 onChange={(e) => setFeedback(e.target.value)}
                 required
                 rows={3}
-                placeholder="DogNoseID 서비스를 이용해보신 소감이나 개선사항을 자유롭게 작성해주세요."
+                placeholder="Puddy 서비스를 이용해보신 소감이나 개선사항을 자유롭게 작성해주세요."
                 className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none text-sm sm:text-base"
               />
             </div>
@@ -126,7 +126,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
               </Button>
               <Button
                 type="submit"
-                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm"
+                className="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 text-white px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "제출 중..." : "제출하기"}
