@@ -10,12 +10,12 @@ export default function Layout({ children }: LayoutProps) {
     <div className="min-h-screen flex flex-col">
       <header className="bg-orange-50 absolutely top-0 z-100 shadow-sm">
         <div className="container mx-auto px-8 max-w-7xl">
-          <div className="flex justify-center items-center h-12">
+          <div className="flex justify-center items-center h-12 my-1">
             <Link
               to="/"
               className="text-2xl font-bold text-center text-gray-900 hover:text-orange-600 transition-colors"
             >
-              Puddy
+              <img src="/logo2.svg" alt="Puddy" className="w-full h-12" />
             </Link>
           </div>
         </div>

@@ -13,7 +13,7 @@ export default function Hero() {
             {/* Image Section - Mobile First (위에 표시) */}
             <div className="relative w-full aspect-[3/2] overflow-hidden order-1 lg:order-2 bg-orange-50">
               <img
-                src="dog.png"
+                src="hero-dog2.jpg"
                 alt="강아지 이미지"
                 className="w-full h-full object-cover"
               />
@@ -43,7 +43,7 @@ export default function Hero() {
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg text-gray-800">
                     강아지를 잃어버리더라도
-                    <span className="ml-1 font-semibold text-orange-700">
+                    <span className="ml-1 font-semibold text-orange-600">
                       쉽게 찾을 수 있게
                     </span>
                   </p>
@@ -52,7 +52,7 @@ export default function Hero() {
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg text-gray-800">
                     칩 없이도, 코 사진만으로
-                    <span className="ml-1 font-semibold text-orange-700">
+                    <span className="ml-1 font-semibold text-orange-600">
                       간편한 등록
                     </span>
                   </p>
@@ -60,7 +60,7 @@ export default function Hero() {
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg text-gray-800">
-                    <span className="font-semibold text-orange-700">
+                    <span className="font-semibold text-orange-600">
                       보험, 진료 기록
                     </span>
                     까지 한번에 확인
