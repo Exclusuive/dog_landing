@@ -7,6 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { trackRegistrationComplete } from "@/utils/analytics";
 
 interface SurveyModalProps {
   isOpen: boolean;
@@ -40,6 +41,9 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
 
     // localStorage에 저장
     localStorage.setItem("dogInfo", JSON.stringify(dogInfo));
+
+    // 정식 등록 완료 추적
+    trackRegistrationComplete(dogInfo);
 
     setIsSubmitting(false);
     alert("반려견 정보가 등록되었습니다!");

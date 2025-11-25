@@ -1,11 +1,18 @@
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { trackSiteVisit } from "@/utils/analytics";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
+  useEffect(() => {
+    // 사이트 접속 추적
+    trackSiteVisit();
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-orange-50 absolute top-0 z-100 shadow-sm w-full py-2 border-b border-gray-200">

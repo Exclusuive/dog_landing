@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import PhotoUploadModal from "@/components/PhotoUploadModal";
+import { trackPhotoUploadButtonClick } from "@/utils/analytics";
 
 export default function FloatingButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    trackPhotoUploadButtonClick();
+    setIsModalOpen(true);
+  };
 
   return (
     <>
@@ -12,7 +18,7 @@ export default function FloatingButton() {
         <Button
           size="lg"
           className="w-[calc(100%-40px)] mx-auto px-6 h-14 rounded-xl bg-orange-600 hover:bg-orange-600 text-white text-lg font-semibold shadow-2xl hover:shadow-3xl transition-all flex items-center justify-center gap-3"
-          onClick={() => setIsModalOpen(true)}
+          onClick={handleButtonClick}
         >
           <svg
             className="w-6 h-6 group-hover:scale-110 transition-transform"

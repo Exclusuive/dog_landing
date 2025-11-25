@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import SurveyModal from "./SurveyModal";
+import { trackRegistrationButtonClick } from "@/utils/analytics";
 
 interface UploadResultProps {
   imageUrl: string;
@@ -52,6 +53,7 @@ export default function UploadResult({
   }, []);
 
   const handleSurveyClick = () => {
+    trackRegistrationButtonClick();
     setIsSurveyOpen(true);
   };
 

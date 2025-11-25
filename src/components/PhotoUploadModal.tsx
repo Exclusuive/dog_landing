@@ -7,6 +7,10 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import UploadResult from "./UploadResult";
+import {
+  trackPhotoUploadStart,
+  trackPhotoUploadComplete,
+} from "@/utils/analytics";
 
 interface PhotoUploadModalProps {
   isOpen: boolean;
@@ -147,6 +151,7 @@ export default function PhotoUploadModal({
     }
 
     setStatus("uploading");
+    trackPhotoUploadStart();
 
     // 이미지 URL 생성 및 localStorage 저장
     const imageUrl = URL.createObjectURL(file);
@@ -168,6 +173,7 @@ export default function PhotoUploadModal({
       // 항상 성공으로 처리
       setResultType("new");
       setStatus("success");
+      trackPhotoUploadComplete();
     } catch (error) {
       setStatus("error");
       setResultType("error");
