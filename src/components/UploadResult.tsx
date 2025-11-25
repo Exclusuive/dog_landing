@@ -1,175 +1,167 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import SurveyModal from "./SurveyModal";
 
 interface UploadResultProps {
-  resultType: "new" | "matched" | "error";
+  imageUrl: string;
   onReset: () => void;
   onClose: () => void;
 }
 
 export default function UploadResult({
-  resultType,
+  imageUrl,
   onReset,
   onClose,
 }: UploadResultProps) {
   const [isSurveyOpen, setIsSurveyOpen] = useState(false);
+  const [noseID, setNoseID] = useState<string>("");
+  const [issueDate, setIssueDate] = useState<string>("");
 
-  // 데모용 랜덤 Nose ID 생성
-  const generateNoseID = () => {
-    const chars = "0123456789ABCDEF";
-    let id = "DOG-";
-    for (let i = 0; i < 12; i++) {
-      if (i > 0 && i % 4 === 0) id += "-";
-      id += chars[Math.floor(Math.random() * chars.length)];
+  // 고유 Nose ID 생성 (localStorage에서 가져오거나 새로 생성)
+  useEffect(() => {
+    const storedID = localStorage.getItem("dogNoseID");
+    const storedDate = localStorage.getItem("dogNoseIssueDate");
+
+    if (storedID && storedDate) {
+      setNoseID(storedID);
+      setIssueDate(storedDate);
+    } else {
+      // 새 ID 생성
+      const generateNoseID = () => {
+        const chars = "0123456789ABCDEF";
+        let id = "DOG-";
+        for (let i = 0; i < 12; i++) {
+          if (i > 0 && i % 4 === 0) id += "-";
+          id += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return id;
+      };
+
+      const newID = generateNoseID();
+      const newDate = new Date().toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      setNoseID(newID);
+      setIssueDate(newDate);
+      localStorage.setItem("dogNoseID", newID);
+      localStorage.setItem("dogNoseIssueDate", newDate);
     }
-    return id;
-  };
-
-  const noseID = generateNoseID();
-  const similarity = Math.floor(Math.random() * 30 + 70); // 70-100%
+  }, []);
 
   const handleSurveyClick = () => {
     setIsSurveyOpen(true);
   };
 
-  const handleResetWithSurvey = () => {
-    setIsSurveyOpen(true);
-  };
-
   const handleSurveyCloseAfterReset = () => {
     setIsSurveyOpen(false);
-    onReset(); // 설문조사 모달이 닫힌 후 리셋
-    onClose(); // 원래 모달도 닫기
+    onReset();
+    onClose();
   };
 
-  const handleSurveyClose = () => {
-    setIsSurveyOpen(false);
-    onClose(); // 원래 모달도 닫기
-  };
-
-  if (resultType === "new") {
-    return (
-      <div className="p-4 sm:p-6 w-full max-w-full overflow-hidden">
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="text-5xl sm:text-6xl mb-3 sm:mb-4">🎉</div>
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 px-2 break-words">
-            새로운 Nose ID가 감지되었습니다
+  return (
+    <div className="p-4 sm:p-6 w-full max-w-full overflow-y-auto h-full">
+      {/* 주민등록증 형식 카드 */}
+      <div className="bg-gradient-to-br from-white to-gray-50 border-2 border-gray-300 rounded-lg shadow-lg overflow-hidden mb-6">
+        {/* 제목 영역 */}
+        <div className="bg-gray-50 border-b border-gray-300 px-4 sm:px-6 py-3">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 text-center">
+            반려견 Puddy ID 카드
           </h3>
         </div>
 
-        <Card className="mb-6 w-full">
-          <CardContent className="p-4 sm:p-6">
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-3 sm:mb-4 leading-relaxed break-words">
-              이 반려견의 비문 패턴은 현재 데모 데이터베이스에 없는 새로운
-              패턴입니다.
-            </p>
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-4 sm:mb-6 leading-relaxed break-words">
-              아래는 이 반려견을 구분하기 위한 예시 Nose ID 정보입니다.
-            </p>
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-4 leading-relaxed break-words">
-              정식 서비스에서는 이 ID를 기준으로 유실·보험·진료 기록 등과 연결할
-              수 있습니다.
-            </p>
+        <div className="flex flex-col sm:flex-row">
+          {/* 사진 영역 */}
+          <div className="w-full sm:w-1/3 bg-gray-100 flex items-center justify-center p-4 sm:p-6 border-b sm:border-b-0 sm:border-r border-gray-300">
+            {imageUrl ? (
+              <div className="relative w-full aspect-square max-w-[200px] mx-auto">
+                <img
+                  src={imageUrl}
+                  alt="반려견 코 사진"
+                  className="w-full h-full object-cover rounded-lg border-2 border-gray-300 shadow-md"
+                />
+              </div>
+            ) : (
+              <div className="w-full aspect-square max-w-[200px] mx-auto bg-gray-200 rounded-lg flex items-center justify-center">
+                <svg
+                  className="w-16 h-16 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+            )}
+          </div>
 
-            <div className="bg-gray-50 p-3 sm:p-4 rounded-lg mt-4 sm:mt-6 w-full overflow-hidden">
-              <p className="text-xs sm:text-sm font-semibold text-gray-600 mb-2">
-                Nose ID 해시(예시):
-              </p>
-              <p className="text-lg sm:text-xl md:text-2xl font-mono font-bold text-gray-900 break-all">
-                {noseID}
-              </p>
+          {/* 정보 영역 */}
+          <div className="w-full sm:w-2/3 p-4 sm:p-6 flex flex-col justify-center">
+            <div className="space-y-4">
+              {/* Puddy ID */}
+              <div>
+                <p className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                  Puddy ID
+                </p>
+                <p className="text-lg sm:text-xl md:text-2xl font-mono font-bold text-gray-900 break-all">
+                  {noseID}
+                </p>
+              </div>
+
+              {/* 구분선 */}
+              <div className="border-t border-gray-300"></div>
+
+              {/* 발급 정보 */}
+              <div>
+                <p className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                  발급일자
+                </p>
+                <p className="text-sm sm:text-base text-gray-900">
+                  {issueDate}
+                </p>
+              </div>
+
+              {/* 상태 */}
+              <div>
+                <p className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                  상태
+                </p>
+                <p className="text-sm sm:text-base text-gray-900">등록 완료</p>
+              </div>
+
+              {/* 안내 문구 */}
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <p className="text-xs text-gray-500 leading-relaxed">
+                  이 Puddy ID는 반려견의 고유 식별번호입니다. 유실·보험·진료
+                  기록 등과 연결하여 사용할 수 있습니다.
+                </p>
+              </div>
             </div>
-          </CardContent>
-        </Card>
-
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full">
-          <Button
-            onClick={handleResetWithSurvey}
-            variant="outline"
-            className="w-full sm:w-auto px-4 sm:px-6 py-3 text-sm sm:text-base"
-          >
-            다른 사진으로 다시 테스트하기
-          </Button>
-          <Button
-            onClick={handleSurveyClick}
-            className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 px-4 sm:px-6 py-3 text-sm sm:text-base"
-          >
-            문의하기 / 파트너십 제안하기
-          </Button>
+          </div>
         </div>
-
-        <SurveyModal
-          isOpen={isSurveyOpen}
-          onClose={handleSurveyCloseAfterReset}
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div className="p-4 sm:p-6 w-full max-w-full overflow-hidden">
-      <div className="text-center mb-6 sm:mb-8">
-        <div className="text-5xl sm:text-6xl mb-3 sm:mb-4">🔍</div>
-        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 px-2 break-words">
-          이미 등록된 Nose ID와 유사한 패턴입니다
-        </h3>
       </div>
 
-      <Card className="mb-6 w-full">
-        <CardContent className="p-4 sm:p-6">
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-3 sm:mb-4 leading-relaxed break-words">
-            업로드된 사진의 비문 패턴이 기존에 저장된 반려견과 높은 유사도를
-            보입니다.
-          </p>
-
-          <div className="bg-gray-50 p-3 sm:p-4 rounded-lg my-4 sm:my-6 w-full overflow-hidden">
-            <p className="text-xs sm:text-sm font-semibold text-gray-600 mb-2">
-              유사도 점수:
-            </p>
-            <p className="text-2xl sm:text-3xl font-bold text-orange-600">
-              {similarity}%
-            </p>
-          </div>
-
-          <div className="bg-gray-50 p-3 sm:p-4 rounded-lg mb-4 w-full overflow-hidden">
-            <p className="text-xs sm:text-sm font-semibold text-gray-600 mb-2">
-              매칭된 Nose ID 예시:
-            </p>
-            <p className="text-base sm:text-lg md:text-xl font-mono font-bold text-gray-900 break-all">
-              {noseID}
-            </p>
-          </div>
-
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-3 sm:mb-4 leading-relaxed break-words">
-            데모 버전에서는 대략적인 유사도 점수(%)와 Nose ID 예시만 확인할 수
-            있습니다.
-          </p>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed break-words">
-            정식 서비스에서는 소유자 정보와의 연결, 보호자 연락, 유실견 신고
-            처리 등이 이 Nose ID를 기준으로 이루어집니다.
-          </p>
-        </CardContent>
-      </Card>
-
+      {/* 버튼 영역 */}
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full">
-        <Button
-          onClick={handleResetWithSurvey}
-          variant="outline"
-          className="w-full sm:w-auto px-4 sm:px-6 py-3 text-sm sm:text-base"
-        >
-          다른 사진으로 다시 테스트하기
-        </Button>
         <Button
           onClick={handleSurveyClick}
           className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 px-4 sm:px-6 py-3 text-sm sm:text-base"
         >
-          문의하기 / 파트너십 제안하기
+          정식 등록하기
         </Button>
       </div>
 
-      <SurveyModal isOpen={isSurveyOpen} onClose={handleSurveyClose} />
+      <SurveyModal
+        isOpen={isSurveyOpen}
+        onClose={handleSurveyCloseAfterReset}
+      />
     </div>
   );
 }

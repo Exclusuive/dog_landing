@@ -11,11 +11,11 @@ export default function Hero() {
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 items-center min-h-screen">
             {/* Image Section - Mobile First (위에 표시) */}
-            <div className="relative w-full aspect-[3/2] overflow-hidden lg:order-2 bg-orange-50">
+            <div className="relative w-full aspect-[3/2] overflow-hidden order-1 lg:order-2 bg-orange-50">
               <img
                 src="hero-dog2.jpg"
                 alt="강아지 이미지"
-                className="w-full h-full object-cover z-10"
+                className="w-full h-full object-cover"
               />
             </div>
 
