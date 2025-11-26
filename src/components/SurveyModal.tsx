@@ -8,6 +8,11 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { trackRegistrationComplete } from "@/utils/analytics";
+import {
+  sendRegistrationToMake,
+  getStoredPhotoData,
+  getStoredNoseID,
+} from "@/utils/makeWebhook";
 
 interface SurveyModalProps {
   isOpen: boolean;
@@ -26,28 +31,52 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // 실제 API 호출 대신 시뮬레이션
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // 반려견 정보 객체 생성
+      const dogInfo = {
+        name: dogName,
+        breed,
+        age,
+        gender,
+        phone,
+      };
 
-    // 여기서 실제로는 API에 데이터를 전송
-    const dogInfo = {
-      name: dogName,
-      breed,
-      age,
-      gender,
-      phone,
-    };
-    console.log(dogInfo);
+      // localStorage에 저장
+      localStorage.setItem("dogInfo", JSON.stringify(dogInfo));
 
-    // localStorage에 저장
-    localStorage.setItem("dogInfo", JSON.stringify(dogInfo));
+      // 저장된 사진 URL과 Puddy ID 가져오기
+      const photoData = getStoredPhotoData();
+      const noseID = getStoredNoseID();
 
-    // 정식 등록 완료 추적
-    trackRegistrationComplete(dogInfo);
+      // Make.com 웹훅에 데이터 전송
+      const makeSuccess = await sendRegistrationToMake({
+        dogName,
+        breed,
+        age,
+        gender,
+        phone,
+        noseID: noseID || undefined,
+        photoUrl: photoData?.url,
+        photoPath: photoData?.path,
+        photoTimestamp: photoData?.timestamp,
+      });
 
-    setIsSubmitting(false);
-    alert("반려견 정보가 등록되었습니다!");
-    handleClose();
+      // 정식 등록 완료 추적
+      trackRegistrationComplete(dogInfo);
+
+      if (makeSuccess) {
+        alert("반려견 정보가 등록되었습니다!");
+      } else {
+        // 웹훅 실패해도 로컬 저장은 완료되었으므로 성공 메시지 표시
+        alert("반려견 정보가 등록되었습니다! (외부 서비스 연동 실패)");
+      }
+    } catch (error) {
+      console.error("등록 처리 중 오류:", error);
+      alert("등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsSubmitting(false);
+      handleClose();
+    }
   };
 
   const handleClose = () => {

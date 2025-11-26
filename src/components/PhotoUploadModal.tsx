@@ -4,6 +4,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import UploadResult from "./UploadResult";
@@ -11,6 +12,7 @@ import {
   trackPhotoUploadStart,
   trackPhotoUploadComplete,
 } from "@/utils/analytics";
+import { uploadImageToSupabase } from "@/utils/supabase";
 
 interface PhotoUploadModalProps {
   isOpen: boolean;
@@ -110,22 +112,6 @@ export default function PhotoUploadModal({
         // Blob을 File 객체로 변환
         const file = new File([blob], "photo.jpg", { type: "image/jpeg" });
 
-        // 이미지 URL 생성 및 localStorage 저장
-        const imageUrl = URL.createObjectURL(blob);
-        setCapturedImageUrl(imageUrl);
-
-        // localStorage에 이미지 저장 (Base64로 변환)
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const base64String = reader.result as string;
-          localStorage.setItem("dogNosePhoto", base64String);
-          localStorage.setItem(
-            "dogNosePhotoTimestamp",
-            new Date().toISOString()
-          );
-        };
-        reader.readAsDataURL(blob);
-
         // 카메라 스트림 정리
         if (streamRef.current) {
           streamRef.current.getTracks().forEach((track) => track.stop());
@@ -133,7 +119,7 @@ export default function PhotoUploadModal({
           setStream(null);
         }
 
-        // 파일 업로드 처리
+        // 파일 업로드 처리 (Supabase에 업로드)
         await processFile(file);
       },
       "image/jpeg",
@@ -153,18 +139,21 @@ export default function PhotoUploadModal({
     setStatus("uploading");
     trackPhotoUploadStart();
 
-    // 이미지 URL 생성 및 localStorage 저장
-    const imageUrl = URL.createObjectURL(file);
-    setCapturedImageUrl(imageUrl);
+    // Supabase에 이미지 업로드
+    const uploadResult = await uploadImageToSupabase(file);
 
-    // localStorage에 이미지 저장 (Base64로 변환)
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64String = reader.result as string;
-      localStorage.setItem("dogNosePhoto", base64String);
-      localStorage.setItem("dogNosePhotoTimestamp", new Date().toISOString());
-    };
-    reader.readAsDataURL(file);
+    if (!uploadResult) {
+      setStatus("error");
+      setResultType("error");
+      setErrorMessage("이미지 업로드에 실패했습니다. 다시 시도해주세요.");
+      return;
+    }
+
+    // 업로드된 이미지 URL 저장
+    setCapturedImageUrl(uploadResult.url);
+    localStorage.setItem("dogNosePhotoUrl", uploadResult.url);
+    localStorage.setItem("dogNosePhotoPath", uploadResult.path);
+    localStorage.setItem("dogNosePhotoTimestamp", new Date().toISOString());
 
     try {
       // 처리 시뮬레이션 (짧은 딜레이)
@@ -222,11 +211,9 @@ export default function PhotoUploadModal({
         {status === "idle" && (
           <div className="flex flex-col h-full p-4 sm:p-6">
             <DialogHeader className="mb-4 flex-shrink-0">
-              <DialogDescription>
-                <p className="text-lg sm:text-xl text-center font-bold text-black">
-                  반려견의 코 사진을 업로드해주세요
-                </p>
-              </DialogDescription>
+              <DialogTitle className="text-lg sm:text-xl text-center font-bold text-black">
+                반려견의 코 사진을 업로드해주세요
+              </DialogTitle>
             </DialogHeader>
 
             {/* Camera View */}
