@@ -65,10 +65,10 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
       trackRegistrationComplete(dogInfo);
 
       if (makeSuccess) {
-        alert("반려견 정보가 등록되었습니다!");
+        alert("반려견 정보가 성공적으로 등록되었습니다!");
       } else {
         // 웹훅 실패해도 로컬 저장은 완료되었으므로 성공 메시지 표시
-        alert("반려견 정보가 등록되었습니다! (외부 서비스 연동 실패)");
+        alert("반려견 정보가 등록되었습니다!");
       }
     } catch (error) {
       console.error("등록 처리 중 오류:", error);
