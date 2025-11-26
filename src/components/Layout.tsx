@@ -22,7 +22,7 @@ export default function Layout({ children }: LayoutProps) {
               to="/"
               className="text-2xl font-bold text-center text-gray-900 hover:text-orange-600 transition-colors"
             >
-              <img src="/logo2.svg" alt="Puddy" className="w-full h-12" />
+              <img src="/logo.png" alt="Puddy" className="w-full h-8" />
             </Link>
           </div>
         </div>

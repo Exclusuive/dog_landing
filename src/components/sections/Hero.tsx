@@ -13,7 +13,7 @@ export default function Hero() {
             {/* Image Section - Mobile First (위에 표시) */}
             <div className="relative w-full aspect-[3/2] overflow-hidden order-1 lg:order-2 bg-orange-50">
               <img
-                src="hero-dog2.jpg"
+                src="hero-dog.png"
                 alt="강아지 이미지"
                 className="w-full h-full object-cover"
               />
