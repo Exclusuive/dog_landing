@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 
 export default function Partnership() {
   return (
-    <section className="py-20 px-8 bg-background">
+    <section className="py-20 px-8 bg-background pt-16">
       <div className="container mx-auto max-w-4xl">
         <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center text-foreground">
           병원·보험·지자체와의 파트너를 찾고 있습니다

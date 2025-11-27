@@ -18,7 +18,10 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section className="py-10 sm:py-16 px-6 lg:px-8 bg-orange-50/30">
+    <section
+      id="how-it-works"
+      className="py-10 sm:py-16 px-6 lg:px-8 bg-orange-50/30 pt-16"
+    >
       <div className="container mx-auto max-w-6xl">
         <h2
           className="text-2xl sm:text-2xl lg:text-3xl font-bold mb-8 sm:mb-12 text-center"

@@ -7,7 +7,7 @@ export default function TryItNow() {
 
   return (
     <>
-      <section className="py-16 sm:py-20 px-8 bg-orange-50/60">
+      <section id="try-it" className="py-16 sm:py-20 px-8 bg-orange-50/60 pt-16">
         <div className="container mx-auto max-w-4xl text-center">
           <h2
             className="text-2xl md:text-5xl font-bold mb-6"

@@ -1,6 +1,9 @@
 export default function WhyNose() {
   return (
-    <section className="px-6 sm:px-8 py-10 sm:py-20 lg:py-24 bg-gradient-to-b from-white to-orange-50/30">
+    <section
+      id="why-nose"
+      className="px-6 sm:px-8 py-10 sm:py-20 lg:py-24 bg-gradient-to-b from-white to-orange-50/30 pt-16"
+    >
       <div className="container mx-auto max-w-6xl">
         {/* 제목 */}
         <div className="text-center mb-6 sm:mb-8">

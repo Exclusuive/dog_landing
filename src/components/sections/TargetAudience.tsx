@@ -20,7 +20,7 @@ export default function TargetAudience() {
   ];
 
   return (
-    <section className="py-20 px-8 bg-background">
+    <section className="py-20 px-8 bg-background pt-16">
       <div className="container mx-auto max-w-6xl">
         <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-foreground">
           Puddy가 특히 필요한 사람들

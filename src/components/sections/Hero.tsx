@@ -7,7 +7,7 @@ export default function Hero() {
 
   return (
     <>
-      <section className="min-h-auto bg-orange-50">
+      <section id="main" className="min-h-auto bg-orange-50 pt-16">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 items-center lg:px-16">
             {/* Image Section - Mobile First (위에 표시) */}
