@@ -1,149 +1,86 @@
 export default function WhyNose() {
   return (
-    <section className="px-8 py-16 sm:py-20 bg-orange-50/50">
+    <section className="px-4 sm:px-8 py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white to-orange-50/30">
       <div className="container mx-auto max-w-6xl">
-        <div className="prose prose-lg max-w-none text-center">
-          <p className="text-lg text-foreground mb-6">
-            "2017년부터 꾸준히 한 해 <br className="hidden sm:block" />
-            <strong>10만 마리</strong>가 넘는 반려동물들이{" "}
-            <br className="hidden sm:block" />
-            버려지고 있습니다."
+        {/* 메인 질문 */}
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            동물 등록, 잘 하고 계신가요?
+          </h2>
+          <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-orange-600 mb-6">
+            이제 비문등록을 통해 진짜 등록 해보세요!
           </p>
         </div>
-        <div className="flex flex-col items-center mt-8">
-          <div className="w-full md:w-3/4 lg:w-1/2 bg-white rounded-xl shadow p-6">
-            <h3 className="text-2xl font-semibold text-center text-primary">
-              전국 유실·유기견 구조 현황
-            </h3>
-            <svg
-              viewBox="0 0 420 220"
-              width="100%"
-              height="220"
-              className="mx-auto"
-              aria-label="연도별 유실견 구조수 차트"
-            >
-              {/* X axis labels */}
-              <g fontSize="13" fill="#888">
-                <text x="42" y="200" textAnchor="middle">
-                  2017
-                </text>
-                <text x="98" y="200" textAnchor="middle">
-                  2018
-                </text>
-                <text x="154" y="200" textAnchor="middle">
-                  2019
-                </text>
-                <text x="210" y="200" textAnchor="middle">
-                  2020
-                </text>
-                <text x="266" y="200" textAnchor="middle">
-                  2021
-                </text>
-                <text x="322" y="200" textAnchor="middle">
-                  2022
-                </text>
-                <text x="378" y="200" textAnchor="middle">
-                  2023
-                </text>
-              </g>
-              {/* Bar chart (예시 데이터) */}
-              <rect
-                x="30"
-                y="60"
-                width="24"
-                height="120"
-                fill="#EA580C"
-                rx="6"
-              />
-              <rect
-                x="86"
-                y="68"
-                width="24"
-                height="112"
-                fill="#EA580C"
-                rx="6"
-              />
-              <rect
-                x="142"
-                y="74"
-                width="24"
-                height="106"
-                fill="#EA580C"
-                rx="6"
-              />
-              <rect
-                x="198"
-                y="82"
-                width="24"
-                height="98"
-                fill="#EA580C"
-                rx="6"
-              />
-              <rect
-                x="254"
-                y="90"
-                width="24"
-                height="90"
-                fill="#EA580C"
-                rx="6"
-              />
-              <rect
-                x="310"
-                y="98"
-                width="24"
-                height="82"
-                fill="#EA580C"
-                rx="6"
-              />
-              <rect
-                x="366"
-                y="110"
-                width="24"
-                height="70"
-                fill="#EA580C"
-                rx="6"
-              />
-              {/* Value Labels */}
-              <g fontSize="13" fill="#222" fontWeight="bold">
-                <text x="42" y="55" textAnchor="middle">
-                  102,000
-                </text>
-                <text x="98" y="63" textAnchor="middle">
-                  99,800
-                </text>
-                <text x="154" y="69" textAnchor="middle">
-                  97,500
-                </text>
-                <text x="210" y="77" textAnchor="middle">
-                  94,100
-                </text>
-                <text x="266" y="85" textAnchor="middle">
-                  92,300
-                </text>
-                <text x="322" y="93" textAnchor="middle">
-                  89,700
-                </text>
-                <text x="378" y="105" textAnchor="middle">
-                  86,000
-                </text>
-              </g>
-            </svg>
-            <div className="text-center text-muted-foreground text-sm">
-              <span>※ 출처: 농림축산식품부</span>
+
+        {/* 메인 카드 */}
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-lg border border-gray-100">
+            <div className="text-center mb-8">
+              <div className="text-6xl sm:text-7xl mb-6">🐕</div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                칩에 대한 두려움 없이 강아지를 등록하세요!
+              </h3>
+            </div>
+
+            <div className="space-y-6 sm:space-y-8">
+              {/* 첫 번째 포인트 */}
+              <div className="flex items-start gap-4 sm:gap-6">
+                <div className="text-3xl sm:text-4xl flex-shrink-0">🔍</div>
+                <div className="flex-1">
+                  <h4 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                    혹시 잃어버리더라도 바로 찾을 수 있어요
+                  </h4>
+                  <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+                    코 사진만으로 빠르게 반려견을 찾을 수 있습니다.
+                    <br />
+                    분실 시 즉시 확인 가능한 안전한 등록 시스템입니다.
+                  </p>
+                </div>
+              </div>
+
+              {/* 두 번째 포인트 */}
+              <div className="flex items-start gap-4 sm:gap-6">
+                <div className="text-3xl sm:text-4xl flex-shrink-0">✨</div>
+                <div className="flex-1">
+                  <h4 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                    외장형처럼 번거롭게 가지고 다닐 필요 없이!
+                  </h4>
+                  <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+                    목걸이나 외장형 태그 없이도
+                    <br />
+                    스마트폰으로 언제 어디서나 확인할 수 있습니다.
+                  </p>
+                </div>
+              </div>
+
+              {/* 세 번째 포인트 */}
+              <div className="flex items-start gap-4 sm:gap-6">
+                <div className="text-3xl sm:text-4xl flex-shrink-0">💚</div>
+                <div className="flex-1">
+                  <h4 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                    칩 없이도 안전하게 등록
+                  </h4>
+                  <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+                    칩 삽입의 부담 없이 사진 한 장으로
+                    <br />
+                    강아지의 고유 ID를 생성하고 안전하게 보관합니다.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* 하단 강조 메시지 */}
+        <div className="mt-12 sm:mt-16 text-center">
+          <p className="text-lg sm:text-xl text-gray-700 font-semibold">
+            <span className="text-orange-600">비문등록</span>으로
+            <br className="block sm:hidden" />
+            <span className="hidden sm:inline"> </span>더 쉽고 안전하게 반려견을
+            보호하세요
+          </p>
+        </div>
       </div>
-      <p className="text-center text-muted-foreground text-md mt-6">
-        <span className="font-semibold text-foreground ">
-          소중한 반려동물이 <br className="block lg:hidden" />
-          <span className="text-orange-600">
-            언제든 안전하게 가족의 품으로
-          </span>{" "}
-          <br className="block lg:hidden" />
-          돌아올 수 있도록 함께합니다.
-        </span>
-      </p>
     </section>
   );
 }

@@ -22,19 +22,12 @@ export default function Layout({ children }: LayoutProps) {
               to="/"
               className="text-2xl font-bold text-center text-gray-900 hover:text-orange-600 transition-colors"
             >
-              <img src="/logo.png" alt="Puddy" className="w-full h-8" />
+              <img src="/logo.png" alt="Puddy" className="w-fit h-8" />
             </Link>
           </div>
         </div>
       </header>
       <main className="flex-1 w-full pt-16 md:pt-0">{children}</main>
-      <footer className="bg-foreground text-background mt-auto">
-        <div className="container mx-auto px-8 max-w-7xl py-8">
-          <p className="text-center">
-            &copy; 2024 Landing Page. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

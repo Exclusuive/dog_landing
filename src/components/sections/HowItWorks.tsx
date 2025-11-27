@@ -5,7 +5,7 @@ export default function HowItWorks() {
       title: "촬영",
       subtitle: "강아지 코 사진 한 장",
       description:
-        "휴대폰으로 강아지 코를 촬영하세요. 밝은 조명에서 정면을 향한 사진이 가장 좋습니다.",
+        "휴대폰으로 강아지 코를 촬영하세요.\n밝은 조명에서 정면을 향한 사진이 가장 좋습니다.",
       image: "/step1-camera.svg",
     },
     {
@@ -18,9 +18,9 @@ export default function HowItWorks() {
     {
       number: "3",
       title: "안전한 저장",
-      subtitle: "위·변조 불가능한 인증 기록",
+      subtitle: "한 번에 등록으로 모든 것을 관리하세요",
       description:
-        "반려견 정보를 블록체인에 안전하게 저장합니다. 병원, 보험사, 관련 기관에서 반려견 정보를 공유할 수 있습니다.",
+        "한 번의 등록으로 끝! 유기견 찾기부터 예방접종 관리까지\n반려견의 모든 것을 한 곳에서 관리하세요.",
       image: "/step3-secure.svg",
     },
   ];
@@ -51,7 +51,7 @@ export default function HowItWorks() {
               </div>
 
               {/* Image */}
-              <div className="w-full max-w-[180px] sm:max-w-[200px] aspect-square">
+              <div className="w-full max-w-[100px] sm:max-w-[200px] aspect-square">
                 <img
                   src={step.image}
                   alt={`${step.title} 단계`}
@@ -60,7 +60,7 @@ export default function HowItWorks() {
               </div>
 
               {/* Description */}
-              <p className="text-sm sm:text-base text-gray-700 leading-relaxed px-2">
+              <p className="text-sm sm:text-base text-gray-700 leading-relaxed px-2 whitespace-pre-line">
                 {step.description}
               </p>
             </div>
