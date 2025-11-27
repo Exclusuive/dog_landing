@@ -20,7 +20,7 @@ export default function Hero() {
             </div>
 
             {/* Text Content - Mobile First (아래에 표시) */}
-            <div className="flex flex-col justify-center space-y-6 sm:space-y-8 order-2 lg:order-1 sm:px-6  py-8 lg:py-20">
+            <div className="w-full px-6 flex flex-col justify-center space-y-6 sm:space-y-8 order-2 lg:order-1  py-8 lg:py-20">
               {/* Top Tag */}
               {/* <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full w-fit text-xs sm:text-sm font-medium">
                 <svg
