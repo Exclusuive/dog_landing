@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import PhotoUploadModal from "@/components/PhotoUploadModal";
+import { Camera } from "lucide-react";
 
 export default function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -84,23 +85,13 @@ export default function Hero() {
               <div className="hidden md:block space-y-2 sm:space-y-3 pt-2 sm:pt-4">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 text-white text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 h-auto font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all group"
+                  className="w-full sm:w-auto px-6 h-14 rounded-xl bg-orange-600 hover:bg-orange-600 text-white text-lg font-semibold shadow-2xl hover:shadow-3xl transition-all flex items-center justify-center gap-3"
                   onClick={() => setIsModalOpen(true)}
                 >
-                  코 사진 등록하기
-                  <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
+                  <Camera className="w-10 h-10 group-hover:scale-110 transition-transform" />
+                  <span className="font-semibold text-[18px] tracking-[-0.4px]">
+                    코 사진 등록하러 가기
+                  </span>
                 </Button>
               </div>
             </div>
