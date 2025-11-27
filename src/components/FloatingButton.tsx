@@ -21,9 +21,9 @@ export default function FloatingButton() {
           className="w-[calc(100%-40px)] mx-auto px-6 h-14 rounded-xl bg-orange-600 hover:bg-orange-600 text-white text-lg font-semibold shadow-2xl hover:shadow-3xl transition-all flex items-center justify-center gap-3"
           onClick={handleButtonClick}
         >
-          <Camera className="w-6 h-6 group-hover:scale-110 transition-transform" />
+          <Camera className="w-10 h-10 group-hover:scale-110 transition-transform" />
           <span className="font-semibold text-[18px] tracking-[-0.4px]">
-            코 사진 등록하기
+            코 사진 등록하러 가기
           </span>
         </Button>
       </div>

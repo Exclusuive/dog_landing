@@ -94,12 +94,12 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
       <DialogContent className="w-[90%] sm:w-3/4 max-w-lg p-0 overflow-hidden flex flex-col max-h-[90vh]">
         <div className="p-4 sm:p-5 flex-1 overflow-y-auto">
           <DialogHeader className="mb-4">
-            <DialogTitle className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
+            <DialogTitle
+              className="text-xl sm:text-2xl font-bold mb-1"
+              style={{ color: "#111111" }}
+            >
               반려견 정보 등록
             </DialogTitle>
-            <DialogDescription className="text-sm sm:text-base text-gray-600">
-              반려견의 정보를 입력해주세요.
-            </DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -107,7 +107,8 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
             <div>
               <label
                 htmlFor="dogName"
-                className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5"
+                className="block text-xs sm:text-sm font-semibold mb-1.5"
+                style={{ color: "#505050" }}
               >
                 반려견 이름 <span className="text-red-500">*</span>
               </label>
@@ -118,7 +119,17 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 onChange={(e) => setDogName(e.target.value)}
                 required
                 placeholder="예: 뽀삐"
-                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-sm sm:text-base"
+                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent outline-none transition-all text-sm sm:text-base"
+                style={{ color: "#111111" }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = "#FF6842";
+                  e.currentTarget.style.boxShadow =
+                    "0 0 0 2px rgba(255, 104, 66, 0.2)";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = "";
+                  e.currentTarget.style.boxShadow = "";
+                }}
               />
             </div>
 
@@ -126,7 +137,8 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
             <div>
               <label
                 htmlFor="breed"
-                className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5"
+                className="block text-xs sm:text-sm font-semibold mb-1.5"
+                style={{ color: "#505050" }}
               >
                 견종 <span className="text-red-500">*</span>
               </label>
@@ -137,7 +149,17 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 onChange={(e) => setBreed(e.target.value)}
                 required
                 placeholder="예: 골든 리트리버"
-                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-sm sm:text-base"
+                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:border-transparent outline-none transition-all text-sm sm:text-base"
+                style={{ color: "#111111" }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = "#FF6842";
+                  e.currentTarget.style.boxShadow =
+                    "0 0 0 2px rgba(255, 104, 66, 0.2)";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = "";
+                  e.currentTarget.style.boxShadow = "";
+                }}
               />
             </div>
 
@@ -145,7 +167,8 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
             <div>
               <label
                 htmlFor="age"
-                className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5"
+                className="block text-xs sm:text-sm font-semibold mb-1.5"
+                style={{ color: "#505050" }}
               >
                 나이 <span className="text-red-500">*</span>
               </label>
@@ -158,7 +181,17 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 min="0"
                 max="30"
                 placeholder="예: 3"
-                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-sm sm:text-base"
+                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:border-transparent outline-none transition-all text-sm sm:text-base"
+                style={{ color: "#111111" }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = "#FF6842";
+                  e.currentTarget.style.boxShadow =
+                    "0 0 0 2px rgba(255, 104, 66, 0.2)";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = "";
+                  e.currentTarget.style.boxShadow = "";
+                }}
               />
             </div>
 
@@ -166,7 +199,8 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
             <div>
               <label
                 htmlFor="gender"
-                className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5"
+                className="block text-xs sm:text-sm font-semibold mb-1.5"
+                style={{ color: "#505050" }}
               >
                 성별 <span className="text-red-500">*</span>
               </label>
@@ -175,7 +209,17 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
                 required
-                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-sm sm:text-base bg-white"
+                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:border-transparent outline-none transition-all text-sm sm:text-base bg-white"
+                style={{ color: "#111111" }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = "#FF6842";
+                  e.currentTarget.style.boxShadow =
+                    "0 0 0 2px rgba(255, 104, 66, 0.2)";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = "";
+                  e.currentTarget.style.boxShadow = "";
+                }}
               >
                 <option value="">선택해주세요</option>
                 <option value="male">수컷</option>
@@ -187,18 +231,28 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
             <div>
               <label
                 htmlFor="phone"
-                className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5"
+                className="block text-xs sm:text-sm font-semibold mb-1.5"
+                style={{ color: "#505050" }}
               >
-                전화번호 <span className="text-red-500">*</span>
+                전화번호
               </label>
               <input
                 id="phone"
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                required
                 placeholder="010-1234-5678"
-                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-sm sm:text-base"
+                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:border-transparent outline-none transition-all text-sm sm:text-base"
+                style={{ color: "#111111" }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = "#FF6842";
+                  e.currentTarget.style.boxShadow =
+                    "0 0 0 2px rgba(255, 104, 66, 0.2)";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = "";
+                  e.currentTarget.style.boxShadow = "";
+                }}
               />
             </div>
 
@@ -206,7 +260,18 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2">
               <Button
                 type="submit"
-                className="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 text-white px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm"
+                className="w-full sm:w-auto text-white px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm"
+                style={{ backgroundColor: "#FF6842" }}
+                onMouseEnter={(e) => {
+                  if (!isSubmitting) {
+                    e.currentTarget.style.backgroundColor = "#E55A32";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isSubmitting) {
+                    e.currentTarget.style.backgroundColor = "#FF6842";
+                  }
+                }}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "등록 중..." : "등록하기"}
@@ -216,6 +281,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 onClick={handleClose}
                 variant="outline"
                 className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm"
+                style={{ color: "#111111" }}
                 disabled={isSubmitting}
               >
                 취소

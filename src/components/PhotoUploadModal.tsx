@@ -31,6 +31,7 @@ export default function PhotoUploadModal({
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [cameraError, setCameraError] = useState<string>("");
   const [capturedImageUrl, setCapturedImageUrl] = useState<string>("");
+  const [previewImageUrl, setPreviewImageUrl] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -135,6 +136,10 @@ export default function PhotoUploadModal({
       return;
     }
 
+    // 미리보기 URL 생성
+    const previewUrl = URL.createObjectURL(file);
+    setPreviewImageUrl(previewUrl);
+
     setStatus("uploading");
     trackPhotoUploadStart();
 
@@ -142,6 +147,9 @@ export default function PhotoUploadModal({
     const uploadResult = await uploadImageToSupabase(file);
 
     if (!uploadResult) {
+      // 에러 발생 시 미리보기 URL 정리
+      URL.revokeObjectURL(previewUrl);
+      setPreviewImageUrl("");
       setStatus("error");
       setResultType("error");
       setErrorMessage("이미지 업로드에 실패했습니다. 다시 시도해주세요.");
@@ -155,12 +163,18 @@ export default function PhotoUploadModal({
     localStorage.setItem("dogNosePhotoTimestamp", new Date().toISOString());
 
     try {
-      // 처리 시뮬레이션 (짧은 딜레이)
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // 처리 시뮬레이션 (3~5초 딜레이)
+      const delay = Math.random() * 2000 + 3000; // 3000ms ~ 5000ms
+      await new Promise((resolve) => setTimeout(resolve, delay));
 
       // 항상 성공으로 처리
       setResultType("new");
       setStatus("success");
+      // success 상태로 변경된 후 미리보기 URL 정리
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+        setPreviewImageUrl("");
+      }
       trackPhotoUploadComplete();
     } catch (error) {
       setStatus("error");
@@ -193,6 +207,11 @@ export default function PhotoUploadModal({
     setErrorMessage("");
     setCameraError("");
     setCapturedImageUrl("");
+    // 미리보기 URL 정리
+    if (previewImageUrl) {
+      URL.revokeObjectURL(previewImageUrl);
+      setPreviewImageUrl("");
+    }
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -206,11 +225,14 @@ export default function PhotoUploadModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-[90%] sm:w-3/4 max-w-2xl h-[85vh] overflow-hidden p-0 flex flex-col">
+      <DialogContent className="w-[90%] sm:w-3/4 max-w-2xl h-[85vh] overflow-hidden p-0 flex flex-col [&>button[data-slot='dialog-close']]:hidden">
         {status === "idle" && (
           <div className="flex flex-col h-full p-4 sm:p-6">
-            <DialogHeader className="mb-4 flex-shrink-0">
-              <DialogTitle className="text-lg sm:text-xl text-center font-bold text-black">
+            <DialogHeader className="mb-4 flex-shrink-0 flex flex-row items-center justify-between">
+              <DialogTitle
+                className="w-full text-center text-lg sm:text-xl font-bold"
+                style={{ color: "#111111" }}
+              >
                 반려견의 코 사진을 업로드해주세요
               </DialogTitle>
             </DialogHeader>
@@ -223,10 +245,11 @@ export default function PhotoUploadModal({
               {cameraError ? (
                 <div className="flex flex-col items-center justify-center h-full p-6 text-center">
                   <svg
-                    className="w-16 h-16 text-gray-400 mb-4"
+                    className="w-16 h-16 mb-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    style={{ color: "#767676" }}
                   >
                     <path
                       strokeLinecap="round"
@@ -235,7 +258,9 @@ export default function PhotoUploadModal({
                       d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
                     />
                   </svg>
-                  <p className="text-sm text-gray-500 mb-4">{cameraError}</p>
+                  <p className="text-sm mb-4" style={{ color: "#767676" }}>
+                    {cameraError}
+                  </p>
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -249,6 +274,7 @@ export default function PhotoUploadModal({
                       asChild
                       variant="outline"
                       className="cursor-pointer"
+                      style={{ color: "#111111" }}
                     >
                       <span>파일에서 선택하기</span>
                     </Button>
@@ -274,15 +300,21 @@ export default function PhotoUploadModal({
               ) : (
                 <div className="flex items-center justify-center h-full">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
-                    <p className="text-sm text-gray-500">
+                    <div
+                      className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
+                      style={{ borderColor: "#FF6842" }}
+                    ></div>
+                    <p className="text-sm" style={{ color: "#767676" }}>
                       카메라를 불러오는 중...
                     </p>
                   </div>
                 </div>
               )}
             </div>
-            <p className="text-sm text-gray-500 leading-relaxed text-center mt-2 mb-4">
+            <p
+              className="text-sm leading-relaxed text-center mt-2 mb-4"
+              style={{ color: "#767676" }}
+            >
               밝은 조명에서 정면을 향한 사진이 가장 좋습니다.
             </p>
 
@@ -291,7 +323,14 @@ export default function PhotoUploadModal({
               <div className="mb-4">
                 <Button
                   onClick={capturePhoto}
-                  className="w-full bg-orange-600 hover:bg-orange-700 text-white text-sm sm:text-base py-4 h-auto font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all group"
+                  className="w-full text-white text-sm sm:text-base py-4 h-auto font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all group"
+                  style={{ backgroundColor: "#FF6842" }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#E55A32";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "#FF6842";
+                  }}
                 >
                   <span className="flex items-center justify-center gap-2">
                     <svg
@@ -299,6 +338,7 @@ export default function PhotoUploadModal({
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
+                      style={{ color: "#FFFFFF" }}
                     >
                       <path
                         strokeLinecap="round"
@@ -334,6 +374,7 @@ export default function PhotoUploadModal({
                   asChild
                   variant="outline"
                   className="w-full text-sm sm:text-base py-4 h-auto font-semibold rounded-xl"
+                  style={{ color: "#111111" }}
                 >
                   <span className="flex items-center justify-center gap-2">
                     <svg
@@ -341,6 +382,7 @@ export default function PhotoUploadModal({
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
+                      style={{ color: "#111111" }}
                     >
                       <path
                         strokeLinecap="round"
@@ -358,21 +400,36 @@ export default function PhotoUploadModal({
         )}
 
         {status === "uploading" && (
-          <div className="py-16 sm:py-20 text-center px-6">
-            <div className="relative inline-block mb-6">
-              <div className="text-6xl sm:text-7xl mb-4 animate-bounce">🐶</div>
-              <div className="absolute -top-2 -right-2 w-4 h-4 bg-orange-500 rounded-full animate-ping"></div>
-            </div>
-            <p className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
-              반려견의 비문을 분석하고 있어요…
-            </p>
-            <p className="text-sm sm:text-base text-gray-500">
-              약 3~5초 소요됩니다
-            </p>
-            <div className="mt-8 flex justify-center">
-              <div className="w-48 h-1 bg-gray-200 rounded-full overflow-hidden">
-                <div className="h-full bg-orange-600 rounded-full animate-pulse"></div>
+          <div className="flex-1 flex items-center justify-center text-center px-6">
+            <div>
+              <div className="relative inline-block mb-6">
+                {previewImageUrl || capturedImageUrl ? (
+                  <img
+                    src={previewImageUrl || capturedImageUrl}
+                    alt="업로드된 강아지 코 사진"
+                    className="w-full sm:w-40 h-32 sm:h-40 object-cover rounded-lg animate-bounce mb-4 mx-auto"
+                  />
+                ) : (
+                  <img
+                    src="image 142.png"
+                    alt="분석 중"
+                    className="w-full sm:w-24 mb-4 animate-bounce mx-auto"
+                  />
+                )}
+                <div
+                  className="absolute -top-2 -right-2 w-4 h-4 rounded-full animate-ping"
+                  style={{ backgroundColor: "#FF6842" }}
+                ></div>
               </div>
+              <p
+                className="text-xl sm:text-2xl font-semibold mb-2"
+                style={{ color: "#111111" }}
+              >
+                반려견의 비문을 분석하고 있어요…
+              </p>
+              <p className="text-sm sm:text-base" style={{ color: "#767676" }}>
+                약 3~5초 소요됩니다
+              </p>
             </div>
           </div>
         )}
@@ -405,10 +462,16 @@ export default function PhotoUploadModal({
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+              <h3
+                className="text-2xl sm:text-3xl font-bold mb-3"
+                style={{ color: "#111111" }}
+              >
                 인식 실패
               </h3>
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-md mx-auto">
+              <p
+                className="text-base sm:text-lg leading-relaxed max-w-md mx-auto"
+                style={{ color: "#767676" }}
+              >
                 {errorMessage}
               </p>
             </div>
@@ -417,12 +480,20 @@ export default function PhotoUploadModal({
                 onClick={handleReset}
                 variant="outline"
                 className="w-full sm:w-auto px-6 py-3"
+                style={{ color: "#111111" }}
               >
                 다시 시도하기
               </Button>
               <Button
                 onClick={handleClose}
-                className="w-full sm:w-auto bg-gray-900 hover:bg-gray-800 text-white px-6 py-3"
+                className="w-full sm:w-auto text-white px-6 py-3"
+                style={{ backgroundColor: "#111111" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "#333333";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "#111111";
+                }}
               >
                 닫기
               </Button>

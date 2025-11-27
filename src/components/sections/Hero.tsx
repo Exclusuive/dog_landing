@@ -7,7 +7,7 @@ export default function Hero() {
 
   return (
     <>
-      <section className="min-h-[90vh] bg-orange-50">
+      <section className="min-h-auto bg-orange-50">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 items-center lg:px-16">
             {/* Image Section - Mobile First (위에 표시) */}
@@ -105,6 +105,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
+          <div className="h-20 bg-gradient-to-b from-orange-50 to-white"></div>
         </div>
       </section>
 

@@ -64,21 +64,24 @@ export default function UploadResult({
   };
 
   return (
-    <div className="p-4 sm:p-6 w-full max-w-full overflow-y-auto h-full">
+    <div className="p-3 sm:p-4 w-full max-w-full h-full flex flex-col justify-between">
       {/* 주민등록증 형식 카드 */}
-      <div className="bg-gradient-to-br from-white to-gray-50 border-2 border-gray-300 rounded-lg shadow-lg overflow-hidden mb-6">
+      <div className="bg-gradient-to-br from-white to-gray-50 border-2 border-gray-300 rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
         {/* 제목 영역 */}
-        <div className="bg-gray-50 border-b border-gray-300 px-4 sm:px-6 py-3">
-          <h3 className="text-lg sm:text-xl font-bold text-gray-900 text-center">
+        <div className="bg-gray-50 border-b border-gray-300 px-3 sm:px-4 py-2 flex-shrink-0">
+          <h3
+            className="text-base sm:text-lg font-bold text-center"
+            style={{ color: "#111111" }}
+          >
             반려견 Puddy ID 카드
           </h3>
         </div>
 
-        <div className="flex flex-col sm:flex-row">
+        <div className="flex flex-col sm:flex-row flex-1 min-h-0">
           {/* 사진 영역 */}
-          <div className="w-full sm:w-1/3 bg-gray-100 flex items-center justify-center p-4 sm:p-6 border-b sm:border-b-0 sm:border-r border-gray-300">
+          <div className="w-full sm:w-3/5 bg-gray-100 flex items-center justify-center p-4 sm:p-5 border-b sm:border-b-0 sm:border-r border-gray-300 flex-shrink-0">
             {imageUrl ? (
-              <div className="relative w-full aspect-square max-w-[200px] mx-auto">
+              <div className="relative w-full aspect-square max-w-[180px] sm:max-w-[220px] mx-auto">
                 <img
                   src={imageUrl}
                   alt="반려견 코 사진"
@@ -86,12 +89,13 @@ export default function UploadResult({
                 />
               </div>
             ) : (
-              <div className="w-full aspect-square max-w-[200px] mx-auto bg-gray-200 rounded-lg flex items-center justify-center">
+              <div className="w-full aspect-square max-w-[200px] sm:max-w-[220px] mx-auto bg-gray-200 rounded-lg flex items-center justify-center">
                 <svg
-                  className="w-16 h-16 text-gray-400"
+                  className="w-16 h-16"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  style={{ color: "#767676" }}
                 >
                   <path
                     strokeLinecap="round"
@@ -105,15 +109,31 @@ export default function UploadResult({
           </div>
 
           {/* 정보 영역 */}
-          <div className="w-full sm:w-2/3 p-4 sm:p-6 flex flex-col justify-center">
-            <div className="space-y-4">
+          <div className="w-full sm:w-2/5 p-3 sm:p-4 flex flex-col justify-center flex-1 min-h-0">
+            <div className="space-y-2 sm:space-y-3">
               {/* Puddy ID */}
               <div>
-                <p className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                <p
+                  className="text-xs font-semibold uppercase tracking-wide mb-0.5"
+                  style={{ color: "#505050" }}
+                >
                   Puddy ID
                 </p>
-                <p className="text-lg sm:text-xl md:text-2xl font-mono font-bold text-gray-900 break-all">
+                <p
+                  className="text-base sm:text-lg md:text-xl font-mono font-bold break-all"
+                  style={{ color: "#111111" }}
+                >
                   {noseID}
+                </p>
+              </div>
+              {/* 안내 문구 */}
+              <div className="pt-1  pb-2">
+                <p
+                  className="text-xs leading-tight"
+                  style={{ color: "#767676" }}
+                >
+                  이 Puddy ID는 반려견의 고유 식별번호입니다. 유실·보험·진료
+                  기록 등과 연결하여 사용할 수 있습니다.
                 </p>
               </div>
 
@@ -122,27 +142,14 @@ export default function UploadResult({
 
               {/* 발급 정보 */}
               <div>
-                <p className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                <p
+                  className="text-xs font-semibold uppercase tracking-wide"
+                  style={{ color: "#505050" }}
+                >
                   발급일자
                 </p>
-                <p className="text-sm sm:text-base text-gray-900">
+                <p className="text-sm" style={{ color: "#111111" }}>
                   {issueDate}
-                </p>
-              </div>
-
-              {/* 상태 */}
-              <div>
-                <p className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                  상태
-                </p>
-                <p className="text-sm sm:text-base text-gray-900">등록 완료</p>
-              </div>
-
-              {/* 안내 문구 */}
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <p className="text-xs text-gray-500 leading-relaxed">
-                  이 Puddy ID는 반려견의 고유 식별번호입니다. 유실·보험·진료
-                  기록 등과 연결하여 사용할 수 있습니다.
                 </p>
               </div>
             </div>
@@ -151,10 +158,17 @@ export default function UploadResult({
       </div>
 
       {/* 버튼 영역 */}
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center w-full mt-3 sm:mt-4 flex-shrink-0">
         <Button
           onClick={handleSurveyClick}
-          className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 px-4 sm:px-6 py-3 text-sm sm:text-base"
+          className="w-full sm:w-auto text-white px-4 sm:px-6 py-2.5 text-sm sm:text-base"
+          style={{ backgroundColor: "#FF6842" }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "#E55A32";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "#FF6842";
+          }}
         >
           정식 등록하기
         </Button>
