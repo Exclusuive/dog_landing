@@ -23,13 +23,13 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-orange-50 absolute top-0 z-100 shadow-sm w-full py-2 border-b border-gray-200">
-        <div className="container mx-auto px-8 w-full">
+        <div className="container mx-auto px-4 w-full">
           <div className="flex justify-between items-center h-12 w-full">
             <Link
               to="/"
               className="flex items-center text-2xl font-bold text-gray-900 hover:text-orange-600 transition-colors"
             >
-              <img src="/logo.png" alt="Puddy" className="w-40 h-8" />
+              <img src="/logo.png" alt="Puddy" className="w-32" />
             </Link>
 
             {/* 데스크톱 메뉴 */}

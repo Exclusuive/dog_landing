@@ -9,7 +9,7 @@ export default function Hero() {
     <>
       <section className="min-h-[90vh] bg-orange-50">
         <div className="container mx-auto max-w-7xl">
-          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 items-center ">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 items-center lg:px-16">
             {/* Image Section - Mobile First (위에 표시) */}
             <div className="relative w-full aspect-[3/2] overflow-hidden order-1 lg:order-2 bg-orange-50">
               <img
@@ -20,7 +20,7 @@ export default function Hero() {
             </div>
 
             {/* Text Content - Mobile First (아래에 표시) */}
-            <div className="flex flex-col justify-center space-y-6 sm:space-y-8 order-2 lg:order-1 px-4 sm:px-6 lg:px-8 py-8 lg:py-20">
+            <div className="flex flex-col justify-center space-y-6 sm:space-y-8 order-2 lg:order-1 sm:px-6  py-8 lg:py-20">
               {/* Top Tag */}
               {/* <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full w-fit text-xs sm:text-sm font-medium">
                 <svg
@@ -33,34 +33,35 @@ export default function Hero() {
                 Blockchain-Secured Pet Identity
               </div> */}
               {/* Headline */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
-                한번의 <span className="text-orange-600">'코' </span>사진으로,
+              <h1 className="text-3xl sm:text-4xl font-bold leading-[1.4] text-[#111111] font-semibold sm:leading-[1.4]">
+                한번의 <span className="text-[#FF6842] font-bold">코 사진</span>
+                으로
                 <br /> 영원한 가족을 지켜주세요.
               </h1>
               {/* Key Points */}
-              <div className="sm:space-y-4">
+              <div className="sm:space-y-4 space-y-2 text-[#505050]">
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
-                  <p className="text-base sm:text-lg text-gray-800">
+                  <p className="text-base sm:text-lg ">
                     강아지를 잃어버리더라도
-                    <span className="ml-1 font-semibold text-orange-600">
+                    <span className="ml-1 font-semibold text-[#FF6842]">
                       쉽게 찾을 수 있게
                     </span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
-                  <p className="text-base sm:text-lg text-gray-800">
+                  <p className="text-base sm:text-lg ">
                     칩 없이도, 코 사진만으로
-                    <span className="ml-1 font-semibold text-orange-600">
+                    <span className="ml-1 font-semibold text-[#FF6842]">
                       간편한 등록
                     </span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
-                  <p className="text-base sm:text-lg text-gray-800">
-                    <span className="font-semibold text-orange-600">
+                  <p className="text-base sm:text-lg ">
+                    <span className="font-semibold text-[#FF6842]">
                       보험, 진료 기록
                     </span>
                     까지 한번에 확인
