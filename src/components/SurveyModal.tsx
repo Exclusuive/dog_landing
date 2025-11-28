@@ -23,7 +23,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
   const [breed, setBreed] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -37,7 +37,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
         breed,
         age,
         gender,
-        phone,
+        email,
       };
 
       // localStorage에 저장
@@ -53,7 +53,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
         breed,
         age,
         gender,
-        phone,
+        email,
         noseID: noseID || undefined,
         photoUrl: photoData?.url,
         photoPath: photoData?.path,
@@ -83,7 +83,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
     setBreed("");
     setAge("");
     setGender("");
-    setPhone("");
+    setEmail("");
     setIsSubmitting(false);
     onClose();
   };
@@ -226,21 +226,21 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
               </select>
             </div>
 
-            {/* 전화번호 */}
+            {/* 이메일 */}
             <div>
               <label
-                htmlFor="phone"
+                htmlFor="email"
                 className="block text-xs sm:text-sm font-semibold mb-1.5"
                 style={{ color: "#505050" }}
               >
-                전화번호
+                이메일
               </label>
               <input
-                id="phone"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="010-1234-5678"
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="example@email.com"
                 className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:border-transparent outline-none transition-all text-sm sm:text-base"
                 style={{ color: "#111111" }}
                 onFocus={(e) => {

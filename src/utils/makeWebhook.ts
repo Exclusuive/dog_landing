@@ -5,7 +5,7 @@ interface RegistrationData {
   breed: string;
   age: string;
   gender: string;
-  phone: string;
+  email: string;
   noseID?: string;
   photoUrl?: string;
   photoPath?: string;
@@ -37,7 +37,7 @@ export const sendRegistrationToMake = async (
         breed: data.breed,
         age: data.age,
         gender: data.gender === "male" ? "수컷" : "암컷",
-        phone: data.phone,
+        email: data.email,
 
         // Puddy ID
         nose_id: data.noseID || "",
