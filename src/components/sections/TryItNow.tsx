@@ -7,7 +7,10 @@ export default function TryItNow() {
 
   return (
     <>
-      <section id="try-it" className="py-16 sm:py-20 px-8 bg-orange-50/60 pt-16">
+      <section
+        id="try-it"
+        className="py-16 sm:py-20 px-8 bg-orange-50/60 pt-16"
+      >
         <div className="container mx-auto max-w-4xl text-center">
           <h2
             className="text-2xl md:text-5xl font-bold mb-6"
@@ -97,7 +100,7 @@ export default function TryItNow() {
                     className="text-sm sm:text-base leading-relaxed text-start"
                     style={{ color: "#767676" }}
                   >
-                    정식 등록하기 버튼을 누른 후, 강아지 정보를 입력해주세요!
+                    등록하기 버튼을 누른 후, 강아지 정보를 입력해주세요!
                   </p>
                 </div>
                 {/* 데스크톱에서만 표시 */}

@@ -34,38 +34,30 @@ export default function Hero() {
                 Blockchain-Secured Pet Identity
               </div> */}
               {/* Headline */}
-              <h1 className="text-3xl sm:text-4xl font-bold leading-[1.4] text-[#111111] font-semibold sm:leading-[1.4]">
-                한번의 <span className="text-[#FF6842] font-bold">코 사진</span>
-                으로
-                <br /> 영원한 가족을 지켜주세요.
+              <h1 className="text-2xl sm:text-4xl font-bold leading-[1.4] text-[#111111] font-semibold sm:leading-[1.4]">
+                사진 한 장으로
+                <span className="text-[#FF6842] text-3xl"> 더 커지는 혜택</span>
               </h1>
               {/* Key Points */}
               <div className="sm:space-y-4 space-y-2 text-[#505050]">
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg ">
-                    강아지를 잃어버리더라도
-                    <span className="ml-1 font-semibold text-[#FF6842]">
-                      쉽게 찾을 수 있게
-                    </span>
+                    일부 부정 보험 청구 때문에 선량한 견주도 보험료 인상 및 청구
+                    지연의 피해를 보고 있어요.
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg ">
-                    칩 없이도, 코 사진만으로
-                    <span className="ml-1 font-semibold text-[#FF6842]">
-                      간편한 등록
-                    </span>
+                    비문 (코 패턴) 인증은 ‘우리 아이’의 신원을 정확히 증명해
+                    빠르고 공정한 보험 혜택을 받도록 도와줘요.
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg ">
-                    <span className="font-semibold text-[#FF6842]">
-                      보험, 진료 기록
-                    </span>
-                    까지 한번에 확인
+                    칩 없어도 코 사진만으로 간편하게 등록 가능!
                   </p>
                 </div>
               </div>
