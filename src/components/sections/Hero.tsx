@@ -53,8 +53,8 @@ export default function Hero() {
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg ">
-                    비문 (코 패턴) 인증은 ‘우리 아이’의 신원을 정확히 증명해
-                    빠르고 공정한 보험 혜택을 받도록 도와줘요.
+                    비문 인증은 ‘우리 아이’의 신원을 정확히 증명해 빠르고 공정한
+                    보험 혜택을 받도록 도와줘요.
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
