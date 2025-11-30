@@ -36,7 +36,9 @@ export default function Hero() {
               {/* Headline */}
               <h1 className="text-2xl sm:text-4xl font-bold leading-[1.4] text-[#111111] font-semibold sm:leading-[1.4]">
                 사진 한 장으로
-                <span className="text-[#FF6842] text-3xl"> 더 커지는 혜택</span>
+                <span className="sm:text-5xl text-[#FF6842] text-3xl">
+                  더 커지는 혜택
+                </span>
               </h1>
               {/* Key Points */}
               <div className="sm:space-y-4 space-y-2 text-[#505050]">
