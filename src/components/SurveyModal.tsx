@@ -235,6 +235,12 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
               >
                 이메일
               </label>
+              <p
+                className="text-xs sm:text-sm mb-1.5 pl-1"
+                style={{ color: "#767676" }}
+              >
+                정식 서비스가 시작되면 이메일로 안내드릴게요.
+              </p>
               <input
                 id="email"
                 type="email"

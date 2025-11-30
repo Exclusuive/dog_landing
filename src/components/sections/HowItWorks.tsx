@@ -30,32 +30,24 @@ export default function HowItWorks() {
           등록하면 어떤 점이 좋나요?
         </h2>
 
-        <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {features.map((feature, index) => (
-            <div key={index} className="flex items-start gap-4 sm:gap-6">
-              {/* Number Badge */}
-              <div
-                className="w-8 h-8 sm:w-9 sm:h-9 text-white rounded-full flex items-center justify-center text-lg sm:text-xl font-bold flex-shrink-0"
-                style={{ backgroundColor: "#FF6842" }}
+            <div
+              key={index}
+              className="bg-white rounded-lg p-6 sm:p-8 shadow-md hover:shadow-lg transition-shadow duration-300"
+            >
+              <h3
+                className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4"
+                style={{ color: "#505050" }}
               >
-                {index + 1}
-              </div>
-
-              {/* Content */}
-              <div className="flex-1">
-                <h3
-                  className="text-xl sm:text-2xl font-bold mb-2"
-                  style={{ color: "#505050" }}
-                >
-                  {feature.title}
-                </h3>
-                <p
-                  className="text-base sm:text-lg leading-relaxed"
-                  style={{ color: "#767676" }}
-                >
-                  {feature.description}
-                </p>
-              </div>
+                {feature.title}
+              </h3>
+              <p
+                className="text-base sm:text-lg leading-relaxed"
+                style={{ color: "#767676" }}
+              >
+                {feature.description}
+              </p>
             </div>
           ))}
         </div>
