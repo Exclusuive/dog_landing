@@ -18,7 +18,7 @@ interface PhotoUploadModalProps {
   onClose: () => void;
 }
 
-type UploadStatus = "idle" | "uploading" | "success" | "error";
+type UploadStatus = "idle" | "preview" | "uploading" | "success" | "error";
 type ResultType = "new" | "matched" | "error";
 
 export default function PhotoUploadModal({
@@ -32,6 +32,7 @@ export default function PhotoUploadModal({
   const [cameraError, setCameraError] = useState<string>("");
   const [capturedImageUrl, setCapturedImageUrl] = useState<string>("");
   const [previewImageUrl, setPreviewImageUrl] = useState<string>("");
+  const [processedImageUrl, setProcessedImageUrl] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -119,15 +120,19 @@ export default function PhotoUploadModal({
           setStream(null);
         }
 
-        // 파일 업로드 처리 (Supabase에 업로드)
-        await processFile(file);
+        // 미리보기 URL 생성
+        const previewUrl = URL.createObjectURL(file);
+        setPreviewImageUrl(previewUrl);
+
+        // 사진 확인 단계로 이동
+        setStatus("preview");
       },
       "image/jpeg",
       0.95
     );
   };
 
-  const processFile = async (file: File) => {
+  const processFile = (file: File) => {
     // 파일 형식 검증
     if (!file.type.match(/^image\/(jpeg|jpg|png)$/i)) {
       setStatus("error");
@@ -140,48 +145,87 @@ export default function PhotoUploadModal({
     const previewUrl = URL.createObjectURL(file);
     setPreviewImageUrl(previewUrl);
 
+    // 사진 확인 단계로 이동
+    setStatus("preview");
+  };
+
+  const startUpload = async (file: File) => {
+    // 업로드 시작
     setStatus("uploading");
     trackPhotoUploadStart();
 
-    // Supabase에 이미지 업로드
-    const uploadResult = await uploadImageToSupabase(file);
-
-    if (!uploadResult) {
-      // 에러 발생 시 미리보기 URL 정리
-      URL.revokeObjectURL(previewUrl);
-      setPreviewImageUrl("");
-      setStatus("error");
-      setResultType("error");
-      setErrorMessage("이미지 업로드에 실패했습니다. 다시 시도해주세요.");
-      return;
-    }
-
-    // 업로드된 이미지 URL 저장
-    setCapturedImageUrl(uploadResult.url);
-    localStorage.setItem("dogNosePhotoUrl", uploadResult.url);
-    localStorage.setItem("dogNosePhotoPath", uploadResult.path);
-    localStorage.setItem("dogNosePhotoTimestamp", new Date().toISOString());
-
     try {
-      // 처리 시뮬레이션 (3~5초 딜레이)
-      const delay = Math.random() * 2000 + 3000; // 3000ms ~ 5000ms
-      await new Promise((resolve) => setTimeout(resolve, delay));
+      // localhost:8000으로 이미지 전송
+      const formData = new FormData();
+      formData.append("file", file);
 
-      // 항상 성공으로 처리
-      setResultType("new");
-      setStatus("success");
-      // success 상태로 변경된 후 미리보기 URL 정리
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-        setPreviewImageUrl("");
+      const response = await fetch(
+        "http://ec2-98-92-0-77.compute-1.amazonaws.com:8000/exclusuive/segment-nose",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("이미지 처리에 실패했습니다.");
       }
+
+      // 응답으로 받은 이미지 URL (Blob으로 처리)
+      const blob = await response.blob();
+      const processedImageUrl = URL.createObjectURL(blob);
+      setProcessedImageUrl(processedImageUrl);
+
+      // Supabase에 원본 이미지 업로드
+      const uploadResult = await uploadImageToSupabase(file);
+
+      if (!uploadResult) {
+        // 에러 발생 시 미리보기 URL 정리
+        if (previewImageUrl) {
+          URL.revokeObjectURL(previewImageUrl);
+          setPreviewImageUrl("");
+        }
+        if (processedImageUrl) {
+          URL.revokeObjectURL(processedImageUrl);
+          setProcessedImageUrl("");
+        }
+        setStatus("error");
+        setResultType("error");
+        setErrorMessage("이미지 업로드에 실패했습니다. 다시 시도해주세요.");
+        return;
+      }
+
+      // 업로드된 이미지 URL 저장
+      setCapturedImageUrl(uploadResult.url);
+      localStorage.setItem("dogNosePhotoUrl", uploadResult.url);
+      localStorage.setItem("dogNosePhotoPath", uploadResult.path);
+      localStorage.setItem("dogNosePhotoTimestamp", new Date().toISOString());
+
+      // 처리된 이미지를 previewImageUrl로 설정하고 preview 단계로 이동
+      if (previewImageUrl) {
+        URL.revokeObjectURL(previewImageUrl);
+      }
+      setPreviewImageUrl(processedImageUrl);
+
+      // preview 단계로 이동하여 처리된 이미지를 보여줌
+      setStatus("preview");
       trackPhotoUploadComplete();
     } catch (error) {
+      console.error("이미지 처리 중 오류:", error);
       setStatus("error");
       setResultType("error");
       setErrorMessage(
         "잠시 인식 서버에 문제가 발생했어요. 몇 분 뒤 다시 시도해주시겠어요?"
       );
+      // 에러 발생 시 URL 정리
+      if (previewImageUrl) {
+        URL.revokeObjectURL(previewImageUrl);
+        setPreviewImageUrl("");
+      }
+      if (processedImageUrl) {
+        URL.revokeObjectURL(processedImageUrl);
+        setProcessedImageUrl("");
+      }
     }
   };
 
@@ -212,6 +256,10 @@ export default function PhotoUploadModal({
       URL.revokeObjectURL(previewImageUrl);
       setPreviewImageUrl("");
     }
+    if (processedImageUrl) {
+      URL.revokeObjectURL(processedImageUrl);
+      setProcessedImageUrl("");
+    }
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -225,7 +273,7 @@ export default function PhotoUploadModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-[90%] sm:w-3/4 max-w-2xl h-[85vh] overflow-hidden p-0 flex flex-col [&>button[data-slot='dialog-close']]:hidden">
+      <DialogContent className="w-[90%] sm:w-3/4 max-w-2xl min-h-[40vh] h-fit overflow-hidden p-0 flex flex-col [&>button[data-slot='dialog-close']]:hidden">
         {status === "idle" && (
           <div className="flex flex-col h-full p-4 sm:p-6">
             <DialogHeader className="mb-4 flex-shrink-0 flex flex-row items-center justify-between">
@@ -298,7 +346,7 @@ export default function PhotoUploadModal({
                   <canvas ref={canvasRef} className="hidden" />
                 </>
               ) : (
-                <div className="flex items-center justify-center h-full">
+                <div className="flex items-center justify-center h-full min-h-[200px]">
                   <div className="text-center">
                     <div
                       className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
@@ -399,8 +447,83 @@ export default function PhotoUploadModal({
           </div>
         )}
 
+        {status === "preview" && (
+          <div className="flex-1 flex flex-col p-4 sm:p-6">
+            <DialogHeader className="mb-4 flex-shrink-0">
+              <DialogTitle
+                className="text-center text-lg sm:text-xl font-bold"
+                style={{ color: "#111111" }}
+              >
+                코 부분을 확인해주세요
+              </DialogTitle>
+            </DialogHeader>
+
+            {/* 미리보기 이미지 */}
+            <div className="flex-1 flex items-center justify-center mb-4">
+              {(processedImageUrl || previewImageUrl) && (
+                <img
+                  src={processedImageUrl || previewImageUrl}
+                  alt="촬영한 사진"
+                  className="max-w-full max-h-[60vh] object-contain rounded-lg border-2 border-gray-200"
+                />
+              )}
+            </div>
+
+            {/* 버튼 영역 */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                onClick={() => {
+                  if (previewImageUrl) {
+                    URL.revokeObjectURL(previewImageUrl);
+                    setPreviewImageUrl("");
+                  }
+                  if (processedImageUrl) {
+                    URL.revokeObjectURL(processedImageUrl);
+                    setProcessedImageUrl("");
+                  }
+                  handleReset();
+                }}
+                variant="outline"
+                className="w-full sm:w-auto flex-1 text-sm sm:text-base py-3"
+                style={{ color: "#111111" }}
+              >
+                다시 촬영하기
+              </Button>
+              <Button
+                onClick={async () => {
+                  // 처리된 이미지가 있으면 success로, 없으면 업로드 시작
+                  if (processedImageUrl) {
+                    setResultType("new");
+                    setStatus("success");
+                  } else if (previewImageUrl) {
+                    // 미리보기 URL에서 File 객체 재생성
+                    const response = await fetch(previewImageUrl);
+                    const blob = await response.blob();
+                    const file = new File([blob], "photo.jpg", {
+                      type: "image/jpeg",
+                    });
+
+                    // 업로드 시작
+                    await startUpload(file);
+                  }
+                }}
+                className="w-full sm:w-auto flex-1 text-white text-sm sm:text-base py-3"
+                style={{ backgroundColor: "#FF6842" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "#E55A32";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "#FF6842";
+                }}
+              >
+                {processedImageUrl ? "완료하기" : "이 사진으로 진행하기"}
+              </Button>
+            </div>
+          </div>
+        )}
+
         {status === "uploading" && (
-          <div className="flex-1 flex items-center justify-center text-center px-6">
+          <div className="flex-1 flex items-center justify-center text-center px-6 min-h-[50vh]">
             <div>
               <div className="relative inline-block mb-6">
                 {previewImageUrl || capturedImageUrl ? (
@@ -428,7 +551,7 @@ export default function PhotoUploadModal({
                 반려견의 비문을 분석하고 있어요…
               </p>
               <p className="text-sm sm:text-base" style={{ color: "#767676" }}>
-                약 3~5초 소요됩니다
+                네트워크에 따라 15~30초 정도 소요됩니다.
               </p>
             </div>
           </div>
