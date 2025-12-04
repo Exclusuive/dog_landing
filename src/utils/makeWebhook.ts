@@ -1,15 +1,18 @@
-// Make.com 웹훅 연동 유틸리티
-
 interface RegistrationData {
-  dogName: string;
-  breed: string;
-  age: string;
-  gender: string;
-  email: string;
-  noseID?: string;
+  // 최소 필요 데이터
+  email: string; // 서비스 안내를 받을 이메일
+  noseID?: string; // 반려견 고유 Nose ID
+
+  // 사진 관련 데이터 (Supabase 등에서 온 값)
   photoUrl?: string;
   photoPath?: string;
   photoTimestamp?: string;
+
+  // 향후 확장용(현재 웹훅 전송에는 사용하지 않음)
+  dogName?: string;
+  breed?: string;
+  age?: string;
+  gender?: string;
 }
 
 /**
@@ -32,25 +35,19 @@ export const sendRegistrationToMake = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // 반려견 정보
-        dog_name: data.dogName,
-        breed: data.breed,
-        age: data.age,
-        gender: data.gender === "male" ? "수컷" : "암컷",
-        email: data.email,
-
-        // Puddy ID
+        // 최소 전송 데이터
+        email: data.email || "",
         nose_id: data.noseID || "",
 
-        // 사진 정보 (Supabase URL)
+        // 사진 정보
         photo_url: data.photoUrl || "",
         photo_path: data.photoPath || "",
         photo_timestamp: data.photoTimestamp || new Date().toISOString(),
 
-        // 메타데이터
-        registration_date: new Date().toISOString(),
-        registration_timestamp: Date.now(),
-        landing_type: "SY",
+        // 메타데이터 (공통)
+        registration_date: new Date().toISOString(), // ISO 날짜
+        registration_timestamp: Date.now(), // ms 타임스탬프
+        landing_type: "SY", // 어떤 랜딩에서 왔는지 구분용
       }),
     });
 

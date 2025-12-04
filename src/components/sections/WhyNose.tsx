@@ -17,7 +17,7 @@ export default function WhyNose() {
         {/* 이미지 */}
         <div className="text-center mb-8 sm:mb-12">
           <img
-            src="nose.png"
+            src="nose2.png"
             alt="강아지 코의 비문 패턴"
             className="w-full max-w-md mx-auto rounded-lg"
           />
