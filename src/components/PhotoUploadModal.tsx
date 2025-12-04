@@ -464,7 +464,7 @@ export default function PhotoUploadModal({
                 <img
                   src={processedImageUrl || previewImageUrl}
                   alt="촬영한 사진"
-                  className="max-w-full object-contain rounded-lg border-2 border-gray-200"
+                  className="max-w-full max-h-[50vh] object-contain rounded-lg border-2 border-gray-200"
                 />
               )}
             </div>
@@ -530,7 +530,7 @@ export default function PhotoUploadModal({
                   <img
                     src={previewImageUrl || capturedImageUrl}
                     alt="업로드된 강아지 코 사진"
-                    className="w-full sm:w-40 h-32 sm:h-40 object-cover rounded-lg animate-bounce mb-4 mx-auto"
+                    className="w-full max-h-[50vh] object-cover rounded-lg animate-bounce mb-4 mx-auto"
                   />
                 ) : (
                   <img
