@@ -273,7 +273,7 @@ export default function PhotoUploadModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-[90%] sm:w-3/4 max-w-2xl min-h-[40vh] h-fit overflow-hidden p-0 flex flex-col [&>button[data-slot='dialog-close']]:hidden">
+      <DialogContent className="w-[90%] sm:w-3/4 max-w-2xl min-h-[60vh]  overflow-hidden p-0 flex flex-col [&>button[data-slot='dialog-close']]:hidden">
         {status === "idle" && (
           <div className="flex flex-col h-full p-4 sm:p-6">
             <DialogHeader className="mb-4 flex-shrink-0 flex flex-row items-center justify-between">
