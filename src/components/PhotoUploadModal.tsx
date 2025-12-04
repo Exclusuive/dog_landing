@@ -160,7 +160,7 @@ export default function PhotoUploadModal({
       formData.append("file", file);
 
       const response = await fetch(
-        "http://ec2-98-92-0-77.compute-1.amazonaws.com:8000/exclusuive/segment-nose",
+        "https://api.exclusuive.io/exclusuive/segment-nose",
         {
           method: "POST",
           body: formData,
