@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import PhotoUploadModal from "@/components/PhotoUploadModal";
 import { Camera } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Hero() {
+  const { t } = useLanguage();
+  const heroText = t<Record<string, any>>("hero");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -11,77 +14,76 @@ export default function Hero() {
       <section id="main" className="min-h-auto bg-orange-50 pt-16">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 items-center lg:px-16">
-            {/* Image Section - Mobile First (위에 표시) */}
             <div className="relative w-full aspect-[3/2] overflow-hidden order-1 lg:order-2 bg-orange-50">
               <img
                 src="image 144.png"
-                alt="강아지 이미지"
+                alt={heroText.imageAlt}
                 className="w-full h-full object-cover"
               />
             </div>
 
-            {/* Text Content - Mobile First (아래에 표시) */}
             <div className="w-full px-6 flex flex-col justify-center space-y-6 sm:space-y-8 order-2 lg:order-1  py-8 lg:py-20">
-              {/* Top Tag */}
-              {/* <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full w-fit text-xs sm:text-sm font-medium">
-                <svg
-                  className="w-3 h-3 sm:w-4 sm:h-4"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                Blockchain-Secured Pet Identity
-              </div> */}
-              {/* Headline */}
-              <h1 className="text-3xl sm:text-4xl font-bold leading-[1.4] text-[#111111] font-semibold sm:leading-[1.4]">
-                한번의 <span className="text-[#FF6842] font-bold">코 사진</span>
-                으로
-                <br /> 영원한 가족을 지켜주세요.
+              <h1 className="text-3xl sm:text-4xl font-bold leading-[1.35] text-[#111111] font-semibold sm:leading-[1.35]">
+                <span className="block md:whitespace-nowrap whitespace-normal">
+                  {heroText.headlinePrefix}{" "}
+                  <span className="text-[#FF6842] font-bold">
+                    {heroText.headlineHighlight}
+                  </span>
+                  {heroText.headlineSuffix && (
+                    <span className="text-[#111111]">
+                      {" "}
+                      {heroText.headlineSuffix}
+                    </span>
+                  )}
+                </span>
+                <span className="block">{heroText.headlineLine2}</span>
               </h1>
-              {/* Key Points */}
+
               <div className="sm:space-y-4 space-y-2 text-[#505050]">
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg ">
-                    강아지를 잃어버리더라도
-                    <span className="ml-1 font-semibold text-[#FF6842]">
-                      쉽게 찾을 수 있게
-                    </span>
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
-                  <p className="text-base sm:text-lg ">
-                    칩 없이도, 코 사진만으로
-                    <span className="ml-1 font-semibold text-[#FF6842]">
-                      간편한 등록
-                    </span>
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
-                  <p className="text-base sm:text-lg ">
+                    {heroText.bullet1Prefix && (
+                      <span>{heroText.bullet1Prefix} </span>
+                    )}
                     <span className="font-semibold text-[#FF6842]">
-                      보험, 진료 기록
+                      {heroText.bullet1Highlight}
                     </span>
-                    까지 한번에 확인
+                    {heroText.bullet1Suffix && (
+                      <span>{heroText.bullet1Suffix}</span>
+                    )}
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
+                  <p className="text-base sm:text-lg ">
+                    {heroText.bullet2Prefix && (
+                      <span>{heroText.bullet2Prefix} </span>
+                    )}
+                    <span className="font-semibold text-[#FF6842]">
+                      {heroText.bullet2Highlight}
+                    </span>
+                    {heroText.bullet2Suffix && (
+                      <span>{heroText.bullet2Suffix}</span>
+                    )}
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
+                  <p className="text-base sm:text-lg ">
+                    {heroText.bullet3Prefix && (
+                      <span>{heroText.bullet3Prefix} </span>
+                    )}
+                    <span className="font-semibold text-[#FF6842]">
+                      {heroText.bullet3Highlight}
+                    </span>
+                    {heroText.bullet3Suffix && (
+                      <span> {heroText.bullet3Suffix}</span>
+                    )}
                   </p>
                 </div>
               </div>
-              {/* Sub-headline
-              <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
-                Puddy는 <b>강아지 코 사진 한 장</b>만으로
-                <br className="hidden sm:block" />
-                바로 내 반려견만의 고유한 ID를 만들어줍니다.
-                <br className="hidden sm:block" />
-                <span className="">
-                  <b> 강아지를 잃어버렸을 때</b>, <b>예방접종 확인서</b>,{" "}
-                  <b>보험료 할인</b> 등 다양한 상황에서 Puddy를 활용할 수
-                  있습니다.
-                </span>
-              </p> */}
-              {/* CTA Button - 데스크톱에서만 표시 */}
+
               <div className="hidden md:block space-y-2 sm:space-y-3 pt-2 sm:pt-4">
                 <Button
                   size="lg"
@@ -90,7 +92,7 @@ export default function Hero() {
                 >
                   <Camera className="w-10 h-10 group-hover:scale-110 transition-transform" />
                   <span className="font-semibold text-[18px] tracking-[-0.4px]">
-                    코 사진 등록하러 가기
+                    {heroText.cta}
                   </span>
                 </Button>
               </div>

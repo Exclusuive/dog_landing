@@ -5,6 +5,7 @@ import {
   getStoredPhotoData,
   getStoredNoseID,
 } from "@/utils/makeWebhook";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface UploadResultProps {
   imageUrl: string;
@@ -17,6 +18,8 @@ export default function UploadResult({
   onReset,
   onClose,
 }: UploadResultProps) {
+  const { t, language } = useLanguage();
+  const copy = t<Record<string, any>>("uploadResult");
   const [noseID, setNoseID] = useState<string>("");
   const [issueDate, setIssueDate] = useState<string>("");
   const [emailPrefix, setEmailPrefix] = useState<string>("");
@@ -36,51 +39,54 @@ export default function UploadResult({
     "outlook.com",
   ];
 
-  // 고유 Nose ID 생성 (localStorage에서 가져오거나 새로 생성)
+  const formatIssueDate = (isoString: string) => {
+    const locale = language === "ko" ? "ko-KR" : "en-US";
+    const date = new Date(isoString);
+    return date.toLocaleDateString(locale, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   useEffect(() => {
     const storedID = localStorage.getItem("dogNoseID");
-    const storedDate = localStorage.getItem("dogNoseIssueDate");
+    const storedISO = localStorage.getItem("dogNoseIssueDateISO");
+    const legacyStoredDate = localStorage.getItem("dogNoseIssueDate");
 
-    if (storedID && storedDate) {
+    if (storedID) {
       setNoseID(storedID);
-      setIssueDate(storedDate);
     } else {
-      // 새 ID 생성
       const generateNoseID = () => {
-        // "001-001-XXXXXX" 형식, X는 랜덤숫자
-        const randomSixDigits = Math.floor(100000 + Math.random() * 900000); // 6자리 랜덤 (앞에 0 방지시 100000~999999)
+        const randomSixDigits = Math.floor(100000 + Math.random() * 900000);
         return `001-001-${randomSixDigits}`;
       };
 
       const newID = generateNoseID();
-      const newDate = new Date().toLocaleDateString("ko-KR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-
       setNoseID(newID);
-      setIssueDate(newDate);
       localStorage.setItem("dogNoseID", newID);
-      localStorage.setItem("dogNoseIssueDate", newDate);
     }
-  }, []);
+
+    const isoDate =
+      storedISO ||
+      (legacyStoredDate ? new Date(legacyStoredDate).toISOString() : undefined) ||
+      new Date().toISOString();
+
+    setIssueDate(formatIssueDate(isoDate));
+    localStorage.setItem("dogNoseIssueDateISO", isoDate);
+  }, [language]);
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 도메인 결정 (직접 입력 도메인 우선)
     const domain = useCustomDomain ? customDomain.trim() : emailDomain.trim();
-
-    // 이메일 조합
     const fullEmail =
       emailPrefix.trim() && domain ? `${emailPrefix.trim()}@${domain}` : "";
 
-    // 이메일이 입력된 경우에만 형식 검증
     if (fullEmail) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(fullEmail)) {
-        alert("올바른 이메일 형식을 입력해주세요.");
+        alert(copy.invalidEmail);
         return;
       }
     }
@@ -88,12 +94,10 @@ export default function UploadResult({
     setIsSubmitting(true);
 
     try {
-      // 이메일이 있으면 저장
       if (fullEmail) {
         localStorage.setItem("waitlistEmail", fullEmail);
       }
 
-      // localStorage에서 반려견 정보 가져오기 (있으면 사용)
       const storedDogInfo = localStorage.getItem("dogInfo");
       let dogInfo: {
         name?: string;
@@ -110,34 +114,32 @@ export default function UploadResult({
         }
       }
 
-      // 저장된 사진 URL과 Nose ID 가져오기
       const photoData = getStoredPhotoData();
-      const noseID = getStoredNoseID();
+      const storedNoseID = getStoredNoseID();
 
-      // Make.com 웹훅에 데이터 전송 (Notion으로 전달)
       const makeSuccess = await sendRegistrationToMake({
         dogName: dogInfo.name || "",
         breed: dogInfo.breed || "",
         age: dogInfo.age || "",
         gender: dogInfo.gender || "",
         email: fullEmail || "",
-        noseID: noseID || undefined,
+        noseID: storedNoseID || undefined,
         photoUrl: photoData?.url,
         photoPath: photoData?.path,
         photoTimestamp: photoData?.timestamp,
       });
 
       if (makeSuccess) {
-        alert("신청이 완료되었습니다!");
+        alert(copy.successAlert);
       } else {
-        alert("신청이 완료되었습니다!");
+        alert(copy.successAlert);
       }
 
       onReset();
       onClose();
     } catch (error) {
       console.error("제출 중 오류:", error);
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+      alert(copy.errorAlert);
     } finally {
       setIsSubmitting(false);
     }
@@ -145,13 +147,12 @@ export default function UploadResult({
 
   return (
     <div className="p-3 sm:p-6 w-full max-w-full flex flex-col justify-center mb-3">
-      {/* 카드 제목 */}
       <div className="py-2 sm:py-3">
         <h2
           className="text-base sm:text-xl md:text-2xl font-extrabold text-center mb-1"
           style={{ color: "#111111", letterSpacing: "0.3px" }}
         >
-          반려견 신분증이 완성되었습니다!
+          {copy.title}
         </h2>
       </div>
 
@@ -163,7 +164,6 @@ export default function UploadResult({
           boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.15)",
         }}
       >
-        {/* ID 헤더 - 카드 전체 맨 위 */}
         <div
           className="pt-2 sm:pt-3 px-2 sm:px-4 flex items-center justify-center"
           style={{ backgroundColor: "#F9FDFE" }}
@@ -176,7 +176,6 @@ export default function UploadResult({
           </p>
         </div>
 
-        {/* 카드 본문 */}
         <div
           className="flex flex-row px-2 sm:px-4 py-2 sm:py-3 items-start flex-1"
           style={{
@@ -185,7 +184,6 @@ export default function UploadResult({
             height: "auto",
           }}
         >
-          {/* 왼쪽: 프로필 이미지 */}
           <div className="mr-2 sm:mr-5 flex items-center justify-start flex-col flex-shrink-0">
             <div
               className="w-[80px] h-[96px] sm:w-[110px] sm:h-[132px] rounded flex items-center justify-center overflow-hidden border shadow-sm"
@@ -220,7 +218,6 @@ export default function UploadResult({
                 </div>
               )}
             </div>
-            {/* 상태 배지 - 사진 밑 */}
             <div className="mt-3 sm:mt-4 flex items-center justify-center">
               <div
                 className="px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded border"
@@ -233,21 +230,19 @@ export default function UploadResult({
                   className="text-[9px] sm:text-[11px] font-semibold"
                   style={{ color: "#2E7D32" }}
                 >
-                  등록 완료
+                  {copy.registered}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* 오른쪽: 반려견 정보 */}
           <div className="flex-1 flex flex-col justify-start min-w-0">
-            {/* 동물등록번호 */}
             <div className="flex flex-row items-center justify-between py-1 sm:py-1.5 flex-wrap pt-1 sm:pt-2">
               <p
                 className="text-xs sm:text-sm font-semibold flex-shrink-0"
                 style={{ color: "#505050" }}
               >
-                동물등록번호
+                {copy.registrationNumber}
               </p>
               <p
                 className="text-xs sm:text-sm font-semibold min-w-0 break-all"
@@ -257,19 +252,17 @@ export default function UploadResult({
               </p>
             </div>
 
-            {/* 구분선 */}
             <div
               className="h-px my-0.5 sm:my-1"
               style={{ backgroundColor: "#BBDEFB" }}
             ></div>
 
-            {/* 이름 / 성별 */}
             <div className="flex flex-row items-center justify-between py-1 sm:py-1.5 flex-wrap">
               <p
                 className="text-xs sm:text-sm font-semibold flex-shrink-0"
                 style={{ color: "#505050" }}
               >
-                이름
+                {copy.name}
               </p>
               <div className="flex items-center gap-1">
                 <p
@@ -292,46 +285,42 @@ export default function UploadResult({
                   className="text-xs sm:text-sm font-semibold min-w-0"
                   style={{ color: "#111111", filter: "blur(3px)" }}
                 >
-                  수컷
+                  {copy.genderMale}
                 </p>
               </div>
             </div>
 
-            {/* 구분선 */}
             <div
               className="h-px my-0.5 sm:my-1"
               style={{ backgroundColor: "#BBDEFB" }}
             ></div>
 
-            {/* 생년월일 */}
             <div className="flex flex-row items-center justify-between py-1 sm:py-1.5 flex-wrap">
               <p
                 className="text-xs sm:text-sm font-semibold flex-shrink-0"
                 style={{ color: "#505050" }}
               >
-                생년월일
+                {copy.birth}
               </p>
               <p
                 className="text-xs sm:text-sm font-semibold min-w-0 break-words"
                 style={{ color: "#111111", filter: "blur(3px)" }}
               >
-                2020.01.15 (4살)
+                2020.01.15 (4)
               </p>
             </div>
 
-            {/* 구분선 */}
             <div
               className="h-px my-0.5 sm:my-1"
               style={{ backgroundColor: "#BBDEFB" }}
             ></div>
 
-            {/* 발급일자 */}
             <div className="flex flex-row items-center justify-between py-1 sm:py-1.5 flex-wrap">
               <p
                 className="text-xs sm:text-sm font-semibold flex-shrink-0"
                 style={{ color: "#505050" }}
               >
-                발급일자
+                {copy.issuedDate}
               </p>
               <p
                 className="text-xs sm:text-sm font-semibold min-w-0 break-words"
@@ -344,7 +333,6 @@ export default function UploadResult({
         </div>
       </div>
 
-      {/* 이메일 입력 영역 */}
       <div className="mt-4 sm:mt-6 w-full max-w-md mx-auto">
         <label className="flex items-center gap-2 mb-2 cursor-pointer select-none">
           <input
@@ -366,11 +354,7 @@ export default function UploadResult({
             className="text-xs sm:text-sm"
             style={{ color: "#9E9E9E", opacity: 0.9 }}
           >
-            (선택) 이메일 입력하고{" "}
-            <span style={{ color: "#FF6842", fontWeight: 500 }}>
-              서비스 시작 알림
-            </span>{" "}
-            받기
+            {copy.notificationLabel}
           </span>
         </label>
 
@@ -380,12 +364,11 @@ export default function UploadResult({
         >
           {wantsNotification && (
             <div className="flex items-center gap-1 sm:gap-2 w-full">
-              {/* 이메일 아이디 입력 */}
               <input
                 type="text"
                 value={emailPrefix}
                 onChange={(e) => setEmailPrefix(e.target.value)}
-                placeholder="이메일 (선택사항)"
+                placeholder={copy.emailPlaceholder}
                 className="flex-[3] min-w-0 px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:border-transparent outline-none transition-all text-xs sm:text-sm"
                 style={{
                   color: emailPrefix ? "#111111" : "#767676",
@@ -409,7 +392,6 @@ export default function UploadResult({
                 disabled={isSubmitting}
               />
 
-              {/* @ 구분자 */}
               <span
                 className="flex items-center justify-center text-xs sm:text-sm px-1"
                 style={{ color: "#767676" }}
@@ -417,13 +399,12 @@ export default function UploadResult({
                 @
               </span>
 
-              {/* 도메인 선택 또는 직접 입력 (한 칸에서 전환) */}
               {useCustomDomain ? (
                 <input
                   type="text"
                   value={customDomain}
                   onChange={(e) => setCustomDomain(e.target.value)}
-                  placeholder="도메인 (예: gmail.com)"
+                  placeholder={copy.domainPlaceholder}
                   className="flex-[2] min-w-0 px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:border-transparent outline-none transition-all text-xs sm:text-sm"
                   style={{
                     color: customDomain ? "#111111" : "#767676",
@@ -472,7 +453,7 @@ export default function UploadResult({
                       {domain}
                     </option>
                   ))}
-                  <option value="custom">직접 입력</option>
+                  <option value="custom">{copy.customDomain}</option>
                 </select>
               )}
             </div>
@@ -493,7 +474,7 @@ export default function UploadResult({
               }
             }}
           >
-            {isSubmitting ? "등록 중..." : "등록하기"}
+            {isSubmitting ? copy.submitting : copy.submit}
           </Button>
         </form>
       </div>

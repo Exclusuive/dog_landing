@@ -1,15 +1,17 @@
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { trackSiteVisit } from "@/utils/analytics";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const { t, language, setLanguage } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -17,12 +19,21 @@ export default function Layout({ children }: LayoutProps) {
     trackSiteVisit();
   }, []);
 
+  const navItems = useMemo(
+    () => [
+      { label: t("layout.menuMain"), href: "#" },
+      { label: t("layout.menuWhyNose"), href: "#why-nose" },
+      { label: t("layout.menuHowItWorks"), href: "#how-it-works" },
+      { label: t("layout.menuTryIt"), href: "#try-it" },
+    ],
+    [language, t]
+  );
+
   const handleOpenChange = (open: boolean) => {
     setIsMenuOpen(open);
   };
 
   const handleLinkClick = (href: string) => {
-    // 해시 링크의 기본 동작을 방지하고 smooth scroll 적용
     if (href === "#") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
@@ -31,16 +42,43 @@ export default function Layout({ children }: LayoutProps) {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
-    // 약간의 딜레이 후 메뉴 닫기
     setTimeout(() => {
       setIsMenuOpen(false);
     }, 100);
   };
 
-  // Sheet가 닫힐 때 포커스로 인한 스크롤 방지
   const handleCloseAutoFocus = (e: Event) => {
     e.preventDefault();
   };
+
+  const renderLanguageToggle = (extraClasses?: string) => (
+    <div
+      className={`flex items-center gap-2 text-sm font-semibold ${extraClasses || ""}`}
+      aria-label="언어 선택"
+    >
+      <button
+        type="button"
+        onClick={() => setLanguage("ko")}
+        className={`transition-colors ${
+          language === "ko" ? "text-orange-600" : "text-gray-500"
+        }`}
+        aria-pressed={language === "ko"}
+      >
+        {t("common.languageKo")}
+      </button>
+      <span className="text-gray-300">|</span>
+      <button
+        type="button"
+        onClick={() => setLanguage("en")}
+        className={`transition-colors ${
+          language === "en" ? "text-orange-600" : "text-gray-500"
+        }`}
+        aria-pressed={language === "en"}
+      >
+        {t("common.languageEn")}
+      </button>
+    </div>
+  );
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -54,111 +92,66 @@ export default function Layout({ children }: LayoutProps) {
               <img src="/logo.png" alt="Puddy" className="w-32" />
             </Link>
 
-            {/* 데스크톱 메뉴 */}
-            <nav className="hidden md:flex items-center space-x-6">
-              {/* 여기에 데스크톱 메뉴 항목 추가 가능 */}
-            </nav>
+            <div className="flex items-center gap-4">
+              <div className="hidden md:flex">{renderLanguageToggle()}</div>
 
-            {/* 모바일 햄버거 메뉴 */}
-            <Sheet open={isMenuOpen} onOpenChange={handleOpenChange}>
-              <SheetTrigger asChild>
-                <button
-                  className="md:hidden h-auto w-auto"
-                  aria-label="메뉴 열기"
-                  onClick={() => setIsMenuOpen(true)}
+              <Sheet open={isMenuOpen} onOpenChange={handleOpenChange}>
+                <div className="flex items-center gap-3 md:hidden">
+                  {renderLanguageToggle("md:hidden")}
+                  <SheetTrigger asChild>
+                    <button
+                      className="md:hidden h-auto w-auto"
+                      aria-label={t("layout.openMenu")}
+                      onClick={() => setIsMenuOpen(true)}
+                    >
+                      <Menu className="h-6 w-6 stroke-[4]" />
+                    </button>
+                  </SheetTrigger>
+                </div>
+
+                <SheetTrigger asChild>
+                  <button
+                    className="hidden md:block h-auto w-auto"
+                    aria-label={t("layout.openMenu")}
+                    onClick={() => setIsMenuOpen(true)}
+                  >
+                    <Menu className="h-6 w-6 stroke-[4]" />
+                  </button>
+                </SheetTrigger>
+
+                <SheetContent
+                  side="right"
+                  className="w-2/3"
+                  onCloseAutoFocus={handleCloseAutoFocus}
                 >
-                  <Menu className="h-6 w-6 stroke-[4]" />
-                </button>
-              </SheetTrigger>
-              <SheetContent
-                side="right"
-                className="w-2/3"
-                onCloseAutoFocus={handleCloseAutoFocus}
-              >
-                <nav className="flex flex-col mt-8 space-y-2">
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick("#");
-                    }}
-                    className="px-4 py-3 rounded-md transition-colors text-base font-medium cursor-pointer text-left"
-                    style={{ color: "#111111" }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor =
-                        "rgba(255, 104, 66, 0.1)";
-                      e.currentTarget.style.color = "#FF6842";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "";
-                      e.currentTarget.style.color = "#111111";
-                    }}
-                  >
-                    메인
-                  </a>
-                  <a
-                    href="#why-nose"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick("#why-nose");
-                    }}
-                    className="px-4 py-3 rounded-md transition-colors text-base font-medium cursor-pointer text-left"
-                    style={{ color: "#111111" }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor =
-                        "rgba(255, 104, 66, 0.1)";
-                      e.currentTarget.style.color = "#FF6842";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "";
-                      e.currentTarget.style.color = "#111111";
-                    }}
-                  >
-                    강아지 코에 숨겨진 신분증
-                  </a>
-                  <a
-                    href="#how-it-works"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick("#how-it-works");
-                    }}
-                    className="px-4 py-3 rounded-md transition-colors text-base font-medium cursor-pointer text-left"
-                    style={{ color: "#111111" }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor =
-                        "rgba(255, 104, 66, 0.1)";
-                      e.currentTarget.style.color = "#FF6842";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "";
-                      e.currentTarget.style.color = "#111111";
-                    }}
-                  >
-                    등록하면 어떤 점이 좋나요?
-                  </a>
-                  <a
-                    href="#try-it"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick("#try-it");
-                    }}
-                    className="px-4 py-3 rounded-md transition-colors text-base font-medium cursor-pointer text-left"
-                    style={{ color: "#111111" }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor =
-                        "rgba(255, 104, 66, 0.1)";
-                      e.currentTarget.style.color = "#FF6842";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "";
-                      e.currentTarget.style.color = "#111111";
-                    }}
-                  >
-                    지금 바로 체험해보세요!
-                  </a>
-                </nav>
-              </SheetContent>
-            </Sheet>
+                  <div className="flex justify-end mb-4">{renderLanguageToggle()}</div>
+                  <nav className="flex flex-col mt-4 space-y-2">
+                    {navItems.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleLinkClick(item.href);
+                        }}
+                        className="px-4 py-3 rounded-md transition-colors text-base font-medium cursor-pointer text-left"
+                        style={{ color: "#111111" }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = "rgba(255, 104, 66, 0.1)";
+                          e.currentTarget.style.color = "#FF6842";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = "";
+                          e.currentTarget.style.color = "#111111";
+                        }}
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </header>

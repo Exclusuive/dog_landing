@@ -12,6 +12,7 @@ import {
   trackPhotoUploadComplete,
 } from "@/utils/analytics";
 import { uploadImageToSupabase } from "@/utils/supabase";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface PhotoUploadModalProps {
   isOpen: boolean;
@@ -25,6 +26,8 @@ export default function PhotoUploadModal({
   isOpen,
   onClose,
 }: PhotoUploadModalProps) {
+  const { t } = useLanguage();
+  const copy = t<Record<string, any>>("photoUploadModal");
   const [status, setStatus] = useState<UploadStatus>("idle");
   const [resultType, setResultType] = useState<ResultType>("new");
   const [errorMessage, setErrorMessage] = useState("");
@@ -38,29 +41,25 @@ export default function PhotoUploadModal({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
-  // 카메라 스트림 시작
   useEffect(() => {
     if (isOpen && status === "idle") {
       const startCamera = async () => {
         try {
           const mediaStream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: "environment" }, // 후면 카메라 우선
+            video: { facingMode: "environment" },
           });
           streamRef.current = mediaStream;
           setStream(mediaStream);
           setCameraError("");
         } catch (error) {
           console.error("카메라 접근 오류:", error);
-          setCameraError(
-            "카메라에 접근할 수 없습니다. 브라우저 권한을 확인해주세요."
-          );
+          setCameraError(copy.cameraError);
         }
       };
 
       startCamera();
     }
 
-    // 정리 함수
     return () => {
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((track) => track.stop());
@@ -68,9 +67,8 @@ export default function PhotoUploadModal({
         setStream(null);
       }
     };
-  }, [isOpen, status]);
+  }, [copy.cameraError, isOpen, status]);
 
-  // 비디오 요소에 스트림 연결 및 재생
   useEffect(() => {
     if (stream && videoRef.current) {
       videoRef.current.srcObject = stream;
@@ -95,36 +93,29 @@ export default function PhotoUploadModal({
 
     if (!context) return;
 
-    // 캔버스 크기를 비디오 크기에 맞춤
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
-    // 비디오 프레임을 캔버스에 그리기 (좌우 반전 반영)
     context.save();
     context.scale(-1, 1);
     context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
     context.restore();
 
-    // 캔버스에서 Blob으로 변환
     canvas.toBlob(
       async (blob) => {
         if (!blob) return;
 
-        // Blob을 File 객체로 변환
         const file = new File([blob], "photo.jpg", { type: "image/jpeg" });
 
-        // 카메라 스트림 정리
         if (streamRef.current) {
           streamRef.current.getTracks().forEach((track) => track.stop());
           streamRef.current = null;
           setStream(null);
         }
 
-        // 미리보기 URL 생성
         const previewUrl = URL.createObjectURL(file);
         setPreviewImageUrl(previewUrl);
 
-        // 사진 확인 단계로 이동
         setStatus("preview");
       },
       "image/jpeg",
@@ -133,29 +124,24 @@ export default function PhotoUploadModal({
   };
 
   const processFile = (file: File) => {
-    // 파일 형식 검증
     if (!file.type.match(/^image\/(jpeg|jpg|png)$/i)) {
       setStatus("error");
       setResultType("error");
-      setErrorMessage("JPG, PNG 형식의 이미지 파일만 업로드할 수 있습니다.");
+      setErrorMessage(copy.invalidFile);
       return;
     }
 
-    // 미리보기 URL 생성
     const previewUrl = URL.createObjectURL(file);
     setPreviewImageUrl(previewUrl);
 
-    // 사진 확인 단계로 이동
     setStatus("preview");
   };
 
   const startUpload = async (file: File) => {
-    // 업로드 시작
     setStatus("uploading");
     trackPhotoUploadStart();
 
     try {
-      // localhost:8000으로 이미지 전송
       const formData = new FormData();
       formData.append("file", file);
 
@@ -171,53 +157,44 @@ export default function PhotoUploadModal({
         throw new Error("이미지 처리에 실패했습니다.");
       }
 
-      // 응답으로 받은 이미지 URL (Blob으로 처리)
       const blob = await response.blob();
-      const processedImageUrl = URL.createObjectURL(blob);
-      setProcessedImageUrl(processedImageUrl);
+      const processedUrl = URL.createObjectURL(blob);
+      setProcessedImageUrl(processedUrl);
 
-      // Supabase에 원본 이미지 업로드
       const uploadResult = await uploadImageToSupabase(file);
 
       if (!uploadResult) {
-        // 에러 발생 시 미리보기 URL 정리
         if (previewImageUrl) {
           URL.revokeObjectURL(previewImageUrl);
           setPreviewImageUrl("");
         }
-        if (processedImageUrl) {
-          URL.revokeObjectURL(processedImageUrl);
+        if (processedUrl) {
+          URL.revokeObjectURL(processedUrl);
           setProcessedImageUrl("");
         }
         setStatus("error");
         setResultType("error");
-        setErrorMessage("이미지 업로드에 실패했습니다. 다시 시도해주세요.");
+        setErrorMessage(copy.uploadFailed);
         return;
       }
 
-      // 업로드된 이미지 URL 저장
       setCapturedImageUrl(uploadResult.url);
       localStorage.setItem("dogNosePhotoUrl", uploadResult.url);
       localStorage.setItem("dogNosePhotoPath", uploadResult.path);
       localStorage.setItem("dogNosePhotoTimestamp", new Date().toISOString());
 
-      // 처리된 이미지를 previewImageUrl로 설정하고 preview 단계로 이동
       if (previewImageUrl) {
         URL.revokeObjectURL(previewImageUrl);
       }
-      setPreviewImageUrl(processedImageUrl);
+      setPreviewImageUrl(processedUrl);
 
-      // preview 단계로 이동하여 처리된 이미지를 보여줌
       setStatus("preview");
       trackPhotoUploadComplete();
     } catch (error) {
       console.error("이미지 처리 중 오류:", error);
       setStatus("error");
       setResultType("error");
-      setErrorMessage(
-        "잠시 인식 서버에 문제가 발생했어요. 몇 분 뒤 다시 시도해주시겠어요?"
-      );
-      // 에러 발생 시 URL 정리
+      setErrorMessage(copy.processingError);
       if (previewImageUrl) {
         URL.revokeObjectURL(previewImageUrl);
         setPreviewImageUrl("");
@@ -235,7 +212,6 @@ export default function PhotoUploadModal({
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // 카메라 스트림 정리
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
@@ -251,7 +227,6 @@ export default function PhotoUploadModal({
     setErrorMessage("");
     setCameraError("");
     setCapturedImageUrl("");
-    // 미리보기 URL 정리
     if (previewImageUrl) {
       URL.revokeObjectURL(previewImageUrl);
       setPreviewImageUrl("");
@@ -263,7 +238,6 @@ export default function PhotoUploadModal({
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-    // 카메라 스트림 재시작은 useEffect에서 처리됨
   };
 
   const handleClose = () => {
@@ -281,11 +255,10 @@ export default function PhotoUploadModal({
                 className="w-full text-center text-lg sm:text-xl font-bold"
                 style={{ color: "#111111" }}
               >
-                반려견의 코 사진을 업로드해주세요
+                {copy.title}
               </DialogTitle>
             </DialogHeader>
 
-            {/* Camera View */}
             <div
               className="rounded-xl overflow-hidden border-2 border-gray-200 shadow-sm bg-black relative w-full flex-1"
               style={{ height: "60vh", minHeight: "200px" }}
@@ -324,7 +297,7 @@ export default function PhotoUploadModal({
                       className="cursor-pointer"
                       style={{ color: "#111111" }}
                     >
-                      <span>파일에서 선택하기</span>
+                      <span>{copy.chooseFromFile}</span>
                     </Button>
                   </label>
                 </div>
@@ -353,7 +326,7 @@ export default function PhotoUploadModal({
                       style={{ borderColor: "#FF6842" }}
                     ></div>
                     <p className="text-sm" style={{ color: "#767676" }}>
-                      카메라를 불러오는 중...
+                      {copy.loadingCamera}
                     </p>
                   </div>
                 </div>
@@ -363,10 +336,9 @@ export default function PhotoUploadModal({
               className="text-sm leading-relaxed text-center mt-2 mb-4"
               style={{ color: "#767676" }}
             >
-              밝은 조명에서 정면을 향한 사진이 가장 좋습니다.
+              {copy.tip}
             </p>
 
-            {/* Capture Button */}
             {stream && !cameraError && (
               <div className="mb-4">
                 <Button
@@ -401,13 +373,12 @@ export default function PhotoUploadModal({
                         d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
                       />
                     </svg>
-                    사진 촬영하기
+                    {copy.capture}
                   </span>
                 </Button>
               </div>
             )}
 
-            {/* Upload Button (Fallback) */}
             <div>
               <input
                 ref={fileInputRef}
@@ -439,7 +410,7 @@ export default function PhotoUploadModal({
                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                       />
                     </svg>
-                    파일에서 선택하기
+                    {copy.chooseFromFile}
                   </span>
                 </Button>
               </label>
@@ -454,22 +425,20 @@ export default function PhotoUploadModal({
                 className="text-center text-lg sm:text-xl font-bold"
                 style={{ color: "#111111" }}
               >
-                코 부분을 확인해주세요
+                {copy.previewTitle}
               </DialogTitle>
             </DialogHeader>
 
-            {/* 미리보기 이미지 */}
             <div className="flex-1 flex items-center justify-center mb-4">
               {(processedImageUrl || previewImageUrl) && (
                 <img
                   src={processedImageUrl || previewImageUrl}
-                  alt="촬영한 사진"
+                  alt={copy.previewTitle}
                   className="max-w-full max-h-[50vh] object-contain rounded-lg border-2 border-gray-200"
                 />
               )}
             </div>
 
-            {/* 버튼 영역 */}
             <div className="flex flex-col sm:flex-row gap-3">
               <Button
                 onClick={() => {
@@ -487,23 +456,20 @@ export default function PhotoUploadModal({
                 className="w-full sm:w-auto flex-1 text-sm sm:text-base py-3"
                 style={{ color: "#111111" }}
               >
-                다시 촬영하기
+                {copy.retake}
               </Button>
               <Button
                 onClick={async () => {
-                  // 처리된 이미지가 있으면 success로, 없으면 업로드 시작
                   if (processedImageUrl) {
                     setResultType("new");
                     setStatus("success");
                   } else if (previewImageUrl) {
-                    // 미리보기 URL에서 File 객체 재생성
                     const response = await fetch(previewImageUrl);
                     const blob = await response.blob();
                     const file = new File([blob], "photo.jpg", {
                       type: "image/jpeg",
                     });
 
-                    // 업로드 시작
                     await startUpload(file);
                   }
                 }}
@@ -516,7 +482,7 @@ export default function PhotoUploadModal({
                   e.currentTarget.style.backgroundColor = "#FF6842";
                 }}
               >
-                {processedImageUrl ? "완료하기" : "이 사진으로 진행하기"}
+                {processedImageUrl ? copy.complete : copy.proceedWithThis}
               </Button>
             </div>
           </div>
@@ -529,13 +495,13 @@ export default function PhotoUploadModal({
                 {previewImageUrl || capturedImageUrl ? (
                   <img
                     src={previewImageUrl || capturedImageUrl}
-                    alt="업로드된 강아지 코 사진"
+                    alt={copy.loadingAlt}
                     className="w-full max-h-[30vh] object-cover rounded-lg animate-bounce mb-4 mx-auto"
                   />
                 ) : (
                   <img
                     src="image 142.png"
-                    alt="분석 중"
+                    alt={copy.loadingAlt}
                     className="w-full sm:w-24 mb-4 animate-bounce mx-auto"
                   />
                 )}
@@ -548,10 +514,10 @@ export default function PhotoUploadModal({
                 className="text-xl sm:text-2xl font-semibold mb-2"
                 style={{ color: "#111111" }}
               >
-                반려견의 비문을 분석하고 있어요…
+                {copy.uploadingTitle}
               </p>
               <p className="text-sm sm:text-base" style={{ color: "#767676" }}>
-                네트워크에 따라 15~30초 정도 소요됩니다.
+                {copy.uploadingSubtitle}
               </p>
             </div>
           </div>
@@ -589,7 +555,7 @@ export default function PhotoUploadModal({
                 className="text-2xl sm:text-3xl font-bold mb-3"
                 style={{ color: "#111111" }}
               >
-                인식 실패
+                {copy.errorTitle}
               </h3>
               <p
                 className="text-base sm:text-lg leading-relaxed max-w-md mx-auto"
@@ -605,7 +571,7 @@ export default function PhotoUploadModal({
                 className="w-full sm:w-auto px-6 py-3"
                 style={{ color: "#111111" }}
               >
-                다시 시도하기
+                {copy.retry}
               </Button>
               <Button
                 onClick={handleClose}
@@ -618,7 +584,7 @@ export default function PhotoUploadModal({
                   e.currentTarget.style.backgroundColor = "#111111";
                 }}
               >
-                닫기
+                {copy.close}
               </Button>
             </div>
           </div>

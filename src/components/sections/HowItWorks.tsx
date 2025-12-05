@@ -1,21 +1,9 @@
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function HowItWorks() {
-  const features = [
-    {
-      title: "잃어버릴 걱정 없이",
-      description:
-        "비문 인식만으로 신원 확인 가능해 분실 시 신속하게 찾을 수 있어요. 칩이나 목걸이가 없어도 걱정 없어요.",
-    },
-    {
-      title: "보험료 할인 혜택",
-      description:
-        "정확한 신원 인증으로 보험 청구 신뢰도가 높아져, 더 낮은 보험료를 적용받을 수 있어요.",
-    },
-    {
-      title: "건강 기록 통합 관리",
-      description:
-        "예방접종부터 진료 이력까지 반려견의 건강 정보를 한곳에서 손쉽게 관리할 수 있어요.",
-    },
-  ];
+  const { t } = useLanguage();
+  const content = t<Record<string, any>>("howItWorks");
+  const features = content.features as Array<{ title: string; description: string }>;
 
   return (
     <section
@@ -27,7 +15,7 @@ export default function HowItWorks() {
           className="text-2xl sm:text-2xl lg:text-3xl font-bold mb-8 sm:mb-12 text-center"
           style={{ color: "#111111" }}
         >
-          등록하면 어떤 점이 좋나요?
+          {content.title}
         </h2>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
