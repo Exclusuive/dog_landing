@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import PhotoUploadModal from "@/components/PhotoUploadModal";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function TryItNow() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <>
@@ -16,7 +18,7 @@ export default function TryItNow() {
             className="text-2xl md:text-5xl font-bold mb-6"
             style={{ color: "#111111" }}
           >
-            지금 바로 체험해보세요!
+            {t("tryItNow.title")}
           </h2>
 
           <div className="mb-10 sm:mb-12">
@@ -46,7 +48,7 @@ export default function TryItNow() {
                     className="text-sm sm:text-base leading-relaxed"
                     style={{ color: "#767676" }}
                   >
-                    코 사진 등록하러 가기 버튼 클릭
+                    {t("tryItNow.step1")}
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -73,7 +75,7 @@ export default function TryItNow() {
                     className="text-sm sm:text-base leading-relaxed"
                     style={{ color: "#767676" }}
                   >
-                    강아지 코 사진을 업로드 해주세요.
+                    {t("tryItNow.step2")}
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -100,7 +102,7 @@ export default function TryItNow() {
                     className="text-sm sm:text-base leading-relaxed text-start"
                     style={{ color: "#767676" }}
                   >
-                    등록하기 버튼을 누른 후, 강아지 정보를 입력해주세요!
+                    {t("tryItNow.step3")}
                   </p>
                 </div>
                 {/* 데스크톱에서만 표시 */}
@@ -116,7 +118,7 @@ export default function TryItNow() {
                     }}
                     onClick={() => setIsModalOpen(true)}
                   >
-                    체험해보기
+                    {t("tryItNow.button")}
                   </Button>
                 </div>
               </div>
@@ -126,7 +128,7 @@ export default function TryItNow() {
                   className="text-xs sm:text-sm text-center leading-relaxed"
                   style={{ color: "#767676" }}
                 >
-                  ※ 데모용으로 업로드된 사진은 연구/개발용으로만 사용됩니다.
+                  {t("tryItNow.disclaimer")}
                 </p>
               </div>
             </div>

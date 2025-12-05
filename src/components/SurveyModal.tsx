@@ -12,6 +12,7 @@ import {
   getStoredPhotoData,
   getStoredNoseID,
 } from "@/utils/makeWebhook";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface SurveyModalProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,14 +66,14 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
       trackRegistrationComplete(dogInfo);
 
       if (makeSuccess) {
-        alert("반려견 정보가 성공적으로 등록되었습니다!");
+        alert(t("survey.success"));
       } else {
         // 웹훅 실패해도 로컬 저장은 완료되었으므로 성공 메시지 표시
-        alert("반려견 정보가 등록되었습니다!");
+        alert(t("survey.successFallback"));
       }
     } catch (error) {
       console.error("등록 처리 중 오류:", error);
-      alert("등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+      alert(t("survey.error"));
     } finally {
       setIsSubmitting(false);
       handleClose();
@@ -97,7 +99,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
               className="text-xl sm:text-2xl font-bold mb-1"
               style={{ color: "#111111" }}
             >
-              반려견 정보 등록
+              {t("survey.title")}
             </DialogTitle>
           </DialogHeader>
 
@@ -109,7 +111,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 className="block text-xs sm:text-sm font-semibold mb-1.5"
                 style={{ color: "#505050" }}
               >
-                반려견 이름 <span className="text-red-500">*</span>
+                {t("survey.dogName.label")} <span className="text-red-500">*</span>
               </label>
               <input
                 id="dogName"
@@ -117,7 +119,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 value={dogName}
                 onChange={(e) => setDogName(e.target.value)}
                 required
-                placeholder="예: 뽀삐"
+                placeholder={t("survey.dogName.placeholder")}
                 className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent outline-none transition-all text-sm sm:text-base"
                 style={{ color: "#111111" }}
                 onFocus={(e) => {
@@ -139,7 +141,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 className="block text-xs sm:text-sm font-semibold mb-1.5"
                 style={{ color: "#505050" }}
               >
-                견종 <span className="text-red-500">*</span>
+                {t("survey.breed.label")} <span className="text-red-500">*</span>
               </label>
               <input
                 id="breed"
@@ -147,7 +149,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 value={breed}
                 onChange={(e) => setBreed(e.target.value)}
                 required
-                placeholder="예: 골든 리트리버"
+                placeholder={t("survey.breed.placeholder")}
                 className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:border-transparent outline-none transition-all text-sm sm:text-base"
                 style={{ color: "#111111" }}
                 onFocus={(e) => {
@@ -169,7 +171,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 className="block text-xs sm:text-sm font-semibold mb-1.5"
                 style={{ color: "#505050" }}
               >
-                나이 <span className="text-red-500">*</span>
+                {t("survey.age.label")} <span className="text-red-500">*</span>
               </label>
               <input
                 id="age"
@@ -179,7 +181,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 required
                 min="0"
                 max="30"
-                placeholder="예: 3"
+                placeholder={t("survey.age.placeholder")}
                 className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border border-gray-300 rounded-lg focus:border-transparent outline-none transition-all text-sm sm:text-base"
                 style={{ color: "#111111" }}
                 onFocus={(e) => {
@@ -201,7 +203,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 className="block text-xs sm:text-sm font-semibold mb-1.5"
                 style={{ color: "#505050" }}
               >
-                성별 <span className="text-red-500">*</span>
+                {t("survey.gender.label")} <span className="text-red-500">*</span>
               </label>
               <select
                 id="gender"
@@ -220,9 +222,9 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                   e.currentTarget.style.boxShadow = "";
                 }}
               >
-                <option value="">선택해주세요</option>
-                <option value="male">수컷</option>
-                <option value="female">암컷</option>
+                <option value="">{t("survey.gender.placeholder")}</option>
+                <option value="male">{t("survey.gender.male")}</option>
+                <option value="female">{t("survey.gender.female")}</option>
               </select>
             </div>
 
@@ -233,13 +235,13 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 className="block text-xs sm:text-sm font-semibold mb-1.5"
                 style={{ color: "#505050" }}
               >
-                이메일
+                {t("survey.email.label")}
               </label>
               <p
                 className="text-xs sm:text-sm mb-1.5 pl-1"
                 style={{ color: "#767676" }}
               >
-                정식 서비스가 시작되면 이메일로 안내드릴게요.
+                {t("survey.email.help")}
               </p>
               <input
                 id="email"
@@ -279,7 +281,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 }}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "등록 중..." : "등록하기"}
+                {isSubmitting ? t("survey.submitting") : t("survey.submit")}
               </Button>
               <Button
                 type="button"
@@ -289,7 +291,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 style={{ color: "#111111" }}
                 disabled={isSubmitting}
               >
-                취소
+                {t("survey.cancel")}
               </Button>
             </div>
           </form>

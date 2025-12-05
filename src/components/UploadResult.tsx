@@ -5,6 +5,7 @@ import {
   getStoredPhotoData,
   getStoredNoseID,
 } from "@/utils/makeWebhook";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface UploadResultProps {
   imageUrl: string;
@@ -25,6 +26,7 @@ export default function UploadResult({
   const [customDomain, setCustomDomain] = useState<string>("");
   const [wantsNotification, setWantsNotification] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useLanguage();
 
   const emailDomains = [
     "gmail.com",
@@ -80,7 +82,7 @@ export default function UploadResult({
     if (fullEmail) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(fullEmail)) {
-        alert("올바른 이메일 형식을 입력해주세요.");
+        alert(t("uploadResult.emailInvalid"));
         return;
       }
     }
@@ -128,16 +130,16 @@ export default function UploadResult({
       });
 
       if (makeSuccess) {
-        alert("신청이 완료되었습니다!");
+        alert(t("uploadResult.submitSuccess"));
       } else {
-        alert("신청이 완료되었습니다!");
+        alert(t("uploadResult.submitSuccess"));
       }
 
       onReset();
       onClose();
     } catch (error) {
       console.error("제출 중 오류:", error);
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+      alert(t("uploadResult.submitError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -151,7 +153,7 @@ export default function UploadResult({
           className="text-base sm:text-xl md:text-2xl font-extrabold text-center mb-1"
           style={{ color: "#111111", letterSpacing: "0.3px" }}
         >
-          반려견 신분증이 완성되었습니다!
+          {t("uploadResult.title")}
         </h2>
       </div>
 
@@ -198,7 +200,7 @@ export default function UploadResult({
               {imageUrl ? (
                 <img
                   src={imageUrl}
-                  alt="반려견 코 사진"
+                  alt={t("uploadResult.imageAlt")}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -233,7 +235,7 @@ export default function UploadResult({
                   className="text-[9px] sm:text-[11px] font-semibold"
                   style={{ color: "#2E7D32" }}
                 >
-                  등록 완료
+                  {t("uploadResult.status")}
                 </p>
               </div>
             </div>
@@ -247,7 +249,7 @@ export default function UploadResult({
                 className="text-xs sm:text-sm font-semibold flex-shrink-0"
                 style={{ color: "#505050" }}
               >
-                동물등록번호
+                {t("uploadResult.regNumber")}
               </p>
               <p
                 className="text-xs sm:text-sm font-semibold min-w-0 break-all"
@@ -269,7 +271,7 @@ export default function UploadResult({
                 className="text-xs sm:text-sm font-semibold flex-shrink-0"
                 style={{ color: "#505050" }}
               >
-                이름
+                {t("uploadResult.name")}
               </p>
               <div className="flex items-center gap-1">
                 <p
@@ -286,7 +288,7 @@ export default function UploadResult({
                   className="text-xs sm:text-sm mx-0.5 sm:mx-1 font-normal flex-shrink-0"
                   style={{ color: "#64B5F6" }}
                 >
-                  /
+                  {t("uploadResult.genderDivider")}
                 </span>
                 <p
                   className="text-xs sm:text-sm font-semibold min-w-0"
@@ -309,7 +311,7 @@ export default function UploadResult({
                 className="text-xs sm:text-sm font-semibold flex-shrink-0"
                 style={{ color: "#505050" }}
               >
-                생년월일
+                {t("uploadResult.birth")}
               </p>
               <p
                 className="text-xs sm:text-sm font-semibold min-w-0 break-words"
@@ -331,7 +333,7 @@ export default function UploadResult({
                 className="text-xs sm:text-sm font-semibold flex-shrink-0"
                 style={{ color: "#505050" }}
               >
-                발급일자
+                {t("uploadResult.issueDate")}
               </p>
               <p
                 className="text-xs sm:text-sm font-semibold min-w-0 break-words"
@@ -366,11 +368,7 @@ export default function UploadResult({
             className="text-xs sm:text-sm"
             style={{ color: "#9E9E9E", opacity: 0.9 }}
           >
-            (선택) 이메일 입력하고{" "}
-            <span style={{ color: "#FF6842", fontWeight: 500 }}>
-              서비스 시작 알림
-            </span>{" "}
-            받기
+            {t("uploadResult.notifyLabel")}
           </span>
         </label>
 
@@ -385,7 +383,7 @@ export default function UploadResult({
                 type="text"
                 value={emailPrefix}
                 onChange={(e) => setEmailPrefix(e.target.value)}
-                placeholder="이메일 (선택사항)"
+                placeholder={t("uploadResult.emailPlaceholder")}
                 className="flex-[3] min-w-0 px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:border-transparent outline-none transition-all text-xs sm:text-sm"
                 style={{
                   color: emailPrefix ? "#111111" : "#767676",
@@ -423,7 +421,7 @@ export default function UploadResult({
                   type="text"
                   value={customDomain}
                   onChange={(e) => setCustomDomain(e.target.value)}
-                  placeholder="도메인 (예: gmail.com)"
+                  placeholder={t("uploadResult.domainPlaceholder")}
                   className="flex-[2] min-w-0 px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:border-transparent outline-none transition-all text-xs sm:text-sm"
                   style={{
                     color: customDomain ? "#111111" : "#767676",
@@ -472,7 +470,7 @@ export default function UploadResult({
                       {domain}
                     </option>
                   ))}
-                  <option value="custom">직접 입력</option>
+                  <option value="custom">{t("uploadResult.domainCustom")}</option>
                 </select>
               )}
             </div>
@@ -493,7 +491,7 @@ export default function UploadResult({
               }
             }}
           >
-            {isSubmitting ? "등록 중..." : "등록하기"}
+            {isSubmitting ? t("uploadResult.submitting") : t("uploadResult.submit")}
           </Button>
         </form>
       </div>

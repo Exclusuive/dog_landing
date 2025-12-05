@@ -12,6 +12,7 @@ import {
   trackPhotoUploadComplete,
 } from "@/utils/analytics";
 import { uploadImageToSupabase } from "@/utils/supabase";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface PhotoUploadModalProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export default function PhotoUploadModal({
   isOpen,
   onClose,
 }: PhotoUploadModalProps) {
+  const { t } = useLanguage();
   const [status, setStatus] = useState<UploadStatus>("idle");
   const [resultType, setResultType] = useState<ResultType>("new");
   const [errorMessage, setErrorMessage] = useState("");
@@ -51,9 +53,7 @@ export default function PhotoUploadModal({
           setCameraError("");
         } catch (error) {
           console.error("카메라 접근 오류:", error);
-          setCameraError(
-            "카메라에 접근할 수 없습니다. 브라우저 권한을 확인해주세요."
-          );
+          setCameraError(t("modal.cameraError"));
         }
       };
 
@@ -137,7 +137,7 @@ export default function PhotoUploadModal({
     if (!file.type.match(/^image\/(jpeg|jpg|png)$/i)) {
       setStatus("error");
       setResultType("error");
-      setErrorMessage("JPG, PNG 형식의 이미지 파일만 업로드할 수 있습니다.");
+      setErrorMessage(t("modal.errorFormat"));
       return;
     }
 
@@ -168,7 +168,7 @@ export default function PhotoUploadModal({
       );
 
       if (!response.ok) {
-        throw new Error("이미지 처리에 실패했습니다.");
+        throw new Error(t("modal.errorUpload"));
       }
 
       // 응답으로 받은 이미지 URL (Blob으로 처리)
@@ -191,7 +191,7 @@ export default function PhotoUploadModal({
         }
         setStatus("error");
         setResultType("error");
-        setErrorMessage("이미지 업로드에 실패했습니다. 다시 시도해주세요.");
+        setErrorMessage(t("modal.errorUpload"));
         return;
       }
 
@@ -214,9 +214,7 @@ export default function PhotoUploadModal({
       console.error("이미지 처리 중 오류:", error);
       setStatus("error");
       setResultType("error");
-      setErrorMessage(
-        "잠시 인식 서버에 문제가 발생했어요. 몇 분 뒤 다시 시도해주시겠어요?"
-      );
+      setErrorMessage(t("modal.errorServer"));
       // 에러 발생 시 URL 정리
       if (previewImageUrl) {
         URL.revokeObjectURL(previewImageUrl);
@@ -281,7 +279,7 @@ export default function PhotoUploadModal({
                 className="w-full text-center text-lg sm:text-xl font-bold"
                 style={{ color: "#111111" }}
               >
-                반려견의 코 사진을 업로드해주세요
+                {t("modal.uploadTitle")}
               </DialogTitle>
             </DialogHeader>
 
@@ -306,27 +304,27 @@ export default function PhotoUploadModal({
                       d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
                     />
                   </svg>
-                  <p className="text-sm mb-4" style={{ color: "#767676" }}>
-                    {cameraError}
-                  </p>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/jpeg,image/jpg,image/png"
-                    onChange={handleFileSelect}
-                    className="hidden"
-                    id="photo-upload"
-                  />
-                  <label htmlFor="photo-upload">
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="cursor-pointer"
-                      style={{ color: "#111111" }}
-                    >
-                      <span>파일에서 선택하기</span>
-                    </Button>
-                  </label>
+                    <p className="text-sm mb-4" style={{ color: "#767676" }}>
+                      {cameraError}
+                    </p>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/jpeg,image/jpg,image/png"
+                      onChange={handleFileSelect}
+                      className="hidden"
+                      id="photo-upload"
+                    />
+                    <label htmlFor="photo-upload">
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="cursor-pointer"
+                        style={{ color: "#111111" }}
+                      >
+                        <span>{t("modal.selectFile")}</span>
+                      </Button>
+                    </label>
                 </div>
               ) : stream ? (
                 <>
@@ -353,7 +351,7 @@ export default function PhotoUploadModal({
                       style={{ borderColor: "#FF6842" }}
                     ></div>
                     <p className="text-sm" style={{ color: "#767676" }}>
-                      카메라를 불러오는 중...
+                      {t("modal.loadingCamera")}
                     </p>
                   </div>
                 </div>
@@ -363,7 +361,7 @@ export default function PhotoUploadModal({
               className="text-sm leading-relaxed text-center mt-2 mb-4"
               style={{ color: "#767676" }}
             >
-              밝은 조명에서 정면을 향한 사진이 가장 좋습니다.
+              {t("modal.tip")}
             </p>
 
             {/* Capture Button */}
@@ -401,7 +399,7 @@ export default function PhotoUploadModal({
                         d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
                       />
                     </svg>
-                    사진 촬영하기
+                    {t("modal.capture")}
                   </span>
                 </Button>
               </div>
@@ -439,7 +437,7 @@ export default function PhotoUploadModal({
                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                       />
                     </svg>
-                    파일에서 선택하기
+                    {t("modal.selectFile")}
                   </span>
                 </Button>
               </label>
@@ -454,7 +452,7 @@ export default function PhotoUploadModal({
                 className="text-center text-lg sm:text-xl font-bold"
                 style={{ color: "#111111" }}
               >
-                코 부분을 확인해주세요
+                {t("modal.previewTitle")}
               </DialogTitle>
             </DialogHeader>
 
@@ -487,7 +485,7 @@ export default function PhotoUploadModal({
                 className="w-full sm:w-auto flex-1 text-sm sm:text-base py-3"
                 style={{ color: "#111111" }}
               >
-                다시 촬영하기
+                {t("modal.retake")}
               </Button>
               <Button
                 onClick={async () => {
@@ -516,7 +514,7 @@ export default function PhotoUploadModal({
                   e.currentTarget.style.backgroundColor = "#FF6842";
                 }}
               >
-                {processedImageUrl ? "완료하기" : "이 사진으로 진행하기"}
+                {processedImageUrl ? t("modal.complete") : t("modal.proceed")}
               </Button>
             </div>
           </div>
@@ -548,10 +546,10 @@ export default function PhotoUploadModal({
                 className="text-xl sm:text-2xl font-semibold mb-2"
                 style={{ color: "#111111" }}
               >
-                반려견의 비문을 분석하고 있어요…
+                {t("modal.analyzing")}
               </p>
               <p className="text-sm sm:text-base" style={{ color: "#767676" }}>
-                네트워크에 따라 15~30초 정도 소요됩니다.
+                {t("modal.analyzingTime")}
               </p>
             </div>
           </div>
@@ -589,7 +587,7 @@ export default function PhotoUploadModal({
                 className="text-2xl sm:text-3xl font-bold mb-3"
                 style={{ color: "#111111" }}
               >
-                인식 실패
+                {t("modal.errorTitle")}
               </h3>
               <p
                 className="text-base sm:text-lg leading-relaxed max-w-md mx-auto"
@@ -605,7 +603,7 @@ export default function PhotoUploadModal({
                 className="w-full sm:w-auto px-6 py-3"
                 style={{ color: "#111111" }}
               >
-                다시 시도하기
+                {t("modal.retry")}
               </Button>
               <Button
                 onClick={handleClose}
@@ -618,7 +616,7 @@ export default function PhotoUploadModal({
                   e.currentTarget.style.backgroundColor = "#111111";
                 }}
               >
-                닫기
+                {t("modal.close")}
               </Button>
             </div>
           </div>

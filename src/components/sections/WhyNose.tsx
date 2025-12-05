@@ -1,4 +1,8 @@
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export default function WhyNose() {
+  const { t } = useLanguage();
+  
   return (
     <section
       id="why-nose"
@@ -11,14 +15,14 @@ export default function WhyNose() {
             className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4"
             style={{ color: "#111111" }}
           >
-            강아지 코에 숨겨진 신분증
+            {t("whyNose.title")}
           </h2>
         </div>
         {/* 이미지 */}
         <div className="text-center mb-8 sm:mb-12">
           <img
             src="nose2.png"
-            alt="강아지 코의 비문 패턴"
+            alt={t("whyNose.title")}
             className="w-full max-w-md mx-auto rounded-lg"
           />
         </div>
@@ -28,11 +32,7 @@ export default function WhyNose() {
             className="text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"
             style={{ color: "#767676" }}
           >
-            강아지의 코를 자세히 보면, 작고 섬세한 주름이 보입니다.
-            <br className="hidden sm:block" /> 이 주름을{" "}
-            <strong>비문(鼻紋)</strong>이라고 해요.
-            <br className="hidden sm:block" /> 사람에게 지문이 있다면,
-            반려견에게는 바로 이 비문이 있습니다.
+            {t("whyNose.description")}
           </p>
         </div>
         {/* 포인트들 */}
@@ -50,14 +50,13 @@ export default function WhyNose() {
                 className="text-xl sm:text-2xl font-bold mb-2"
                 style={{ color: "#505050" }}
               >
-                세상에 하나뿐인 코 패턴
+                {t("whyNose.point1.title")}
               </h4>
               <p
                 className="text-base sm:text-lg leading-relaxed"
                 style={{ color: "#767676" }}
               >
-                사람의 지문처럼 각 강아지마다 코 주름이 다르게 생겨서 코만 봐도
-                누구의 강아지인지 바로 알 수 있어요.
+                {t("whyNose.point1.description")}
               </p>
             </div>
           </div>
@@ -75,14 +74,13 @@ export default function WhyNose() {
                 className="text-xl sm:text-2xl font-bold mb-2"
                 style={{ color: "#505050" }}
               >
-                한 번 생기면 평생 그대로
+                {t("whyNose.point2.title")}
               </h4>
               <p
                 className="text-base sm:text-lg leading-relaxed"
                 style={{ color: "#767676" }}
               >
-                비문은 강아지가 태어난 지 약 2개월 정도 되면 생기는데, 그
-                이후로는 평생 모양이 변하지 않아요.
+                {t("whyNose.point2.description")}
               </p>
             </div>
           </div>
@@ -100,14 +98,13 @@ export default function WhyNose() {
                 className="text-xl sm:text-2xl font-bold mb-2"
                 style={{ color: "#505050" }}
               >
-                사진 한 장이면 끝!
+                {t("whyNose.point3.title")}
               </h4>
               <p
                 className="text-base sm:text-lg leading-relaxed"
                 style={{ color: "#767676" }}
               >
-                칩을 넣거나 목걸이를 달 필요 없이 강아지 코 사진만 찍으면 바로
-                등록할 수 있어요.
+                {t("whyNose.point3.description")}
               </p>
             </div>
           </div>

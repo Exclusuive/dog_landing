@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import PhotoUploadModal from "@/components/PhotoUploadModal";
 import { Camera } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <>
@@ -35,10 +37,10 @@ export default function Hero() {
               </div> */}
               {/* Headline */}
               <h1 className="text-2xl sm:text-4xl font-bold leading-[1.4] text-[#111111] font-semibold sm:leading-[1.4]">
-                사진 한 장으로
+                {t("hero.title")}
                 <span className="sm:text-5xl text-[#FF6842] text-3xl">
                   {" "}
-                  더 커지는 혜택
+                  {t("hero.titleHighlight")}
                 </span>
               </h1>
               {/* Key Points */}
@@ -46,21 +48,30 @@ export default function Hero() {
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg ">
-                    일부 부정 보험 청구 때문에 선량한 견주도 보험료 인상 및 청구
-                    지연의 피해를 보고 있어요.
+                    {t("hero.point1.pre")}
+                    <span className="text-orange-600 font-semibold">
+                      {t("hero.point1.hl")}
+                    </span>
+                    {t("hero.point1.post")}
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg ">
-                    비문 인증은 ‘우리 아이’의 신원을 정확히 증명해 빠르고 공정한
-                    보험 혜택을 받도록 도와줘요.
+                    {t("hero.point2.pre")}
+                    <span className="text-orange-600 font-semibold">
+                      {t("hero.point2.hl")}
+                    </span>
+                    {t("hero.point2.post")}
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2.5 sm:mt-2 flex-shrink-0"></div>
                   <p className="text-base sm:text-lg ">
-                    칩 없어도 코 사진만으로 간편하게 등록 가능!
+                    <span className="text-orange-600 font-semibold">
+                      {t("hero.point3.hl")}
+                    </span>
+                    {t("hero.point3.post")}
                   </p>
                 </div>
               </div>
@@ -85,7 +96,7 @@ export default function Hero() {
                 >
                   <Camera className="w-10 h-10 group-hover:scale-110 transition-transform" />
                   <span className="font-semibold text-[18px] tracking-[-0.4px]">
-                    코 사진 등록하러 가기
+                    {t("hero.button")}
                   </span>
                 </Button>
               </div>

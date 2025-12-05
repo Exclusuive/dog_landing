@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import PhotoUploadModal from "@/components/PhotoUploadModal";
 import { trackPhotoUploadButtonClick } from "@/utils/analytics";
 import { Camera } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function FloatingButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useLanguage();
 
   const handleButtonClick = () => {
     trackPhotoUploadButtonClick();
@@ -23,7 +25,7 @@ export default function FloatingButton() {
         >
           <Camera className="w-10 h-10 group-hover:scale-110 transition-transform" />
           <span className="font-semibold text-[18px] tracking-[-0.4px]">
-            코 사진 등록하러 가기
+            {t("floating.button")}
           </span>
         </Button>
       </div>

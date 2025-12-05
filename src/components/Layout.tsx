@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { trackSiteVisit } from "@/utils/analytics";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface LayoutProps {
   children: ReactNode;
@@ -11,6 +12,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     // 사이트 접속 추적
@@ -59,6 +61,32 @@ export default function Layout({ children }: LayoutProps) {
               {/* 여기에 데스크톱 메뉴 항목 추가 가능 */}
             </nav>
 
+            {/* 언어 전환 버튼 */}
+            <div className="flex items-center gap-2 mr-2 md:mr-0">
+              <button
+                onClick={() => setLanguage("ko")}
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  language === "ko"
+                    ? "bg-orange-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+                aria-label="한국어로 전환"
+              >
+                KR
+              </button>
+              <button
+                onClick={() => setLanguage("en")}
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  language === "en"
+                    ? "bg-orange-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+                aria-label="Switch to English"
+              >
+                EN
+              </button>
+            </div>
+
             {/* 모바일 햄버거 메뉴 */}
             <Sheet open={isMenuOpen} onOpenChange={handleOpenChange}>
               <SheetTrigger asChild>
@@ -94,7 +122,7 @@ export default function Layout({ children }: LayoutProps) {
                       e.currentTarget.style.color = "#111111";
                     }}
                   >
-                    메인
+                    {t("menu.main")}
                   </a>
                   <a
                     href="#why-nose"
@@ -114,7 +142,7 @@ export default function Layout({ children }: LayoutProps) {
                       e.currentTarget.style.color = "#111111";
                     }}
                   >
-                    강아지 코에 숨겨진 신분증
+                    {t("menu.whyNose")}
                   </a>
                   <a
                     href="#how-it-works"
@@ -134,7 +162,7 @@ export default function Layout({ children }: LayoutProps) {
                       e.currentTarget.style.color = "#111111";
                     }}
                   >
-                    등록하면 어떤 점이 좋나요?
+                    {t("menu.howItWorks")}
                   </a>
                   <a
                     href="#try-it"
@@ -154,7 +182,7 @@ export default function Layout({ children }: LayoutProps) {
                       e.currentTarget.style.color = "#111111";
                     }}
                   >
-                    지금 바로 체험해보세요!
+                    {t("menu.tryIt")}
                   </a>
                 </nav>
               </SheetContent>
