@@ -47,7 +47,7 @@ const translations: TranslationMap = {
       bullet3Prefix: "비슷한 고민을 가진 보호자들과",
       bullet3Highlight: "고민을 나눠요.",
       bullet3Suffix: "",
-      cta: "퍼디로 관리 시작하기",
+      cta: "내 아이 맞춤 케어 추천 받기",
     },
     howItWorks: {
       title: "어느 병원으로 가지? 치료비는 얼마나 나올까? 누구에게 물어봐야하지?",
@@ -130,7 +130,7 @@ const translations: TranslationMap = {
         "반려견 비문(코) 사진으로 신원 등록",
         "기존 병원 기록 불러오고 건강 관리 시작",
       ],
-      cta: "무료로 체험해보기",
+      cta: "내 아이 맞춤 케어 추천 받기",
       note: "※ 지금 등록 시 맞춤형 건강 리포트를 무료로 제공해드립니다.",
     },
     floatingButton: {
