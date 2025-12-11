@@ -79,9 +79,10 @@ export const uploadImageToSupabase = async (
   try {
     // 파일명 생성 (해시 포함)
     const hash = generateFileHash();
+    const date = new Date();
     const fileExtension =
       file instanceof File ? file.name.split(".").pop() || "jpg" : "jpg";
-    const finalFileName = fileName || `${hash}.${fileExtension}`;
+    const finalFileName = fileName || `${hash}_${date.getTime()}.${fileExtension}`;
 
     // Storage 경로 (버킷 이름: 'images')
     const filePath = `${finalFileName}`;

@@ -6,13 +6,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { trackRegistrationComplete } from "@/utils/analytics";
 import {
   sendRegistrationToMake,
   getStoredPhotoData,
   getStoredNoseID,
 } from "@/utils/makeWebhook";
 import { useLanguage } from "@/context/LanguageContext";
+import { logEvent } from "@/utils/analytics";
 
 interface SurveyModalProps {
   isOpen: boolean;
@@ -59,7 +59,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
         photoTimestamp: photoData?.timestamp,
       });
 
-      trackRegistrationComplete(dogInfo);
+      logEvent("Registration_Complete", dogInfo);
 
       if (makeSuccess) {
         alert(copy.success);

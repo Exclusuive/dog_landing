@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { trackSiteVisit } from "@/utils/analytics";
+import { logEvent } from "@/utils/analytics";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -16,7 +16,7 @@ export default function Layout({ children }: LayoutProps) {
 
   useEffect(() => {
     // 사이트 접속 추적
-    trackSiteVisit();
+    logEvent("Site_Visit");
   }, []);
 
   const navItems = useMemo(
