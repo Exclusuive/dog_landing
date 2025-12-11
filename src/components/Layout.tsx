@@ -25,6 +25,7 @@ export default function Layout({ children }: LayoutProps) {
       { label: t("layout.menuWhyNose"), href: "#why-nose" },
       { label: t("layout.menuHowItWorks"), href: "#how-it-works" },
       { label: t("layout.menuTryIt"), href: "#try-it" },
+      { label: "기업회원", href: "/", isRoute: true },
     ],
     [language, t]
   );
@@ -127,26 +128,46 @@ export default function Layout({ children }: LayoutProps) {
                   <div className="flex justify-end mb-4">{renderLanguageToggle()}</div>
                   <nav className="flex flex-col mt-4 space-y-2">
                     {navItems.map((item) => (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleLinkClick(item.href);
-                        }}
-                        className="px-4 py-3 rounded-md transition-colors text-base font-medium cursor-pointer text-left"
-                        style={{ color: "#111111" }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = "rgba(255, 104, 66, 0.1)";
-                          e.currentTarget.style.color = "#FF6842";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = "";
-                          e.currentTarget.style.color = "#111111";
-                        }}
-                      >
-                        {item.label}
-                      </a>
+                      item.isRoute ? (
+                        <Link
+                          key={item.href}
+                          to={item.href}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="px-4 py-3 rounded-md transition-colors text-base font-medium cursor-pointer text-left"
+                          style={{ color: "#111111" }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = "rgba(255, 104, 66, 0.1)";
+                            e.currentTarget.style.color = "#FF6842";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = "";
+                            e.currentTarget.style.color = "#111111";
+                          }}
+                        >
+                          {item.label}
+                        </Link>
+                      ) : (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleLinkClick(item.href);
+                          }}
+                          className="px-4 py-3 rounded-md transition-colors text-base font-medium cursor-pointer text-left"
+                          style={{ color: "#111111" }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = "rgba(255, 104, 66, 0.1)";
+                            e.currentTarget.style.color = "#FF6842";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = "";
+                            e.currentTarget.style.color = "#111111";
+                          }}
+                        >
+                          {item.label}
+                        </a>
+                      )
                     ))}
                   </nav>
                 </SheetContent>

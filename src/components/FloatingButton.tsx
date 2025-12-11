@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import PhotoUploadModal from "@/components/PhotoUploadModal";
-import { trackPhotoUploadButtonClick } from "@/utils/analytics";
+import { logEvent } from "@/utils/analytics";
 import { Camera } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -10,7 +10,7 @@ export default function FloatingButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
-    trackPhotoUploadButtonClick();
+    logEvent("Photo_Upload");
     setIsModalOpen(true);
   };
 

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import PhotoUploadModal from "@/components/PhotoUploadModal";
 import { Camera } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { logEvent } from "@/utils/analytics";
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -16,7 +17,7 @@ export default function Hero() {
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 items-center lg:px-16">
             <div className="relative w-full aspect-[3/2] overflow-hidden order-1 lg:order-2 bg-orange-50">
               <img
-                src="image 144.png"
+                src="main.jpg"
                 alt={heroText.imageAlt}
                 className="w-full h-full object-cover"
               />
@@ -88,7 +89,10 @@ export default function Hero() {
                 <Button
                   size="lg"
                   className="w-full sm:w-auto px-6 h-14 rounded-xl bg-orange-600 hover:bg-orange-600 text-white text-lg font-semibold shadow-2xl hover:shadow-3xl transition-all flex items-center justify-center gap-3"
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => {
+                    logEvent("Photo_Upload");
+                    setIsModalOpen(true);
+                  }}
                 >
                   <Camera className="w-10 h-10 group-hover:scale-110 transition-transform" />
                   <span className="font-semibold text-[18px] tracking-[-0.4px]">

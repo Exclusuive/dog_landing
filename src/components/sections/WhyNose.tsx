@@ -19,13 +19,7 @@ export default function WhyNose() {
             {content.title}
           </h2>
         </div>
-        <div className="text-center mb-8 sm:mb-12">
-          <img
-            src="nose.png"
-            alt={content.imageAlt}
-            className="w-full max-w-md mx-auto rounded-lg"
-          />
-        </div>
+
         <div className="text-center mb-12 sm:mb-16">
           <p
             className="text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"

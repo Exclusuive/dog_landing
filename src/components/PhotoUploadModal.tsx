@@ -8,8 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import UploadResult from "./UploadResult";
 import {
-  trackPhotoUploadStart,
-  trackPhotoUploadComplete,
+  logEvent
 } from "@/utils/analytics";
 import { uploadImageToSupabase } from "@/utils/supabase";
 import { useLanguage } from "@/context/LanguageContext";
@@ -139,7 +138,7 @@ export default function PhotoUploadModal({
 
   const startUpload = async (file: File) => {
     setStatus("uploading");
-    trackPhotoUploadStart();
+    // trackPhotoUploadStart(); // Removed as per new requirement
 
     try {
       const formData = new FormData();
@@ -189,7 +188,7 @@ export default function PhotoUploadModal({
       setPreviewImageUrl(processedUrl);
 
       setStatus("preview");
-      trackPhotoUploadComplete();
+      logEvent("Photo_Upload_Complete");
     } catch (error) {
       console.error("이미지 처리 중 오류:", error);
       setStatus("error");
