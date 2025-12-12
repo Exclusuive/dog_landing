@@ -3,7 +3,11 @@ import { useLanguage } from "@/context/LanguageContext";
 export default function HowItWorks() {
   const { t } = useLanguage();
   const content = t<Record<string, any>>("howItWorks");
-  const features = content.features as Array<{ title: string; description: string, image: string }>;
+  const features = content.features as Array<{
+    title: string;
+    description: string;
+    image: string;
+  }>;
 
   return (
     <section
@@ -13,7 +17,7 @@ export default function HowItWorks() {
       <div className="container mx-auto max-w-6xl">
         <h2
           className="text-2xl sm:text-2xl lg:text-3xl font-bold mb-8 sm:mb-12 text-center"
-          style={{ color: "#505050" }}
+          style={{ color: "#505050", whiteSpace: "pre-line" }}
         >
           {content.title}
         </h2>
@@ -27,7 +31,11 @@ export default function HowItWorks() {
               key={index}
               className="bg-white rounded-lg p-6 sm:p-8 shadow-md hover:shadow-lg transition-shadow duration-300"
             >
-              <img className="w-full border rounded-2xl mb-6" src={feature.image} alt="" />
+              <img
+                className="w-full border rounded-2xl mb-6"
+                src={feature.image}
+                alt=""
+              />
               <h3
                 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4"
                 style={{ color: "#505050" }}

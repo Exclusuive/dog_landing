@@ -50,26 +50,28 @@ const translations: TranslationMap = {
       cta: "내 아이 맞춤 케어 추천 받기",
     },
     howItWorks: {
-      title: "어느 병원으로 가지? 치료비는 얼마나 나올까? 누구에게 물어봐야하지?",
-      subtitle: "보호자의 걱정을 가장 잘 아는 곳에서, 아이의 건강을 위한 새로운 여정을 함께 시작해요.",
+      title:
+        "어느 병원으로 가지?\n치료비는 얼마나 나올까?\n누구에게 물어봐야하지?",
+      subtitle:
+        "보호자의 걱정을 가장 잘 아는 곳에서, 아이의 건강을 위한 새로운 여정을 함께 시작해요.",
       features: [
         {
           title: "흩어진 병원 기록 통합",
           description:
             "여기저기 흩어진 진료 기록과 예방접종 내역을 하나로 모아 관리하세요. 응급 상황에도 바로 대처할 수 있습니다.",
-          image : "HealthRecords.png"
-          },
+          image: "HealthRecords.png",
+        },
         {
           title: "병원비 예측 및 비교",
           description:
             "우리 아이 예상 치료비는 얼마일까요? 근처 병원 가격 비교와 견적을 미리 확인하고 똑똑하게 대비하세요.",
-          image : "MedicalCare.png"
+          image: "MedicalCare.png",
         },
         {
           title: "비슷한 고민을 가진 사람들과 이야기해요.",
           description:
             "증상, 치료 과정, 비용 등 실제 경험에서 나온 노하우를 공유하며 더 나은 돌봄 방법을 찾을 수 있어요.",
-          image : "Community.png"
+          image: "Community.png",
         },
       ],
     },
@@ -169,23 +171,24 @@ const translations: TranslationMap = {
       ageTitle: "추정 나이",
       ageUnit: "살",
       simpleReportTitle: "간단 리포트",
-      simpleReportContent: "아이의 피부 상태는 전반적으로 양호하나, 지속적인 관리가 필요합니다. \n눈 건강은 매우 양호하며, 정기적인 검진만으로 충분할 것으로 보입니다.",
+      simpleReportContent:
+        "아이의 피부 상태는 전반적으로 양호하나, 지속적인 관리가 필요합니다. \n눈 건강은 매우 양호하며, 정기적인 검진만으로 충분할 것으로 보입니다.",
       predictionNote: "※ 위 결과는 비문 & 얼굴 분석을 통해 예측한 수치입니다.",
       items: {
-         dental: "구강 상태",
-         weight: "체중 관리",
-         joint: "관절 상태",
-         skin: "피부 상태",
-         eye: "눈 건강",
-         heart: "심장 건강"
+        dental: "구강 상태",
+        weight: "체중 관리",
+        joint: "관절 상태",
+        skin: "피부 상태",
+        eye: "눈 건강",
+        heart: "심장 건강",
       },
       dummyValues: {
-         good: "양호",
-         caution: "주의",
-         check: "검사 필요"
+        good: "양호",
+        caution: "주의",
+        check: "검사 필요",
       },
       emailLabel: "정식 서비스 오픈 알림받기",
-      emailPlaceholder: "이메일 입력", 
+      emailPlaceholder: "이메일 입력",
       submit: "알림 받기",
       submitting: "등록 중...",
       successAlert: "알림 신청이 완료되었습니다!",
@@ -367,20 +370,21 @@ const translations: TranslationMap = {
       ageTitle: "Estimated Age",
       ageUnit: "years",
       simpleReportTitle: "Summary",
-      simpleReportContent: "Overall skin condition is good but needs consistent care.\nEye health is excellent with no signs of issues.",
+      simpleReportContent:
+        "Overall skin condition is good but needs consistent care.\nEye health is excellent with no signs of issues.",
       predictionNote: "* These values are predicted via nose & face analysis.",
       items: {
-         dental: "Dental Health",
-         weight: "Weight Mgmt",
-         joint: "Joint Health",
-         skin: "Skin Cond.",
-         eye: "Eye Health",
-         heart: "Heart Health"
+        dental: "Dental Health",
+        weight: "Weight Mgmt",
+        joint: "Joint Health",
+        skin: "Skin Cond.",
+        eye: "Eye Health",
+        heart: "Heart Health",
       },
       dummyValues: {
-         good: "Good",
-         caution: "Caution",
-         check: "Check Req."
+        good: "Good",
+        caution: "Caution",
+        check: "Check Req.",
       },
       emailLabel: "Get notified when service launches",
       emailPlaceholder: "Enter your email",
