@@ -50,7 +50,7 @@ export const sendRegistrationToMake = async (
         // 메타데이터
         registration_date: new Date().toISOString(),
         registration_timestamp: Date.now(),
-        landing_type: "Aged_Dog",
+        landing_type: "Gene_Dog",
       }),
     });
 

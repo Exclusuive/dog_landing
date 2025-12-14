@@ -1,5 +1,5 @@
 export const logEvent = (eventName: string, params?: Record<string, any>) => {
-  const prefix = "Aged_Dog_";
+  const prefix = "GENE_DOG_";
   let finalEventName = eventName;
 
   if (!eventName.startsWith(prefix)) {

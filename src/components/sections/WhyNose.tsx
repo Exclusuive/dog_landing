@@ -3,7 +3,10 @@ import { useLanguage } from "@/context/LanguageContext";
 export default function WhyNose() {
   const { t } = useLanguage();
   const content = t<Record<string, any>>("whyNose");
-  const points = content.points as Array<{ title: string; description: string }>;
+  const points = content.points as Array<{
+    title: string;
+    description: string;
+  }>;
 
   return (
     <section
@@ -29,6 +32,7 @@ export default function WhyNose() {
             <br className="hidden sm:block" /> {content.descriptionLine2Prefix}
             <strong>{content.descriptionLine2Strong}</strong>
             <br className="hidden sm:block" /> {content.descriptionLine3}
+            <br className="hidden sm:block" /> {content.descriptionLine4}
           </p>
         </div>
         <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">

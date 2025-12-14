@@ -33,38 +33,36 @@ const translations: TranslationMap = {
       openMenu: "메뉴 열기",
     },
     hero: {
-      imageAlt: "노령견 이미지",
+      imageAlt: "반려견 이미지",
       headlinePrefix: "",
-      headlineHighlight: "더 오래, 더 건강하게.",
-      headlineSuffix: "",
-      headlineLine2: "이제 우리 같이 준비해요.",
-      bullet1Prefix: "우리 아이의 ",
-      bullet1Highlight: "건강 정보",
-      bullet1Suffix: "를 한곳에서 확인해요.",
-      bullet2Prefix: "동물병원 별로",
-      bullet2Highlight: "비용과 후기",
-      bullet2Suffix: "를 비교해요.",
-      bullet3Prefix: "비슷한 고민을 가진 보호자들과",
-      bullet3Highlight: "고민을 나눠요.",
+      headlineHighlight: "유전자 검사로",
+      headlineSuffix: "알아보는",
+      headlineLine2: "우리 아이 건강 관리",
+      bullet1Prefix: "유전자 검사를 기반으로",
+      bullet1Highlight: "아이의 건강을 미리 살펴봐요.",
+      bullet1Suffix: "",
+      bullet2Prefix: "AI로",
+      bullet2Highlight: "치료비를 예측하고, ",
+      bullet2Suffix: "병원 리뷰로 믿을 수 있는 병원을 찾아요.",
+      bullet3Prefix: "비슷한 고민을 가진 보호자들과 ",
+      bullet3Highlight: "함께 이야기해요.",
       bullet3Suffix: "",
-      cta: "내 아이 맞춤 케어 추천 받기",
+      cta: "무료 유전자 검사 신청하기",
     },
     howItWorks: {
-      title:
-        "어느 병원으로 가지?\n치료비는 얼마나 나올까?\n누구에게 물어봐야하지?",
-      subtitle:
-        "보호자의 걱정을 가장 잘 아는 곳에서, Puddy와 함께 아이의 건강을 위한 새로운 여정을 함께 시작해요.",
+      title: "보험 가입 \n 더 이상 불안할 필요 없어요.",
+      subtitle: "아이의 건강을 미리 알고, 딱 맞는 보장만 똑똑하게 선택하세요.",
       features: [
         {
-          title: "흩어진 병원 기록 통합",
+          title: "더 정확한 진료를 위한 통합 관리",
           description:
-            "여기저기 흩어진 진료 기록과 예방접종 내역을 하나로 모아 관리하세요. 응급 상황에도 바로 대처할 수 있습니다.",
+            "유전자 검사와 진료 기록을 함께 활용해, 아이에게 더 정확한 진료를 받을 수 있어요. 진료 기록을 한 번에 보관해 병원이 바뀌어도 매번 설명할 필요가 없어요.",
           image: "HealthRecords.png",
         },
         {
-          title: "병원비 예측 및 비교",
+          title: "미리 아는 치료비, 믿고 고르는 병원",
           description:
-            "우리 아이 예상 치료비는 얼마일까요? 근처 병원 가격 비교와 견적을 미리 확인하고 똑똑하게 대비하세요.",
+            "AI로 치료비를 예측하고, 보호자들의 솔직한 리뷰로 믿을 수 있는 병원을 선택해요.",
           image: "MedicalCare.png",
         },
         {
@@ -77,28 +75,27 @@ const translations: TranslationMap = {
     },
     whyNose: {
       title: "왜 퍼디가 필요한가요?",
-      imageAlt: "건강한 노령견",
-      descriptionLine1:
-        "반려견이 9-10살이 넘어가면 병원비 걱정과 건강 불안이 급증합니다.",
-      descriptionLine2Prefix: "하지만 ",
-      descriptionLine2Strong: "정확한 데이터와 기록",
-      descriptionLine3:
-        "이 있다면 막막한 노후 케어도 체계적으로 준비할 수 있습니다.",
+      imageAlt: "반려견 이미지",
+      descriptionLine1: "강아지 건강을 미리 알고,",
+      descriptionLine2Prefix: "병원에서는 정확하게 전달하고,",
+      descriptionLine2Strong: "",
+      descriptionLine3: "중요한 정보는 안전하게 지키기 위해.",
+      descriptionLine4: "퍼디는 그렇게 만들어졌습니다.",
       points: [
         {
-          title: "강아지 코로 인증해요.",
+          title: "무료 유전자 검사",
           description:
-            "칩이 없어도 괜찮아요. 코 사진만으로 아이를 정확하게 식별하고 건강 기록을 남길 수 있어요.",
+            "지금 바로 사전예약하면 유전자 검사를 무료로 제공해드립니다. 우리 아이의 건강을 미리 알아보세요.",
+        },
+        {
+          title: "비문으로 한 번에 인증해요",
+          description:
+            "병원 갈 때마다 설명하지 않아도 돼요. 코로 신원을 확인하고 아이의 건강을 정확하게 전달할 수 있어요.",
         },
         {
           title: "안전하게 건강 정보를 관리해요.",
           description:
             "블록체인 기술로 아이의 건강 정보를 안전하게 보관해, 언제든 믿고 확인할 수 있어요.",
-        },
-        {
-          title: "맞춤형 건강 솔루션을 제공해요.",
-          description:
-            "나이와 건강 상태에 맞춰 식단, 영양제, 산책 루틴까지 아이에게 필요한 케어를 제공해줘요.",
         },
       ],
     },
@@ -126,17 +123,17 @@ const translations: TranslationMap = {
       ],
     },
     tryItNow: {
-      title: "우리 아이 건강 관리, 지금 시작하세요",
+      title: "무료 유전자 검사 신청하기",
       steps: [
-        "화면 하단에 버튼 클릭",
+        "화면 하단 버튼 클릭",
         "반려견 비문(코) 사진으로 신원 등록",
-        "기존 병원 기록 불러오고 건강 관리 시작",
+        "사전예약 완료 시 유전자 검사 무료 제공",
       ],
-      cta: "내 아이 맞춤 케어 추천 받기",
-      note: "※ 지금 등록 시 맞춤형 건강 리포트를 무료로 제공해드립니다.",
+      cta: "무료 유전자 검사 신청하기",
+      note: "※ 지금 등록하면 유전자 검사를 무료로 제공해드립니다.",
     },
     floatingButton: {
-      cta: "내 아이 맞춤 케어 추천 받기",
+      cta: "무료 유전자 검사 신청하기",
     },
     photoUploadModal: {
       title: "강아지 코 사진을 업로드해주세요",
@@ -163,7 +160,7 @@ const translations: TranslationMap = {
     uploadResult: {
       title: "맞춤형 건강 리포트가 완성되었습니다!",
       registered: "분석 완료",
-      reportTitle: "종합 건강 리포트",
+      reportTitle: "강아지 비문 분석 결과",
       reportOverlay: "앱 서비스 오픈 시에 확인할 수 있습니다.",
       breedAnalysisTitle: "품종 분석",
       breed: "견종",
@@ -187,7 +184,7 @@ const translations: TranslationMap = {
         caution: "주의",
         check: "검사 필요",
       },
-      emailLabel: "정식 서비스 오픈 알림받기",
+      emailLabel: "유전자 검사 무료 알림받기",
       emailPlaceholder: "이메일 입력",
       submit: "알림 받기",
       submitting: "등록 중...",
@@ -237,66 +234,70 @@ const translations: TranslationMap = {
       openMenu: "Open menu",
     },
     hero: {
-      imageAlt: "Senior dog image",
-      headlinePrefix: "When your dog turns",
-      headlineHighlight: "10 years old,",
-      headlineSuffix: " you need Puddy.",
-      headlineLine2: "Start managing your senior dog's health.",
-      bullet1Prefix: "Consolidate",
-      bullet1Highlight: "medical records",
-      bullet1Suffix: " in one place",
-      bullet2Prefix: "Prepare for",
-      bullet2Highlight: "unexpected costs",
-      bullet2Suffix: " and elderly care",
-      bullet3Prefix: "Community with",
-      bullet3Highlight: "senior dog owners",
-      bullet3Suffix: " sharing concerns",
-      cta: "Start Managing Health",
+      imageAlt: "Pet image",
+      headlinePrefix: "",
+      headlineHighlight: "Customized Health Management Pet Care Service",
+      headlineSuffix: "",
+      headlineLine2:
+        "Know your pet's health in advance through genetic testing and choose insurance wisely.",
+      bullet1Prefix: "Dual verification with ",
+      bullet1Highlight: "genetic testing + nose print",
+      bullet1Suffix: " for customized insurance recommendations",
+      bullet2Prefix: "Find trusted hospitals with ",
+      bullet2Highlight: "real hospital reviews",
+      bullet2Suffix: " from satisfied pet owners",
+      bullet3Prefix: "Share information with pet owners in ",
+      bullet3Highlight: "customized communities",
+      bullet3Suffix: " who have similar pets",
+      cta: "Start Free Genetic Testing",
     },
     howItWorks: {
-      title: "Problems senior dog owners face, Puddy solves them.",
+      title:
+        "The problem of hiding health information before insurance enrollment\nand filing claims immediately after enrollment,\ncan now be solved.",
       features: [
         {
-          title: "Unified Medical Records",
+          title:
+            "Dual Verification Insurance Recommendation (Genetic Testing + Nose Print)",
           description:
-            "Gather scattered medical records and vaccination history in one place. Be ready for emergencies.",
+            "Accurately understand health information through genetic testing and verify identity with nose prints to solve post-enrollment insurance issues. Get insurance recommendations that are most suitable for your pet.",
         },
         {
-          title: "Cost Prediction & Comparison",
+          title: "Real Hospital Reviews from Satisfied Pet Owners",
           description:
-            "Estimate treatment costs and compare prices of nearby hospitals to prepare smartly.",
+            "Check honest hospital reviews from pet owners who actually visited and were satisfied. Compare all information including treatment quality, costs, and services at a glance.",
         },
         {
-          title: "Reliable Senior Care",
+          title: "Customized Community & Pedigree Verification",
           description:
-            "Supplements, diet, and exercise guides tailored for senior dogs.",
+            "Share information with pet owners who have similar pets, and verify your pet's pedigree through genetic testing. Learn health management tips for the same breed.",
         },
       ],
     },
     whyNose: {
       title: "Why do you need Puddy?",
-      imageAlt: "Healthy senior dog",
+      imageAlt: "Pet image",
       descriptionLine1:
-        "When a dog passes 9-10 years old, concerns about hospital bills and health surge.",
+        "Many pet owners are concerned about the problem of hiding health information before insurance enrollment and filing claims immediately after enrollment.",
       descriptionLine2Prefix: "However, with ",
-      descriptionLine2Strong: "accurate data and records",
+      descriptionLine2Strong:
+        "dual verification through genetic testing and nose prints",
       descriptionLine3:
-        ", you can systematically prepare for their elderly care.",
+        ", you can receive optimal insurance recommendations based on accurate health information.",
       points: [
         {
-          title: "Identity-based Health Data",
+          title: "Free Genetic Testing (Pre-registration)",
           description:
-            "Not just records. We permanently preserve your dog's medical history through accurate nose-print identity verification.",
+            "We provide free genetic testing when you pre-register on the landing page. Know your pet's health information in advance and choose insurance wisely.",
         },
         {
-          title: "Medical Info Community",
+          title: "Dual Verification (Nose Print + Genetic Testing)",
           description:
-            "Share 'real' information with owners visiting similar hospitals or facing similar symptoms. Clean reviews, no ads.",
+            "Verify identity with nose prints and accurately understand health information through genetic testing to solve post-enrollment insurance issues.",
         },
         {
-          title: "Tailored Senior Solutions",
+          title: "Pedigree Verification Feature",
           description:
-            "From supplements to walking routines, we provide healthcare functions specifically for the age and health status.",
+            "Verify your pet's exact breed and pedigree through genetic testing. Receive customized health management information for the same breed.",
         },
       ],
     },
@@ -324,17 +325,17 @@ const translations: TranslationMap = {
       ],
     },
     tryItNow: {
-      title: "Start preparing for your dog's future now.",
+      title: "Start Free Genetic Testing",
       steps: [
-        "Install Puddy and Sign up",
-        "Register identity with a nose photo",
-        "Load medical records and start health management!",
+        "Click the button at the bottom",
+        "Register identity with your pet's nose print photo",
+        "Free genetic testing provided upon pre-registration",
       ],
-      cta: "Try for Free",
-      note: "※ We provide a free customized health report upon initial registration.",
+      cta: "Start Free Genetic Testing",
+      note: "※ Free genetic testing is provided upon pre-registration. (Banksalad Genetic Testing)",
     },
     floatingButton: {
-      cta: "Start Puddy",
+      cta: "Start Free Genetic Testing",
     },
     photoUploadModal: {
       title: "Upload your dog’s nose photo",
