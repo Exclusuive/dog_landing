@@ -11,7 +11,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const { t, language, setLanguage } = useLanguage();
+  const { t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function Layout({ children }: LayoutProps) {
       { label: t("layout.menuTryIt"), href: "#try-it" },
       { label: "기업회원", href: "/", isRoute: true },
     ],
-    [language, t]
+    [t]
   );
 
   const handleOpenChange = (open: boolean) => {
@@ -52,35 +52,6 @@ export default function Layout({ children }: LayoutProps) {
     e.preventDefault();
   };
 
-  const renderLanguageToggle = (extraClasses?: string) => (
-    <div
-      className={`flex items-center gap-2 text-sm font-semibold ${extraClasses || ""}`}
-      aria-label="언어 선택"
-    >
-      <button
-        type="button"
-        onClick={() => setLanguage("ko")}
-        className={`transition-colors ${
-          language === "ko" ? "text-orange-600" : "text-gray-500"
-        }`}
-        aria-pressed={language === "ko"}
-      >
-        {t("common.languageKo")}
-      </button>
-      <span className="text-gray-300">|</span>
-      <button
-        type="button"
-        onClick={() => setLanguage("en")}
-        className={`transition-colors ${
-          language === "en" ? "text-orange-600" : "text-gray-500"
-        }`}
-        aria-pressed={language === "en"}
-      >
-        {t("common.languageEn")}
-      </button>
-    </div>
-  );
-
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-sm w-full py-2 border-b border-gray-200">
@@ -94,11 +65,8 @@ export default function Layout({ children }: LayoutProps) {
             </Link>
 
             <div className="flex items-center gap-4">
-              <div className="hidden md:flex">{renderLanguageToggle()}</div>
-
               <Sheet open={isMenuOpen} onOpenChange={handleOpenChange}>
                 <div className="flex items-center gap-3 md:hidden">
-                  {renderLanguageToggle("md:hidden")}
                   <SheetTrigger asChild>
                     <button
                       className="md:hidden h-auto w-auto"
@@ -125,9 +93,8 @@ export default function Layout({ children }: LayoutProps) {
                   className="w-2/3"
                   onCloseAutoFocus={handleCloseAutoFocus}
                 >
-                  <div className="flex justify-end mb-4">{renderLanguageToggle()}</div>
                   <nav className="flex flex-col mt-4 space-y-2">
-                    {navItems.map((item) => (
+                    {navItems.map((item) =>
                       item.isRoute ? (
                         <Link
                           key={item.href}
@@ -136,7 +103,8 @@ export default function Layout({ children }: LayoutProps) {
                           className="px-4 py-3 rounded-md transition-colors text-base font-medium cursor-pointer text-left"
                           style={{ color: "#111111" }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = "rgba(255, 104, 66, 0.1)";
+                            e.currentTarget.style.backgroundColor =
+                              "rgba(255, 104, 66, 0.1)";
                             e.currentTarget.style.color = "#FF6842";
                           }}
                           onMouseLeave={(e) => {
@@ -157,7 +125,8 @@ export default function Layout({ children }: LayoutProps) {
                           className="px-4 py-3 rounded-md transition-colors text-base font-medium cursor-pointer text-left"
                           style={{ color: "#111111" }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = "rgba(255, 104, 66, 0.1)";
+                            e.currentTarget.style.backgroundColor =
+                              "rgba(255, 104, 66, 0.1)";
                             e.currentTarget.style.color = "#FF6842";
                           }}
                           onMouseLeave={(e) => {
@@ -168,7 +137,7 @@ export default function Layout({ children }: LayoutProps) {
                           {item.label}
                         </a>
                       )
-                    ))}
+                    )}
                   </nav>
                 </SheetContent>
               </Sheet>
