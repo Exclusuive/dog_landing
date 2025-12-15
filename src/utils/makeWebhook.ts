@@ -40,7 +40,7 @@ export const sendRegistrationToMake = async (
         email: data.email,
 
         // Puddy ID
-        nose_id: data.noseID || "",
+        nose_id: "001-001-" + Math.floor(Math.random() * 1000000),
 
         // 사진 정보 (Supabase URL)
         photo_url: data.photoUrl || "",
