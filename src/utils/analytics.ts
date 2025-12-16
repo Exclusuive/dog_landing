@@ -18,15 +18,17 @@ const isGA4Available = (): boolean => {
 
 // 이벤트 추적 함수
 export const trackEvent = (eventName: string, params?: Record<string, any>) => {
+  const prefixedEventName = `PASS_${eventName}`;
+
   // Google Analytics 4에 이벤트 전송
   if (isGA4Available()) {
-    (window as any).gtag("event", eventName, params);
+    (window as any).gtag("event", prefixedEventName, params);
   }
 
   // 로컬 스토리지에 이벤트 저장 (백업 및 분석용)
   const events = JSON.parse(localStorage.getItem("analytics_events") || "[]");
   const eventData: AnalyticsEvent = {
-    event_name: eventName,
+    event_name: prefixedEventName,
     timestamp: new Date().toISOString(),
     ...params,
   };

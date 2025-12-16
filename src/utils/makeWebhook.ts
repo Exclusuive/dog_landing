@@ -40,7 +40,7 @@ export const sendRegistrationToMake = async (
         email: data.email,
 
         // Puddy ID
-        nose_id: data.noseID || "",
+        nose_id: "001-001-" + Math.floor(Math.random() * 900000 + 100000),
 
         // 사진 정보 (Supabase URL)
         photo_url: data.photoUrl || "",
@@ -50,7 +50,7 @@ export const sendRegistrationToMake = async (
         // 메타데이터
         registration_date: new Date().toISOString(),
         registration_timestamp: Date.now(),
-        landing_type: "SJ",
+        landing_type: "DOG_PASS",
       }),
     });
 
